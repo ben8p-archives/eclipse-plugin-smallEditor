@@ -2,6 +2,9 @@ package smalleditor.editors.javascript.editor;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
@@ -33,6 +36,25 @@ public class JavascriptSourceViewerConfiguration extends CommonSourceViewerConfi
 	@Override
 	protected IReconcilingStrategy getReconcilingStrategy(CommonEditor editor) {
 		return new JavascriptReconcilingStrategy(this.editor);
+	}
+	
+	@Override
+	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+		ContentAssistant assistant = new ContentAssistant();
+		IContentAssistProcessor sharedProcessor = new JavascriptContentAssistProcessor();
+				
+		// define assist processor for each content type -> we use the same for all types here
+		assistant.setContentAssistProcessor(sharedProcessor, IDocument.DEFAULT_CONTENT_TYPE);
+//		assistant.setContentAssistProcessor(sharedProcessor, MarkdownTextPartitionScanner.MARKDOWN_H1);
+//		assistant.setContentAssistProcessor(sharedProcessor, MarkdownTextPartitionScanner.MARKDOWN_H2);
+//		assistant.setContentAssistProcessor(sharedProcessor, MarkdownTextPartitionScanner.MARKDOWN_BOLD);
+//		assistant.setContentAssistProcessor(sharedProcessor, MarkdownTextPartitionScanner.MARKDOWN_ITALICS);			
+				
+		//assistant.setEmptyMessage("Sorry, no hint for you :-/");
+		assistant.enableAutoActivation(true);
+		assistant.setAutoActivationDelay(250);
+		
+		return assistant;
 	}
 
 

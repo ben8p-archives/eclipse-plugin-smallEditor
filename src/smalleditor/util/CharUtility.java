@@ -10,7 +10,8 @@ package smalleditor.util;
  *
  */
 public final class CharUtility {
-	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}'};		
+	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}'};
+	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
 
 	public static final char openCurly = javascriptBrackets[4];
 	public static final char closeCurly = javascriptBrackets[5];
@@ -22,6 +23,7 @@ public final class CharUtility {
 	public static final char backslash = '\\';
 	public static final char slash = '/';
 	public static final char minus = '-';
+	public static final char underscore = '_';
 	public static final char plus = '+';
 	public static final char point = '.';
 //	public static final char n = 'n';
@@ -39,6 +41,10 @@ public final class CharUtility {
 	public static final int eol = '\n';
 	public static final int tab = '\t';
 	public static final int carriageReturn = '\r';
+	
+	public static boolean isAlphaNumeric(char ch) {
+		return Character.isLetterOrDigit(ch) || ch == underscore; 
+	}
 
 	public static boolean isWhiteSpace(char ch) {
 		if (ch == space || ch == eol || ch == tab || ch == carriageReturn) {

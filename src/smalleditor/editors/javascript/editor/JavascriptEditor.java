@@ -22,5 +22,7 @@ public class JavascriptEditor extends CommonEditor {
 	protected char[] getMatchingBrackets() {
 		return javascriptBrackets;
 	};
+	
+	
 
 }

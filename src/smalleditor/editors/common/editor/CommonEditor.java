@@ -89,6 +89,7 @@ public class CommonEditor extends TextEditor {
 				PreferenceNames.P_MATCHING_BRACKETS_COLOR);
 
 	}
+	
 
 	protected void handleCursorPositionChanged() {
 		super.handleCursorPositionChanged();
