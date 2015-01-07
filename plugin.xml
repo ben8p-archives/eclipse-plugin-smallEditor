@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.ui.editors">
+		<editor 
+				name="Javascript Editor (smallEditor)" 
+				extensions="js" icon="res/icons/editor-js.gif" 
+				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
+				class="smalleditor.editors.javascript.editor.JavascriptEditor" 
+				id="smalleditor.editors.javascript.editor.JavascriptEditor">
+		</editor>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page 
+				name="smallEditor preferences" 
+				class="smalleditor.preference.PreferencePage" 
+				id="smalleditor.preference.PreferencePage">
+		</page>
+	</extension>
+	
+	
+	<extension id="javascriptlintermarker" point="org.eclipse.core.resources.markers"/>
+	<extension id="javascriptlintermarkerproblem" name="JavaScript Problem" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.problemmarker"/>
+		<super type="smallEditor.javascriptlintermarker"/>
+	</extension>
+	
+	<extension id="slicemarker" name="Slice" point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.textmarker" />
+	</extension>
+	<extension point="org.eclipse.ui.editors.annotationTypes">
+			<type
+				markerType="slicemarker"
+				name="slicemarker">
+			</type>
+	</extension>
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification">
+		<specification
+				annotationType="slicemarker"
+				colorPreferenceKey="smallEditor.markOccurencesColor"
+				colorPreferenceValue="192,255,192"
+				contributesToHeader="false"
+				highlightPreferenceKey="smallEditor.markOccurencesHighlight"
+				highlightPreferenceValue="true"
+				includeOnPreferencePage="true"
+				label="smallEditor: Mark occurences"
+				overviewRulerPreferenceKey="smallEditor.markOccurencesOverview"
+				overviewRulerPreferenceValue="true"
+				presentationLayer="0"
+				textPreferenceKey="smallEditor.markOccurencestext"
+				textPreferenceValue="true"
+				textStylePreferenceValue="BOX"
+				verticalRulerPreferenceKey="smallEditor.markOccurencesRuler"
+				verticalRulerPreferenceValue="true">
+		</specification>
+	</extension>
+</plugin>
