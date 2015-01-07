@@ -12,6 +12,8 @@ package smalleditor.util;
 public final class CharUtility {
 	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}'};
 	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
+	public static final char[] jsonBrackets = {'[', ']', '{', '}'};
+	public static final char[] jsonContentAssistTriggers = {':'};
 
 	public static final char openCurly = javascriptBrackets[4];
 	public static final char closeCurly = javascriptBrackets[5];

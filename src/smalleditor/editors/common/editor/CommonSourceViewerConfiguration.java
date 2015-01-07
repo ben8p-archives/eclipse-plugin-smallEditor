@@ -12,7 +12,6 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.swt.graphics.Color;
 
-import smalleditor.editors.javascript.editor.JavascriptEditor;
 import smalleditor.preference.ColorManager;
 import smalleditor.preference.PreferenceNames;
 
@@ -22,7 +21,7 @@ public class CommonSourceViewerConfiguration extends SourceViewerConfiguration {
 	protected CommonEditor editor;
 	private CommonScanner scanner;
 	
-	public CommonSourceViewerConfiguration(JavascriptEditor editor) {
+	public CommonSourceViewerConfiguration(CommonEditor editor) {
 		this.colorManager = new ColorManager();
 		this.editor = editor;
 	}

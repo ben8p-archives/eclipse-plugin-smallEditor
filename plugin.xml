@@ -9,6 +9,13 @@
 				class="smalleditor.editors.javascript.editor.JavascriptEditor" 
 				id="smalleditor.editors.javascript.editor.JavascriptEditor">
 		</editor>
+		<editor 
+				name="JSON Editor (smallEditor)" 
+				extensions="json" icon="res/icons/editor-json.gif" 
+				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
+				class="smalleditor.editors.json.editor.JsonEditor" 
+				id="smalleditor.editors.json.editor.JsonEditor">
+		</editor>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page 
