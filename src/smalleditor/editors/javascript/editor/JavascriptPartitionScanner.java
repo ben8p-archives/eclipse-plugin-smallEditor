@@ -20,6 +20,7 @@ public class JavascriptPartitionScanner extends RuleBasedPartitionScanner {
 	public final static String JS_COMMENT = "__js_comment";
 	public final static String JS_KEYWORD = "__js_keyword";
 	public final static String JS_STRING = "__js_string";
+	
 
 	public final static IToken TOKEN_STRING = new Token(JS_STRING);
 	public final static IToken TOKEN_COMMENT = new Token(JS_COMMENT);

@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
@@ -24,21 +25,27 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
 import smalleditor.preference.PreferenceNames;
 
-public class CommonEditor extends TextEditor {
+public class CommonEditor extends TextEditor implements ISelectionChangedListener {
 	protected ProjectionSupport projectionSupport;
 	protected ProjectionAnnotationModel annotationModel;
+	protected CommonOutlinePage outlinePage;
 
 	private ProjectionAnnotation[] oldAnnotations;
 	private boolean[] annotationCollapsedState;
+	protected boolean updatingContentDependentActions = false;
 
 	public CommonEditor() {
 		super();
@@ -48,6 +55,13 @@ public class CommonEditor extends TextEditor {
 				Activator.getDefault().getPreferenceStore() };
 		setPreferenceStore(new ChainedPreferenceStore(stores));
 
+	}
+	
+	public void doSave(IProgressMonitor monitor) {
+		super.doSave(monitor);
+		if (outlinePage != null) {
+			outlinePage.update();
+		}
 	}
 
 	public void createPartControl(Composite parent) {
@@ -74,7 +88,40 @@ public class CommonEditor extends TextEditor {
 
 		return viewer;
 	}
+	
+	public Object getAdapter(Class key) {
+		if (key.equals(IContentOutlinePage.class)) {
+			IDocument document = getDocumentProvider().getDocument(getEditorInput());
 
+			outlinePage = getOutlinePage(document);
+			if(outlinePage != null) {
+				outlinePage.addSelectionChangedListener(this);
+				return outlinePage;
+			}
+		}
+
+		return super.getAdapter(key);
+	}
+	
+	protected CommonOutlinePage getOutlinePage(IDocument document) {
+		return null;
+	}
+	/**
+	 * Updates all content dependent actions.
+	 * 
+	 * This might be a hack: We're trapping this update to ensure that the 
+	 * outline is always up to date.
+	 */
+	protected void updateContentDependentActions() {
+		super.updateContentDependentActions();
+
+		if (!updatingContentDependentActions && outlinePage != null) {
+				updatingContentDependentActions = true;
+				outlinePage.update();
+				updatingContentDependentActions = false;
+		}
+	}
+	
 	@Override
 	protected void configureSourceViewerDecorationSupport(
 			SourceViewerDecorationSupport support) {
@@ -225,6 +272,24 @@ public class CommonEditor extends TextEditor {
 				}
 			}
 		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(SelectionChangedEvent)
+	 */
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		if (null != event) {
+			if (event.getSelection() instanceof IStructuredSelection) {
+				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
+				if (null != sel) {
+					CommonOutlineElement fe = (CommonOutlineElement) sel.getFirstElement();
+					if (null != fe) {
+						selectAndReveal(fe.getStart(), fe.getLength());
+					}
+				}
+			}
 		}
 	}
 }

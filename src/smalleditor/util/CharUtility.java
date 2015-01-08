@@ -22,6 +22,7 @@ public final class CharUtility {
 	public static final char comma = ',';
 	public static final char quote = '"';
 	public static final char colon = ':';
+	public static final char equal = '=';
 	public static final char backslash = '\\';
 	public static final char slash = '/';
 	public static final char minus = '-';
@@ -90,5 +91,33 @@ public final class CharUtility {
 	
 	public static boolean isOneLineComment(char ch, char previous) {
 		return ch == slash && previous == slash;
+	}
+	
+	
+	/**
+	 * replace in a string a string sequence with another string sequence
+	 */
+	public static String replaceInString(String source, String whatBefore,
+			String whatAfter) {
+		if (null == source || source.length() == 0) {
+			return source;
+		}
+		int beforeLen = whatBefore.length();
+		if (beforeLen == 0) {
+			return source;
+		}
+		StringBuffer result = new StringBuffer("");
+		int lastIndex = 0;
+		int index = source.indexOf(whatBefore, lastIndex);
+		while (index >= 0) {
+			result.append(source.substring(lastIndex, index));
+			result.append(whatAfter);
+			lastIndex = index + beforeLen;
+
+			// get next
+			index = source.indexOf(whatBefore, lastIndex);
+		}
+		result.append(source.substring(lastIndex));
+		return result.toString();
 	}
 }
