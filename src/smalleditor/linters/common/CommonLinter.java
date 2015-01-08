@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript;
+package smalleditor.linters.common;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,19 +7,17 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.IOUtils;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
-import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.ScriptableObject;
 
-import org.apache.commons.io.IOUtils;
-
-import smalleditor.linters.javascript.problem.Problem;
-import smalleditor.linters.javascript.problem.ProblemHandler;
-import smalleditor.linters.javascript.problem.ProblemImpl;
-import smalleditor.linters.javascript.text.Text;
+import smalleditor.linters.common.problem.Problem;
+import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.problem.ProblemImpl;
+import smalleditor.linters.common.text.Text;
 /**
  * Lightweight Java wrapper for the Linter code analysis tool.
  * <p>
@@ -35,16 +33,11 @@ import smalleditor.linters.javascript.text.Text;
  * 
  * @see http://www.linter.com/
  */
-public class Linter {
-
-	private static final String DEFAULT_LINTER = "res/linter/javascript.js";
-	private static final int DEFAULT_LINTER_INDENT = 4;
-	private Function linter;
-	//private Function fakeConsole;
-	private Object opts;
-	private int indent = DEFAULT_LINTER_INDENT;
-	//public String[] exclude;
+public class CommonLinter {
+	protected Function linter;
 	private Function fakeConsole;
+	private static final int DEFAULT_LINTER_INDENT = 4;
+	private int indent = DEFAULT_LINTER_INDENT;
 	
 	/**
 	 * Loads the default Linter library.
@@ -157,43 +150,19 @@ public class Linter {
 		}
 	}
 
-	private boolean checkCode(Context context, String code) {
+	protected boolean checkCode(Context context, String code) {
 		try {
-			Object[] args = new Object[] { code, opts };
 			ScriptableObject scope = context.initStandardObjects();
 			fakeConsole.call(context, scope, null, null);
-			return ((Boolean) linter.call(context, scope, null, args))
-					.booleanValue();
-		} catch (JavaScriptException exception) {
-			String message = "JavaScript exception thrown by Linter: "
-					+ exception.getMessage();
-			throw new RuntimeException(message, exception);
-		} catch (RhinoException exception) {
-			String message = "JavaScript exception caused by Linter: "
-					+ exception.getMessage();
-			throw new RuntimeException(message, exception);
-		}
+			
+		} catch (Exception exception) {}
+		return true;
 	}
 
-	private Function findLinterFunction(ScriptableObject scope)
+	protected Function findLinterFunction(ScriptableObject scope)
 			throws IllegalArgumentException {
-		Object object;
-		if (ScriptableObject.hasProperty(scope, "LINTER")) {
-			object = scope.get("LINTER", scope);
-		} else if (ScriptableObject.hasProperty(scope, "JSHINT")) {
-			object = scope.get("JSHINT", scope);
-		} else if (ScriptableObject.hasProperty(scope, "JSLINT")) {
-			object = scope.get("JSLINT", scope);
-		} else {
-			throw new IllegalArgumentException(
-					"Global LINTER or JSLINT function missing in input");
-		}
 		
-		if (!(object instanceof Function)) {
-			throw new IllegalArgumentException(
-					"Global LINTER or JSLINT is not a function");
-		}
-		return (Function) object;
+			throw new IllegalArgumentException("No linter found");
 	}
 
 	private void handleProblems(ProblemHandler handler, Text text) {
@@ -222,6 +191,7 @@ public class Linter {
 	}
 
 	private ProblemImpl createProblem(ScriptableObject error, Text text) {
+		
 		String reason = getPropertyAsString(error, "reason", "");
 		int line = getPropertyAsInt(error, "line", -1);
 		int character = getPropertyAsInt(error, "character", -1);
@@ -229,6 +199,7 @@ public class Linter {
 		if (character > 0) {
 			character = fixPosition(text, line, character);
 		}
+		
 		String message = reason.endsWith(".") ? reason.substring(0,
 				reason.length() - 1) : reason;
 		return new ProblemImpl(line, character, message, id);
@@ -257,6 +228,8 @@ public class Linter {
 		Object property = ScriptableObject.getProperty(object, name);
 		if (property instanceof String) {
 			result = (String) property;
+		} else {
+			result = property.toString();
 		}
 		return result;
 	}
@@ -271,19 +244,20 @@ public class Linter {
 		return result;
 	}
 
-	private static BufferedReader getLinterReader()
+	protected BufferedReader getLinterReader()
 			throws UnsupportedEncodingException {
-		ClassLoader classLoader = Linter.class.getClassLoader();
-		
-		InputStream inputStream = classLoader
-				.getResourceAsStream(DEFAULT_LINTER);
-		
-		return new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//		ClassLoader classLoader = JsonLinter.class.getClassLoader();
+//		
+//		InputStream inputStream = classLoader
+//				.getResourceAsStream(DEFAULT_LINTER);
+//		
+//		return new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+		return null;
 	}
 
-	public static void main(String[] args) {
-		Runner runner = new Runner();
-		runner.run(args);
+	public void main(String[] args) {
+//		JsonLinterRunner runner = new JsonLinterRunner();
+//		runner.run(args);
 	}
 
 }

@@ -45,8 +45,6 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 				indentChar = document.get(indentOffset, 1).charAt(0);
 			}
 			
-			
-			
 			// build the world until we found a separator (anything else than a a-z0-9_)
 			while (currOffset > 0) {
 				currChar = document.getChar(currOffset);

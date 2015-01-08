@@ -26,10 +26,10 @@
 	</extension>
 	
 	
-	<extension id="javascriptlintermarker" point="org.eclipse.core.resources.markers"/>
-	<extension id="javascriptlintermarkerproblem" name="JavaScript Problem" point="org.eclipse.core.resources.markers">
+	<extension id="lintermarker" point="org.eclipse.core.resources.markers"/>
+	<extension id="lintermarkerproblem" name="Linter Problem" point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.core.resources.problemmarker"/>
-		<super type="smallEditor.javascriptlintermarker"/>
+		<super type="smallEditor.lintermarker"/>
 	</extension>
 	
 	<extension id="slicemarker" name="Slice" point="org.eclipse.core.resources.markers">

@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript.text;
+package smalleditor.linters.common.text;
 
 import java.io.IOException;
 import java.io.Reader;

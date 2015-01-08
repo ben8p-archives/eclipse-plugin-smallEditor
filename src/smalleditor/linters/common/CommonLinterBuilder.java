@@ -8,7 +8,7 @@
  * Contributors:
  *    Ralf Sternberg - initial implementation and API
  ******************************************************************************/
-package smalleditor.linters.javascript;
+package smalleditor.linters.common;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,29 +21,23 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.linters.javascript.marker.MarkerAdapter;
-import smalleditor.linters.javascript.marker.MarkerHandler;
-import smalleditor.linters.javascript.problem.ProblemHandler;
-import smalleditor.linters.javascript.text.Text;
+import smalleditor.linters.common.marker.MarkerAdapter;
+import smalleditor.linters.common.marker.MarkerHandler;
+import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.text.Text;
 
-public class Builder {
+public class CommonLinterBuilder {
 
-	private final Linter checker;
+	protected CommonLinter checker;
 
-	public Builder() throws CoreException {
+	public CommonLinterBuilder() throws CoreException {
 		checker = createLinter();
 	}
-
-	private Linter createLinter() throws CoreException {
-		Linter linter = new Linter();
-		try {
-			linter.load();
-			//linter.configure(new Configuration());
-		} catch (IOException exception) {
-			System.out.println("Failed to intialize Linter");
-		}
-		return linter;
+	
+	protected CommonLinter createLinter() throws CoreException {
+		return null;
 	}
+
 
 	public void check(IFile file) throws CoreException {
 		Text code = readContent(file);

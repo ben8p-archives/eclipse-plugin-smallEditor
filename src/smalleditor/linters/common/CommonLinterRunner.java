@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript;
+package smalleditor.linters.common;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,17 +10,17 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import smalleditor.linters.javascript.problem.Problem;
-import smalleditor.linters.javascript.problem.ProblemHandler;
+import smalleditor.linters.common.problem.Problem;
+import smalleditor.linters.common.problem.ProblemHandler;
 
-public class Runner {
+public class CommonLinterRunner {
 
 	private static final String PARAM_CHARSET = "--charset";
 	private static final String PARAM_CUSTOM_LINTER = "--custom";
 	private List<File> files;
 	private Charset charset;
-	private File library;
-	private Linter linter;
+	protected File library;
+	protected CommonLinter linter;
 
 	public void run(String... args) {
 		try {
@@ -34,7 +34,7 @@ public class Runner {
 			System.out.println(e.getMessage());
 			System.out.println();
 			System.out
-					.println("Usage: Linter [ <options> ] <input-file> [ <input-file> ... ]");
+					.println("Usage: JSLint [ <options> ] <input-file> [ <input-file> ... ]");
 			System.out.println("Options: --custom <custom-linter-file>");
 			System.out.println("         --charset <charset>");
 		}
@@ -96,24 +96,8 @@ public class Runner {
 		}
 	}
 
-	private void loadLinter() {
-		linter = new Linter();
-		try {
-			if (library != null) {
-				FileInputStream inputStream = new FileInputStream(library);
-				try {
-					linter.load(inputStream);
-				} finally {
-					inputStream.close();
-				}
-			} else {
-				linter.load();
-			}
-		} catch (Exception exception) {
-			String message = "Failed to load Linter library: "
-					+ exception.getMessage();
-			throw new IllegalArgumentException(message);
-		}
+	protected void loadLinter() {
+
 	}
 
 	private void processFiles() throws IOException {

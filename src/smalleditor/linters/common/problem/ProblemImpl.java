@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript.problem;
+package smalleditor.linters.common.problem;
 
 public class ProblemImpl implements Problem {
 	private final int line;

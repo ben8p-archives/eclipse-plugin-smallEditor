@@ -1,10 +1,10 @@
-package smalleditor.linters.javascript.marker;
+package smalleditor.linters.common.marker;
 
 import org.eclipse.core.runtime.CoreException;
 
-import smalleditor.linters.javascript.problem.Problem;
-import smalleditor.linters.javascript.problem.ProblemHandler;
-import smalleditor.linters.javascript.text.Text;
+import smalleditor.linters.common.problem.Problem;
+import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.text.Text;
 
 public final class MarkerHandler implements ProblemHandler {
 

@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript.marker;
+package smalleditor.linters.common.marker;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 
 public class MarkerAdapter {
 
-	private static final String TYPE_PROBLEM = "smallEditor.javascriptlintermarkerproblem";
+	private static final String TYPE_PROBLEM = "smallEditor.lintermarkerproblem";
 	private final IResource resource;
 
 	public MarkerAdapter(IResource resource) {

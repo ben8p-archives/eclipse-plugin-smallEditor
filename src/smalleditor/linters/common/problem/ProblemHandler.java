@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript.problem;
+package smalleditor.linters.common.problem;
 
 /**
  * Implementations of this class are used to handle problems returned from linter

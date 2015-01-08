@@ -6,15 +6,15 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import smalleditor.editors.common.editor.CommonEditor;
 import smalleditor.editors.common.editor.CommonReconcilingStrategy;
-import smalleditor.linters.javascript.Builder;
+import smalleditor.linters.javascript.JavascriptLinterBuilder;
 
 public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
-	protected Builder linterBuilder;
+	protected JavascriptLinterBuilder linterBuilder;
 
 	public JavascriptReconcilingStrategy(CommonEditor editor) {
 		super(editor);
 		try {
-			linterBuilder = new Builder();
+			linterBuilder = new JavascriptLinterBuilder();
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package smalleditor.linters.javascript.problem;
+package smalleditor.linters.common.problem;
 
 /**
  * Holds information about a problem found by JSHint.
