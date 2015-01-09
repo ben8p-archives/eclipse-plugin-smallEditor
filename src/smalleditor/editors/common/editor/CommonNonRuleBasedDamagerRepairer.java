@@ -36,6 +36,9 @@ public class CommonNonRuleBasedDamagerRepairer implements IPresentationDamager,
 	 * 
 	 * @param defaultTextAttribute
 	 */
+	public CommonNonRuleBasedDamagerRepairer() {
+		
+	}
 	public CommonNonRuleBasedDamagerRepairer(TextAttribute defaultTextAttribute) {
 		Assert.isNotNull(defaultTextAttribute);
 

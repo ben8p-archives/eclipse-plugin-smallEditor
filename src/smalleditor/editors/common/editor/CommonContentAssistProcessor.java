@@ -1,5 +1,6 @@
 package smalleditor.editors.common.editor;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 			IDocument document = textViewer.getDocument();
 			int currOffset = documentOffset - 1; //cursor place in the text
 			String currWord = "";
+			String currToken = "";
 			char currChar;
 			char indentChar;
 			String indentPath = "";
 			
 			String completionProposalAutoActivationCharacters = new String(getCompletionProposalAutoActivationCharacters());
-			
 			//calculate the indentation
 			IRegion lineInformation = document.getLineInformationOfOffset(currOffset);
 			int indentOffset = lineInformation.getOffset();
@@ -48,18 +49,21 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 			// build the world until we found a separator (anything else than a a-z0-9_)
 			while (currOffset > 0) {
 				currChar = document.getChar(currOffset);
-				if(!CharUtility.isAlphaNumeric(currChar) && !completionProposalAutoActivationCharacters.contains(String.valueOf(currChar))) { break; }
-				currWord = currChar + currWord;
+				if(CharUtility.minus != currChar && !CharUtility.isAlphaNumeric(currChar) && !completionProposalAutoActivationCharacters.contains(String.valueOf(currChar))) { break; }
+				if(!completionProposalAutoActivationCharacters.contains(String.valueOf(currChar))) {
+					currWord = currChar + currWord;
+				}
+				currToken = currChar + currToken;
 				currOffset--;
 			}
 			
 		
-			System.out.println("currWord for content assist:" + currWord);
+			System.out.println("currWord for content assist:" + currWord + " -token:" + currToken);
 			// compute proposal
-			List suggestions = provider.suggest(currWord, indentPath);
+			List suggestions = provider.suggest(currWord);
 			
 			if (suggestions.size() > 0) {
-				proposals = buildProposals(suggestions, currWord, documentOffset - currWord.length());
+				proposals = buildProposals(suggestions, currToken, documentOffset, indentPath);
 			}
 		} catch (Exception e) {}
 		
@@ -67,18 +71,37 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 	}
 
 	private ICompletionProposal[] buildProposals(List<String> suggestions,
-			String replacedWord, int offset) throws Exception {
-		ICompletionProposal[] proposals = new ICompletionProposal[suggestions
-				.size()];
+			String replacedWord, int offset, String indentPath) throws Exception {
+		
+		ICompletionProposal[] proposals = new ICompletionProposal[suggestions.size()];
 		int index = 0;
-		for (Iterator<String> i = suggestions.iterator(); i.hasNext();) {
-			String currSuggestion = (String) i.next();
+
+		Iterator it = suggestions.iterator();
+		while (it.hasNext()) {
+			HashMap item = (HashMap) it.next();
+			
+			Boolean appendValue = (Boolean) item.get("append-value");
+			String stringValue = (String) item.get("value");
+			String currSuggestion = (appendValue == true ? replacedWord + stringValue : stringValue).replace("\n", "\n" + indentPath);
+			int documentOffset = offset - replacedWord.length();
+			int length = replacedWord.length();
+			
 			CompletionProposal cp = new CompletionProposal(currSuggestion,
-					offset, replacedWord.length(), currSuggestion.length(),
-					null, currSuggestion, null, null);
+					documentOffset, length, currSuggestion.length(),
+					null, stringValue, null, null);
 			proposals[index] = cp;
 			index++;
+			
 		}
+//		for (Iterator<String> i = suggestions.iterator(); i.hasNext();) {
+//			String currSuggestion = (String) i.next();
+//			
+//			CompletionProposal cp = new CompletionProposal(currSuggestion,
+//					offset, replacedWord.length(), currSuggestion.length(),
+//					null, currSuggestion, null, null);
+//			proposals[index] = cp;
+//			index++;
+//		}
 		return proposals;
 	}
 

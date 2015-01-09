@@ -8,12 +8,23 @@ import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
-
 import smalleditor.Activator;
 
 public class ColorManager {
 	protected Map fColorTable = new HashMap(10);
 
+	public Color getContrastColor(Color color) {
+		
+		int red = color.getRed();
+		int green = color.getGreen();
+		int blue = color.getBlue();
+		int yiq = ((red * 299) + (green * 587) + (blue * 114)) / 1000;
+		if(yiq >= 128) {
+			return new Color(Display.getCurrent(), 0, 0, 0);
+		}
+		return new Color(Display.getCurrent(), 255, 255, 255);
+	}
+	
 	public Color getColor(RGB rgb) {
 		Color color = (Color) fColorTable.get(rgb);
 
@@ -22,6 +33,14 @@ public class ColorManager {
 			fColorTable.put(rgb, color);
 		}
 
+		return color;
+	}
+	
+	public Color getColor(String hexa) {
+		RGB rgb = new RGB(Integer.valueOf( hexa.substring( 1, 3 ), 16 ),
+							Integer.valueOf( hexa.substring( 3, 5 ), 16 ),
+							Integer.valueOf( hexa.substring( 5, 7 ), 16 ));
+		Color color = getColor(rgb);
 		return color;
 	}
 	

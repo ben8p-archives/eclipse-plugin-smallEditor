@@ -16,6 +16,13 @@
 				class="smalleditor.editors.json.editor.JsonEditor" 
 				id="smalleditor.editors.json.editor.JsonEditor">
 		</editor>
+		<editor 
+				name="CSS Editor (smallEditor)" 
+				extensions="css" icon="res/icons/editor-css.gif" 
+				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
+				class="smalleditor.editors.css.editor.CssEditor" 
+				id="smalleditor.editors.css.editor.CssEditor">
+		</editor>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page 

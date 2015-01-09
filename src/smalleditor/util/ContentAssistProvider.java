@@ -1,10 +1,10 @@
 package smalleditor.util;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ContentAssistProvider {
 
-	public String[] concat(String[]...arrays);
-	public List<String> suggest(String context, String indentation);
+	public List<HashMap> suggest(String context);
 
 }

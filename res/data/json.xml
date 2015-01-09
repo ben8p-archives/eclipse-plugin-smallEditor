@@ -1,0 +1,7 @@
+<root>
+	<element append-value="true" name="all">
+		<value>[]</value>
+		<value>{}</value>
+		<value>""</value>
+	</element>
+</root>

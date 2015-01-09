@@ -14,6 +14,10 @@ public final class CharUtility {
 	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
 	public static final char[] jsonBrackets = {'[', ']', '{', '}'};
 	public static final char[] jsonContentAssistTriggers = {':'};
+	public static final char[] cssBrackets = {'{', '}'};
+	public static final char[] cssContentAssistTriggers = {':'};
+	
+	public static final char[] hexaDecimal = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','A','B','C','D','E','F'};
 
 	public static final char openCurly = javascriptBrackets[4];
 	public static final char closeCurly = javascriptBrackets[5];
@@ -29,6 +33,7 @@ public final class CharUtility {
 	public static final char underscore = '_';
 	public static final char plus = '+';
 	public static final char point = '.';
+	public static final char hash = '#';
 //	public static final char n = 'n';
 //	public static final char u = 'u';
 //	public static final char l = 'l';

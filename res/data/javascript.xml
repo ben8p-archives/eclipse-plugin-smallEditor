@@ -1,0 +1,12 @@
+<root>
+	<element append-value="false" name="lang.">
+		<value>lang.hitch(this, function() {})</value>
+		<value>lang.hitch(this, 'method')</value>
+	</element>
+	<element append-value="false" name="summary">
+		<value>// summary:\n//\t\t...\n// tags:\n//\t\tpublic</value>
+	</element>
+	<element append-value="false" name="this.">
+		<value>this.inherited(arguments);</value>
+	</element>
+</root>
