@@ -8,23 +8,25 @@
  */
 package smalleditor.editors.common.editor;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
-import org.eclipse.swt.widgets.Composite;
+
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class CommonOutlinePage extends ContentOutlinePage {
 	protected IDocument document;
-	protected RuleBasedScanner scanner = null;
+	protected DocumentTokenBuilder scanner = null;
 	
 	public CommonOutlinePage(IDocument document) {
 		super();
@@ -65,43 +67,62 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	private List getSyntacticElements(IDocument document) {
 		List elementList = new LinkedList();
 		
-		scanner.setRange(document, 0, document.getLength());
-		IToken token = scanner.nextToken();
-		while (!token.isEOF()) {
-			int offset = scanner.getTokenOffset();
-			int length = scanner.getTokenLength();
+		List<DocumentNode> nodes = scanner.buildNodes();
+		Iterator it = nodes.iterator();
+		while (it.hasNext()) {
+			DocumentNode item = (DocumentNode) it.next();
+			
+			int offset = item.getStart();
+			int length = item.getLength();
 			String expression = getExpression(offset, length);
 			
-			
-			Object object = processToken(token, expression, offset, length);
+			Object object = processToken(item, expression, offset, length);
 			if(object != null) {
 				elementList.add(object);
 			}
 			
-			token = scanner.nextToken();
+			System.out.println(item);
 		}
+		
+		
+		
+//		scanner.setRange(document, 0, document.getLength());
+//		IToken token = scanner.nextToken();
+//		while (!token.isEOF()) {
+//			int offset = scanner.getTokenOffset();
+//			int length = scanner.getTokenLength();
+//			String expression = getExpression(offset, length);
+//			
+//			
+//			Object object = processToken(token, expression, offset, length);
+//			if(object != null) {
+//				elementList.add(object);
+//			}
+//			
+//			token = scanner.nextToken();
+//		}
 		return elementList;
 	}
 
-	/**
-	 * Skips ahead and finds next non-whitespace token.
-	 * 
-	 */
-	public IToken nextNonWhitespaceToken() {
-		IToken aToken = scanner.nextToken();
-
-		while (!aToken.isEOF() && aToken.isWhitespace()) {
-			aToken = scanner.nextToken();
-		}
-
-		return aToken;
-	}
+//	/**
+//	 * Skips ahead and finds next non-whitespace token.
+//	 * 
+//	 */
+//	public IToken nextNonWhitespaceToken() {
+//		IToken aToken = scanner.nextToken();
+//
+//		while (!aToken.isEOF() && aToken.isWhitespace()) {
+//			aToken = scanner.nextToken();
+//		}
+//
+//		return aToken;
+//	}
 	
-	protected Object processToken(IToken token, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
 		return null;
 	}
 	
-	protected RuleBasedScanner getScanner() {
+	protected DocumentTokenBuilder getScanner() {
 		return null;
 	}
 	

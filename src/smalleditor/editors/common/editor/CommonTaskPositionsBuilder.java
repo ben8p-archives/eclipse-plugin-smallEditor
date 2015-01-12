@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.eclipse.jface.text.Position;
 
-import smalleditor.editors.common.model.Node;
-import smalleditor.editors.common.model.Type;
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentNodeType;
 
 /**
  * @author garner_m
@@ -17,9 +17,9 @@ import smalleditor.editors.common.model.Type;
  */
 public class CommonTaskPositionsBuilder {
 
-	private List<Node> nodes;
+	private List<DocumentNode> nodes;
 
-	public CommonTaskPositionsBuilder(List<Node> nodes) {
+	public CommonTaskPositionsBuilder(List<DocumentNode> nodes) {
 		this.nodes = nodes;
 	}
 
@@ -28,8 +28,8 @@ public class CommonTaskPositionsBuilder {
 		List<Position> positions = new LinkedList<Position>();
 		
 		if (nodes != null) {
-			for (Node node : nodes) {
-				if (isNodeType(node, Type.Todo, Type.Fixme)) {
+			for (DocumentNode node : nodes) {
+				if (isNodeType(node, DocumentNodeType.Todo, DocumentNodeType.Fixme)) {
 					Position position = new Position(getStart(node));
 					position.setLength(getEnd(node) - position.getOffset());
 					positions.add(position);
@@ -39,9 +39,9 @@ public class CommonTaskPositionsBuilder {
 		return positions;
 	}
 
-	private boolean isNodeType(Node node, Type ... types) {
+	private boolean isNodeType(DocumentNode node, DocumentNodeType ... types) {
 
-		for (Type type : types) {
+		for (DocumentNodeType type : types) {
 			if (node.getType() == type) {
 				return true;
 			}
@@ -50,11 +50,11 @@ public class CommonTaskPositionsBuilder {
 		return false;
 	}
 
-	public int getStart(Node node) {
+	public int getStart(DocumentNode node) {
 		return node.getStart();
 	}
 
-	public int getEnd(Node node) {
+	public int getEnd(DocumentNode node) {
 		if (node == null) {
 			return 0;
 		}

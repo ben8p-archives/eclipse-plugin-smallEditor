@@ -1,28 +1,34 @@
-package smalleditor.editors.common.model;
+package smalleditor.common.tokenizer;
 
 
 import org.eclipse.jface.text.Position;
 
 
-public class Node {
+public class DocumentNode {
 
-	private Type type;
+	private DocumentNodeType type;
 
 	private Position position;
+	
+	private int line;
 
 	private String value;
 
-	public Node(Type type) {
+	public DocumentNode(DocumentNodeType type) {
 		super();
 		this.type = type;
 	}
 
-	public Type getType() {
+	public DocumentNodeType getType() {
 		return type;
 	}
 
 	public Position getPosition() {
 		return position;
+	}
+	
+	public int getLine() {
+		return line;
 	}
 
 	public int getStart() {
@@ -45,6 +51,10 @@ public class Node {
 
 	public void setLength(int length) {
 		position.setLength(length);
+	}
+	
+	public void setLine(int lineNb) {
+		line = lineNb;
 	}
 
 	public void setPosition(int start, int length) {
@@ -72,9 +82,9 @@ public class Node {
 
 	@Override
 	public String toString() {
-		String toString = type.toString();
-		toString += ", " + position.offset + ", " + position.length;
-		toString += ", " + value;
+		String toString = "[[type: " + type.toString();
+		toString += ", offset: " + position.offset + ", length: " + position.length;
+		toString += ", line: " + line + ", value: " + value + "]]";
 		return toString;
 	}
 
@@ -97,7 +107,7 @@ public class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		DocumentNode other = (DocumentNode) obj;
 		if (position == null) {
 			if (other.position != null)
 				return false;

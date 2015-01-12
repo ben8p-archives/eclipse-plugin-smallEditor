@@ -10,10 +10,11 @@ package smalleditor.editors.css.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.RuleBasedScanner;
 
-import smalleditor.editors.common.editor.CommonOutlineFunctionElement;
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentNodeType;
+import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.editors.common.editor.CommonOutlineClassNameElement;
 import smalleditor.editors.common.editor.CommonOutlinePage;
 import smalleditor.util.CharUtility;
 
@@ -25,66 +26,36 @@ public class CssOutlinePage extends CommonOutlinePage {
 	}
 
 	@Override
-	protected RuleBasedScanner getScanner() {
-		CssOutlineScanner scanner = new CssOutlineScanner();
+	protected DocumentTokenBuilder getScanner() {
+		CssDocumentTokenBuilder scanner = new CssDocumentTokenBuilder(document);
 		return scanner;
 	}
 
 	@Override
-	protected Object processToken(IToken token, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
 		try {
-			if (token.equals(CssOutlineScanner.TOKEN_CLASSNAME)) {
+			if (node.getType() == DocumentNodeType.OpenObject || node.getType() == DocumentNodeType.Comma) {
 				return addClassName(expression, offset, length);
 			}
 		} catch (BadLocationException e) {
-		}		
+		}
 		return null;
 	}
 	
 	private Object addClassName(String expression, int offset, int length) throws BadLocationException {
-		System.out.println(expression);
+		String className = "";
+		int line = document.getLineOfOffset(offset);
+		int lineOffset = document.getLineOffset(line);
+		String lineStr = document.get(lineOffset, offset - lineOffset);
+		if(lineStr.contains(Character.toString(CharUtility.colon))) {
+			return null;
+		}
+		String[] lineElementsStrings = lineStr.split(",");
+		className = lineElementsStrings[lineElementsStrings.length - 1].trim();
+		//System.out.println(className);
+		CommonOutlineClassNameElement aClassName = new CommonOutlineClassNameElement(className, offset, length);
 
-		return null;
-//		String functionSignature = getNaked(expression);
-//		int braceOffset = functionSignature.indexOf("(");
-//		String functionName = functionSignature.substring(0, braceOffset).trim();
-//		String arguments = functionSignature.substring(
-//				functionSignature.indexOf("("),
-//				functionSignature.indexOf(")") + 1);
-//
-//		if(functionName.equals("")) {
-//			int line = document.getLineOfOffset(offset);
-//			int lineOffset = document.getLineOffset(line);
-//			String lineStr = document.get(lineOffset, offset - lineOffset);
-//			String[] lineElements = lineStr.replaceAll("(\\w+)", " $1 ").replaceAll("\\s+", " ").split(" ");
-//			int cursor = lineElements.length;
-//			Boolean pickupNext = false;
-//			while(--cursor >= 0) {
-//				System.out.println(lineElements[cursor]);
-//				if(!lineElements[cursor].trim().equals("")) {
-//					
-//					if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
-//						pickupNext = true;
-//						continue;
-//					}
-//					if(pickupNext) {
-//						functionName = lineElements[cursor];
-//						if(!functionName.matches("\\w+")) {
-//							functionName = "";
-//						}
-//						break;
-//					}
-//				}
-//			}
-//			
-//			
-//			System.out.println(functionName);
-//		}
-//		
-//
-//		CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
-//
-//		return aFunction;
+		return aClassName;
 
 		
 	}

@@ -10,9 +10,10 @@ package smalleditor.editors.javascript.editor;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.RuleBasedScanner;
 
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentNodeType;
+import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.editors.common.editor.CommonOutlineFunctionElement;
 import smalleditor.editors.common.editor.CommonOutlinePage;
 import smalleditor.util.CharUtility;
@@ -27,15 +28,15 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 	}
 
 	@Override
-	protected RuleBasedScanner getScanner() {
-		JavascriptOutlineScanner scanner = new JavascriptOutlineScanner();
+	protected DocumentTokenBuilder getScanner() {
+		JavascriptDocumentTokenBuilder scanner = new JavascriptDocumentTokenBuilder(this.document);
 		return scanner;
 	}
 
 	@Override
-	protected Object processToken(IToken token, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
 		try {
-			if (token.equals(JavascriptOutlineScanner.TOKEN_FUNCTION)) {
+			if (node.getType() == DocumentNodeType.Function) {
 				return addFunction(expression, offset, length);
 			}
 		} catch (BadLocationException e) {

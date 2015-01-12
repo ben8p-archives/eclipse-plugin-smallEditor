@@ -6,12 +6,21 @@ a set of Editors for eclipse (plugin)
 - occurences highlight
 - on the fly validation (using JSLint)
 - automatic creation of TODO and FIXME tasks
+- function outline
+- autocomplete
 
 # json editor features:
 - syntax highlight
 - occurences highlight
 - on the fly validation (using JSONLint)
+- autocomplete
+
+# css editor features:
+- syntax highlight
+- occurences highlight
 - automatic creation of TODO and FIXME tasks
+- classname outline
+- autocomplete
 
 # based on:
 - https://github.com/eclipsesource/jshint-eclipse

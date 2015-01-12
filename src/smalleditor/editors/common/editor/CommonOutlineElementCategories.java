@@ -16,11 +16,12 @@ package smalleditor.editors.common.editor;
  * 
  */
 public interface CommonOutlineElementCategories {
-	static final int CLASS = 1;
-	static final int FUNCTION = 2;
-	static final int VARIABLE = 3;
-	static final int CLASS_VARIABLE = 4;
-	static final int INSTANCE_VARIABLE = 5;
-	static final int CLASS_METHOD = 6;
-	static final int INSTANCE_METHOD = 7;
+	static final int FUNCTION = 1;
+	static final int CLASSNAME = 2;
+	//static final int CLASS = 1;
+//	static final int VARIABLE = 3;
+//	static final int CLASS_VARIABLE = 4;
+//	static final int INSTANCE_VARIABLE = 5;
+//	static final int CLASS_METHOD = 6;
+//	static final int INSTANCE_METHOD = 7;
 }

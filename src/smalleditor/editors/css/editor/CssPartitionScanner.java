@@ -204,7 +204,9 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		"text-kashida-space",
 		"text-underline-position",
 		"top",
+		"touch-callout",
 		"unicode-bidi",
+		"user-select",
 		"-use-link-source",
 		"vertical-align",
 		"visibility",
@@ -255,8 +257,20 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "E", TOKEN_COLOR));
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "F", TOKEN_COLOR));
 		
+		List<String> allKeywords = new ArrayList<String>();
+		for (String keywordToken : keywordTokens) {
+			allKeywords.add(keywordToken);
+			allKeywords.add("-webkit-" + keywordToken);
+			allKeywords.add("-moz-" + keywordToken);
+			allKeywords.add("-opera-" + keywordToken);
+			allKeywords.add("-ms-" + keywordToken);
+			allKeywords.add("-khtml-" + keywordToken);
+		}
+		String[] simpleArray = new String[ allKeywords.size() ];
+		allKeywords.toArray( simpleArray );
+		
 		CommonPredicateWordRule keywordRule = new CommonPredicateWordRule(
-				new CssWordDetector(), TOKEN_DEFAULT, keywordTokens, TOKEN_KEYWORD);
+				new CssWordDetector(), TOKEN_DEFAULT, simpleArray, TOKEN_KEYWORD);
 		rules.add(keywordRule);
 
 

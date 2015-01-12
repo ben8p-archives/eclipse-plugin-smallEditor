@@ -16,7 +16,7 @@ public class CssWordDetector implements IWordDetector {
 	 *      Java so for now we can just borrow this behavior.
 	 */
 	public boolean isWordStart(char c) {
-		return Character.isJavaIdentifierStart(c);
+		return Character.isJavaIdentifierStart(c) || CharUtility.minus == c;
 	}
 
 	/**

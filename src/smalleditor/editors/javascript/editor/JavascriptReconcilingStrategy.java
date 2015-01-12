@@ -19,6 +19,11 @@ public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	protected JavascriptDocumentTokenBuilder getDocumentTokenBuilder() {
+		return new JavascriptDocumentTokenBuilder(document);
+	}
 
 	
 	protected void processReconcile() {

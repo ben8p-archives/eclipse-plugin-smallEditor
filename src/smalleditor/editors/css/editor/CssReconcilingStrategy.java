@@ -9,5 +9,9 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 		super(editor);
 	}
 
+	@Override
+	protected CssDocumentTokenBuilder getDocumentTokenBuilder() {
+		return new CssDocumentTokenBuilder(document);
+	}
 
 }

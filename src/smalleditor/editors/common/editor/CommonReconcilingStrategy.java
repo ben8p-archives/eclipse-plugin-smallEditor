@@ -11,8 +11,8 @@ import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategyExtension;
 import org.eclipse.swt.widgets.Display;
 
-import smalleditor.editors.common.model.Node;
-import smalleditor.editors.common.model.NodeBuilder;
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		IReconcilingStrategyExtension {
@@ -57,25 +57,29 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		});
 	}
 	
+	protected DocumentTokenBuilder getDocumentTokenBuilder() {
+		return new DocumentTokenBuilder(document);
+	}
+	
 	protected void processReconcile() {
 		if (document == null) {
 			return;
 		}
 		
-		final List<Node> nodes = new NodeBuilder(document).buildNodes();
+		List<DocumentNode> nodes = getDocumentTokenBuilder().buildNodes();
 		
 		updateFoldingStructure(nodes);
 		updateTaskAnnotation(nodes);
 	}
 
-	private void updateTaskAnnotation(List<Node> nodes) {
-		final List<Position> positions = new CommonTaskPositionsBuilder(nodes).buildTaskPositions();
+	private void updateTaskAnnotation(List<DocumentNode> nodes) {
+		List<Position> positions = new CommonTaskPositionsBuilder(nodes).buildTaskPositions();
 
 		this.editor.updateTask(positions);
 	}
 	
-	private void updateFoldingStructure(List<Node> nodes) {
-		final List<Position> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
+	private void updateFoldingStructure(List<DocumentNode> nodes) {
+		List<Position> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
 
 		this.editor.updateFoldingStructure(fPositions);
 	}

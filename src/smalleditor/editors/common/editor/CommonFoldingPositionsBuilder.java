@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.eclipse.jface.text.Position;
 
-import smalleditor.editors.common.model.Node;
-import smalleditor.editors.common.model.Type;
+import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentNodeType;
 
 /**
  * @author garner_m
@@ -17,9 +17,9 @@ import smalleditor.editors.common.model.Type;
  */
 public class CommonFoldingPositionsBuilder {
 
-	private List<Node> nodes;
+	private List<DocumentNode> nodes;
 
-	public CommonFoldingPositionsBuilder(List<Node> nodes) {
+	public CommonFoldingPositionsBuilder(List<DocumentNode> nodes) {
 		this.nodes = nodes;
 	}
 
@@ -28,26 +28,22 @@ public class CommonFoldingPositionsBuilder {
 		List<Position> positions = new LinkedList<Position>();
 		List<Position> positionsStack = new LinkedList<Position>();
 		
-		Boolean newLines = false;
+		int currentLine = -1;
 		if (nodes != null) {
-			for (Node node : nodes) {
-				if (isNodeType(node, Type.OpenArray, Type.OpenObject)) {
+			for (DocumentNode node : nodes) {
+				if (isNodeType(node, DocumentNodeType.OpenArray, DocumentNodeType.OpenObject)) {
 					Position position = new Position(getStart(node));
 					positionsStack.add(0, position);
-					newLines = false;
-					continue;
-				}
-				if (positionsStack.size() > 0 && isNodeType(node, Type.NewLine)) {
-					newLines = true;
+					currentLine = node.getLine();
 					continue;
 				}
 				
-				if (isNodeType(node, Type.CloseArray, Type.CloseObject) && positionsStack.size() > 0) {
+				if (isNodeType(node, DocumentNodeType.CloseArray, DocumentNodeType.CloseObject) && positionsStack.size() > 0) {
 					Position position = positionsStack.remove(0);
-					if(newLines) {
+					if(currentLine != node.getLine()) {
 						position.setLength(getEnd(node) - position.getOffset());
 						positions.add(position);
-						newLines = false;
+						currentLine = -1;
 					}
 					continue;
 				}
@@ -56,9 +52,9 @@ public class CommonFoldingPositionsBuilder {
 		return positions;
 	}
 
-	private boolean isNodeType(Node node, Type ... types) {
+	private boolean isNodeType(DocumentNode node, DocumentNodeType ... types) {
 
-		for (Type type : types) {
+		for (DocumentNodeType type : types) {
 			if (node.getType() == type) {
 				return true;
 			}
@@ -67,11 +63,11 @@ public class CommonFoldingPositionsBuilder {
 		return false;
 	}
 
-	public int getStart(Node node) {
+	public int getStart(DocumentNode node) {
 		return node.getStart();
 	}
 
-	public int getEnd(Node node) {
+	public int getEnd(DocumentNode node) {
 		if (node == null) {
 			return 0;
 		}
