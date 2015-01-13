@@ -3,10 +3,12 @@ package smalleditor.editors.css.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.MultiLineRule;
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
+import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WordPatternRule;
 
@@ -230,9 +232,22 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		List rules = new ArrayList();
 
 		rules.add(new MultiLineRule("/*", "*/", TOKEN_COMMENT));
-		rules.add(new MultiLineRule(".", "{", TOKEN_CLASSNAME));
-		rules.add(new MultiLineRule(".", ",", TOKEN_CLASSNAME));
-		rules.add(new MultiLineRule(":", "", TOKEN_STRING));
+		rules.add(new EndOfLineRule("//", TOKEN_COMMENT));
+		
+		rules.add(new EndOfLineRule("@import", TOKEN_KEYWORD));
+		rules.add(new EndOfLineRule("@media", TOKEN_KEYWORD));
+		
+		rules.add(new SingleLineRule("@", ";", TOKEN_KEYWORD));
+//		rules.add(new SingleLineRule(":", ";", TOKEN_STRING));
+		rules.add(new SingleLineRule("(", ")", TOKEN_STRING));
+		rules.add(new SingleLineRule("!impo", "rtant", TOKEN_KEYWORD));
+		
+		
+//		rules.add(new MultiLineRule(".", "{", TOKEN_CLASSNAME));
+//		rules.add(new SingleLineRule(".", ";", TOKEN_KEYWORD));
+//		
+//		rules.add(new MultiLineRule("#", "{", TOKEN_CLASSNAME));
+//		rules.add(new MultiLineRule("&", "{", TOKEN_CLASSNAME));
 		
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "0", TOKEN_COLOR));
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "1", TOKEN_COLOR));
@@ -272,8 +287,7 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		CommonPredicateWordRule keywordRule = new CommonPredicateWordRule(
 				new CssWordDetector(), TOKEN_DEFAULT, simpleArray, TOKEN_KEYWORD);
 		rules.add(keywordRule);
-
-
+		
 		setRuleList(rules);
 	}
 

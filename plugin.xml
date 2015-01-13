@@ -23,6 +23,20 @@
 				class="smalleditor.editors.css.editor.CssEditor" 
 				id="smalleditor.editors.css.editor.CssEditor">
 		</editor>
+		<editor 
+				name="LeSS Editor (smallEditor)" 
+				extensions="less" icon="res/icons/editor-less.gif" 
+				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
+				class="smalleditor.editors.css.editor.CssEditor" 
+				id="smalleditor.editors.css.editor.CssEditor">
+		</editor>
+		<editor 
+				name="HTML Editor (smallEditor)" 
+				extensions="html" icon="res/icons/editor-html.gif" 
+				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
+				class="smalleditor.editors.html.editor.HtmlEditor" 
+				id="smalleditor.editors.html.editor.HtmlEditor">
+		</editor>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page 

@@ -27,6 +27,11 @@ import smalleditor.common.tokenizer.DocumentTokenBuilder;
 public class CommonOutlinePage extends ContentOutlinePage {
 	protected IDocument document;
 	protected DocumentTokenBuilder scanner = null;
+	protected Boolean sort = true;
+	
+	protected void setSort(Boolean s) {
+		sort = s;
+	}
 	
 	public CommonOutlinePage(IDocument document) {
 		super();
@@ -47,7 +52,9 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		viewer.setContentProvider(new WorkbenchContentProvider());
 		viewer.setLabelProvider(new WorkbenchLabelProvider());
 
-		viewer.setSorter(new CommonOutlineNameSorter());
+		if(this.sort) {
+			viewer.setSorter(new CommonOutlineNameSorter());
+		}
 	}
 	
 	/**

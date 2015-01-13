@@ -32,62 +32,66 @@ public class DocumentTokenBuilder {
 	}
 	
 	public List<DocumentNode> buildNodes() {
+		
 		nodes = new LinkedList<DocumentNode>();
-		int fromIndex = 0;
-		DocumentNode node = null;
 		
-		tokenizer = new DocumentTokenizer(document, elements);
-		while(tokenizer.hasMoreTokens()) {
-			String token = tokenizer.nextToken();
+		if(elements != null) {
+		
+			int fromIndex = 0;
+			DocumentNode node = null;
 			
-			DocumentNodeType type = getNodeType(token, tokenizer.getPreviousToken());
-			DocumentNodeType nextType = getNodeType(tokenizer.getNextToken());
-			DocumentNodeType previousType = getNodeType(tokenizer.getPreviousToken());
-			
-			if(type == null) {
-				fromIndex += token.length();
-				continue;
-			}
-			
-			
-			fromIndex = document.get().indexOf(token, fromIndex);
-			
-			try {
-				String lineContent = 
-					document.get(
-						document.getLineOffset(
-							document.getLineOfOffset(fromIndex)
-						),
-						document.getLineLength(
-							document.getLineOfOffset(fromIndex)
-						)
-					)
-				;
-				if(lineContent.contains("todo")) {
-					System.out.println(lineContent);
+			tokenizer = new DocumentTokenizer(document, elements);
+			while(tokenizer.hasMoreTokens()) {
+				String token = tokenizer.nextToken();
+				
+				DocumentNodeType type = getNodeType(token, tokenizer.getPreviousToken());
+				DocumentNodeType nextType = getNodeType(tokenizer.getNextToken());
+				DocumentNodeType previousType = getNodeType(tokenizer.getPreviousToken());
+				
+				if(type == null) {
+					fromIndex += token.length();
+					continue;
 				}
-			} catch (BadLocationException e) {
+				
+				
+				fromIndex = document.get().indexOf(token, fromIndex);
+				
+				try {
+					String lineContent = 
+						document.get(
+							document.getLineOffset(
+								document.getLineOfOffset(fromIndex)
+							),
+							document.getLineLength(
+								document.getLineOfOffset(fromIndex)
+							)
+						)
+					;
+					if(lineContent.contains("todo")) {
+						System.out.println(lineContent);
+					}
+				} catch (BadLocationException e) {
+				}
+				
+				
+				int length = token.length();
+				
+				if(type == DocumentNodeType.OneLineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
+					node = createEOLNode(type, fromIndex, token);
+				} else if(type == DocumentNodeType.OpenMultilineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
+					node = createEOBNode(type, fromIndex, token, DocumentNodeType.CloseMultilineComment);
+				} else if(type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) {
+					node = createEOBNode(type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment);
+				} else {
+					node = createDefaultNode(type, fromIndex, length, token);
+				}
+				
+				if (node != null) {
+					nodes.add(node);
+				}
+				fromIndex += token.length();
 			}
-			
-			
-			int length = token.length();
-			
-			if(type == DocumentNodeType.OneLineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
-				node = createEOLNode(type, fromIndex, token);
-			} else if(type == DocumentNodeType.OpenMultilineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
-				node = createEOBNode(type, fromIndex, token, DocumentNodeType.CloseMultilineComment);
-			} else if(type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) {
-				node = createEOBNode(type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment);
-			} else {
-				node = createDefaultNode(type, fromIndex, length, token);
-			}
-			
-			if (node != null) {
-				nodes.add(node);
-			}
-			fromIndex += token.length();
 		}
-		
 		return nodes;
 	}
 	

@@ -19,10 +19,11 @@ import smalleditor.editors.common.editor.CommonOutlinePage;
 import smalleditor.util.CharUtility;
 
 public class CssOutlinePage extends CommonOutlinePage {
-	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+//	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	
 	public CssOutlinePage(IDocument document) {
 		super(document);
+		this.setSort(false);
 	}
 
 	@Override
@@ -53,8 +54,9 @@ public class CssOutlinePage extends CommonOutlinePage {
 		String[] lineElementsStrings = lineStr.split(",");
 		className = lineElementsStrings[lineElementsStrings.length - 1].trim();
 		//System.out.println(className);
+		
 		CommonOutlineClassNameElement aClassName = new CommonOutlineClassNameElement(className, offset, length);
-
+		
 		return aClassName;
 
 		

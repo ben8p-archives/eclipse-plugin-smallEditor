@@ -128,12 +128,14 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		super.configureSourceViewerDecorationSupport(support);
 
 		char[] matchChars = getMatchingBrackets(); // which brackets to match
-		ICharacterPairMatcher matcher = new DefaultCharacterPairMatcher(
-				matchChars, IDocumentExtension3.DEFAULT_PARTITIONING);
-		support.setCharacterPairMatcher(matcher);
-		support.setMatchingCharacterPainterPreferenceKeys(
-				PreferenceNames.P_SHOW_MATCHING_BRACKETS,
-				PreferenceNames.P_MATCHING_BRACKETS_COLOR);
+		if(matchChars != null) {
+			ICharacterPairMatcher matcher = new DefaultCharacterPairMatcher(
+					matchChars, IDocumentExtension3.DEFAULT_PARTITIONING);
+			support.setCharacterPairMatcher(matcher);
+			support.setMatchingCharacterPainterPreferenceKeys(
+					PreferenceNames.P_SHOW_MATCHING_BRACKETS,
+					PreferenceNames.P_MATCHING_BRACKETS_COLOR);
+		}
 
 	}
 	

@@ -15,12 +15,16 @@ a set of Editors for eclipse (plugin)
 - on the fly validation (using JSONLint)
 - autocomplete
 
-# css editor features:
+# less/css editor features:
 - syntax highlight
 - occurences highlight
 - automatic creation of TODO and FIXME tasks
 - classname outline
 - autocomplete
+
+# html editor features:
+- syntax highlight
+- occurences highlight
 
 # based on:
 - https://github.com/eclipsesource/jshint-eclipse
