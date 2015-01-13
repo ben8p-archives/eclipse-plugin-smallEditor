@@ -27,23 +27,22 @@ public class CommonFoldingPositionsBuilder {
 
 		List<Position> positions = new LinkedList<Position>();
 		List<Position> positionsStack = new LinkedList<Position>();
+		List<Position> linesStack = new LinkedList<Position>();
 		
-		int currentLine = -1;
 		if (nodes != null) {
 			for (DocumentNode node : nodes) {
 				if (isNodeType(node, DocumentNodeType.OpenArray, DocumentNodeType.OpenObject)) {
-					Position position = new Position(getStart(node));
-					positionsStack.add(0, position);
-					currentLine = node.getLine();
+					positionsStack.add(0, new Position(getStart(node)));
+					linesStack.add(0, new Position(node.getLine()));
 					continue;
 				}
 				
 				if (isNodeType(node, DocumentNodeType.CloseArray, DocumentNodeType.CloseObject) && positionsStack.size() > 0) {
 					Position position = positionsStack.remove(0);
-					if(currentLine != node.getLine()) {
+					Position line = linesStack.remove(0);
+					if(line.getOffset() != node.getLine()) {
 						position.setLength(getEnd(node) - position.getOffset());
 						positions.add(position);
-						currentLine = -1;
 					}
 					continue;
 				}

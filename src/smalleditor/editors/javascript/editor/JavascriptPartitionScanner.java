@@ -106,6 +106,7 @@ public class JavascriptPartitionScanner extends RuleBasedPartitionScanner {
 		rules.add(new MultiLineRule("/*", "*/", TOKEN_COMMENT));
 		rules.add(new EndOfLineRule("//", TOKEN_COMMENT));
 		rules.add(new SingleLineRule("\"", "\"", TOKEN_STRING, '\\'));
+		rules.add(new SingleLineRule("/", "/", TOKEN_STRING, '\\'));
 		rules.add(new SingleLineRule("'", "'", TOKEN_STRING, '\\'));
 		
 		CommonPredicateWordRule keywordRule = new CommonPredicateWordRule(

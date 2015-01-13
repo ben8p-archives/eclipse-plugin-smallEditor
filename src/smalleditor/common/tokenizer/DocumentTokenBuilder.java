@@ -44,7 +44,7 @@ public class DocumentTokenBuilder {
 			while(tokenizer.hasMoreTokens()) {
 				String token = tokenizer.nextToken();
 				
-				DocumentNodeType type = getNodeType(token, tokenizer.getPreviousToken());
+				DocumentNodeType type = getNodeType(token, tokenizer.getPreviousToken(), tokenizer.getNextToken());
 				DocumentNodeType nextType = getNodeType(tokenizer.getNextToken());
 				DocumentNodeType previousType = getNodeType(tokenizer.getPreviousToken());
 				
@@ -56,22 +56,22 @@ public class DocumentTokenBuilder {
 				
 				fromIndex = document.get().indexOf(token, fromIndex);
 				
-				try {
-					String lineContent = 
-						document.get(
-							document.getLineOffset(
-								document.getLineOfOffset(fromIndex)
-							),
-							document.getLineLength(
-								document.getLineOfOffset(fromIndex)
-							)
-						)
-					;
-					if(lineContent.contains("todo")) {
-						System.out.println(lineContent);
-					}
-				} catch (BadLocationException e) {
-				}
+//				try {
+//					String lineContent = 
+//						document.get(
+//							document.getLineOffset(
+//								document.getLineOfOffset(fromIndex)
+//							),
+//							document.getLineLength(
+//								document.getLineOfOffset(fromIndex)
+//							)
+//						)
+//					;
+//					if(lineContent.contains("todo")) {
+//						System.out.println(lineContent);
+//					}
+//				} catch (BadLocationException e) {
+//				}
 				
 				
 				int length = token.length();
@@ -118,7 +118,7 @@ public class DocumentTokenBuilder {
 		int length = 0;
 		while(tokenizer.hasMoreTokens()) {
 			String eobToken = tokenizer.nextToken();
-			DocumentNodeType eobType = getNodeType(eobToken, tokenizer.getPreviousToken());
+			DocumentNodeType eobType = getNodeType(eobToken, tokenizer.getPreviousToken(), tokenizer.getNextToken());
 			if(eobType == closeType) {
 				tokenizer.previousToken();
 				
@@ -136,7 +136,7 @@ public class DocumentTokenBuilder {
 		return createEOBNode(type, offset, expression, DocumentNodeType.NewLine);
 	}
 	
-	protected DocumentNodeType getNodeType(String token, String previousToken) {
+	protected DocumentNodeType getNodeType(String token, String previousToken, String nextToken) {
 		DocumentNodeType type = getNodeType(token);
 		//check the previous to be sure we are in a todo or fixme
 		if((type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) && getNodeType(previousToken) != DocumentNodeType.OneLineComment && getNodeType(previousToken) != DocumentNodeType.OpenMultilineComment ) {

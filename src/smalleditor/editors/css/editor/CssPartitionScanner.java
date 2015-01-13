@@ -70,6 +70,11 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		"border-top-style",
 		"border-top-width",
 		"border-width",
+		"border-radius",
+		"border-top-left-radius",
+		"border-top-right-radius",
+		"border-bottom-left-radius",
+		"border-bottom-right-radius",
 		"bottom",
 		"caption-side",
 		"clear",
@@ -225,29 +230,22 @@ public class CssPartitionScanner extends RuleBasedPartitionScanner {
 		"zoom"
 	};
 
-	/**
-	 * Creates a new JSPartitionScanner object.
-	 */
+	
 	public CssPartitionScanner() {
 		List rules = new ArrayList();
 
 		rules.add(new MultiLineRule("/*", "*/", TOKEN_COMMENT));
 		rules.add(new EndOfLineRule("//", TOKEN_COMMENT));
 		
-		rules.add(new EndOfLineRule("@import", TOKEN_KEYWORD));
-		rules.add(new EndOfLineRule("@media", TOKEN_KEYWORD));
+		rules.add(new SingleLineRule("\"", "\"", TOKEN_STRING));
+		rules.add(new SingleLineRule("@","import", TOKEN_KEYWORD));
+		rules.add(new SingleLineRule("@","media", TOKEN_KEYWORD));
 		
 		rules.add(new SingleLineRule("@", ";", TOKEN_KEYWORD));
-//		rules.add(new SingleLineRule(":", ";", TOKEN_STRING));
+
 		rules.add(new SingleLineRule("(", ")", TOKEN_STRING));
-		rules.add(new SingleLineRule("!impo", "rtant", TOKEN_KEYWORD));
+		rules.add(new SingleLineRule("!" ,"important", TOKEN_KEYWORD));
 		
-		
-//		rules.add(new MultiLineRule(".", "{", TOKEN_CLASSNAME));
-//		rules.add(new SingleLineRule(".", ";", TOKEN_KEYWORD));
-//		
-//		rules.add(new MultiLineRule("#", "{", TOKEN_CLASSNAME));
-//		rules.add(new MultiLineRule("&", "{", TOKEN_CLASSNAME));
 		
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "0", TOKEN_COLOR));
 		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "1", TOKEN_COLOR));

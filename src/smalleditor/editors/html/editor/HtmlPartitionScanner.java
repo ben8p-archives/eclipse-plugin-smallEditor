@@ -32,8 +32,8 @@ public class HtmlPartitionScanner extends RuleBasedPartitionScanner {
 
 		rules.add(new MultiLineRule("<!--", "-->", TOKEN_COMMENT));
 		rules.add(new SingleLineRule("\"", "\"", TOKEN_STRING));
-		rules.add(new SingleLineRule(">", "<", TOKEN_STRING));
-		//rules.add(new SingleLineRule(" ", "=", TOKEN_ATTRIBUTE));
+		//rules.add(new SingleLineRule(" ", "=", TOKEN_ATTRIBUTE, '\\', false));
+		//rules.add(new SingleLineRule(">", "<", TOKEN_STRING));
 		//rules.add(new SingleLineRule("\t", "=", TOKEN_ATTRIBUTE));
 		
 //		rules.add(new WordPatternRule(new HtmlWordDetector(), "<", ">", TOKEN_TAG));

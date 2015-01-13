@@ -25,6 +25,8 @@ a set of Editors for eclipse (plugin)
 # html editor features:
 - syntax highlight
 - occurences highlight
+- automatic creation of TODO and FIXME tasks
+- autocomplete
 
 # based on:
 - https://github.com/eclipsesource/jshint-eclipse

@@ -88,7 +88,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 				elementList.add(object);
 			}
 			
-			System.out.println(item);
+			//System.out.println(item);
 		}
 		
 		
@@ -138,6 +138,9 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	 * 
 	 */
 	public void update() {
+		if(getControl() == null) {
+			return;
+		}
 		getControl().setRedraw(false);
 		TreeViewer viewer = getTreeViewer();
 
@@ -167,7 +170,9 @@ public class CommonOutlinePage extends ContentOutlinePage {
 			}
 		}
 
-		getControl().setRedraw(true);
+		if(getControl() != null) {
+			getControl().setRedraw(true);
+		}
 	}
 
 	protected String getExpression(int offset, int length) {

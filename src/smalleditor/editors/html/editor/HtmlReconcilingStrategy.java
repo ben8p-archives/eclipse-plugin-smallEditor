@@ -9,4 +9,9 @@ public class HtmlReconcilingStrategy extends CommonReconcilingStrategy {
 		super(editor);
 	}
 	
+	@Override
+	protected HtmlDocumentTokenBuilder getDocumentTokenBuilder() {
+		return new HtmlDocumentTokenBuilder(document);
+	}
+	
 }
