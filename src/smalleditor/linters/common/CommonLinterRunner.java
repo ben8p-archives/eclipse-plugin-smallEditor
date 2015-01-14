@@ -31,12 +31,12 @@ public class CommonLinterRunner {
 			//configureLinter();
 			processFiles();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println();
-			System.out
-					.println("Usage: JSLint [ <options> ] <input-file> [ <input-file> ... ]");
-			System.out.println("Options: --custom <custom-linter-file>");
-			System.out.println("         --charset <charset>");
+//			System.out.println(e.getMessage());
+//			System.out.println();
+//			System.out
+//					.println("Usage: JSLint [ <options> ] <input-file> [ <input-file> ... ]");
+//			System.out.println("Options: --custom <custom-linter-file>");
+//			System.out.println("         --charset <charset>");
 		}
 	}
 

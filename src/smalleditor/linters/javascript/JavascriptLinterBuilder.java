@@ -30,7 +30,7 @@ public class JavascriptLinterBuilder extends CommonLinterBuilder {
 			linter.load();
 			//linter.configure(new Configuration());
 		} catch (IOException exception) {
-			System.out.println("Failed to intialize Linter");
+//			System.out.println("Failed to intialize Linter");
 		}
 		return linter;
 	}

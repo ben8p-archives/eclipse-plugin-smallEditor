@@ -79,17 +79,23 @@ public class DocumentTokenBuilder {
 				if(type == DocumentNodeType.OneLineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
 					node = createEOLNode(type, fromIndex, token);
 				} else if(type == DocumentNodeType.OpenMultilineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
-					node = createEOBNode(type, fromIndex, token, DocumentNodeType.CloseMultilineComment);
+					node = createEOBNode(type, fromIndex, token, DocumentNodeType.CloseMultilineComment, true);
 				} else if(type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) {
-					node = createEOBNode(type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment);
+					node = createEOBNode(type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment, false);
+				} else if(type == DocumentNodeType.String) {
+					node = createEOBNode(type, fromIndex, token, DocumentNodeType.String, true);
+				} else if(type == DocumentNodeType.SingleQuoteString) {
+					node = createEOBNode(type, fromIndex, token, DocumentNodeType.SingleQuoteString, true);
 				} else {
 					node = createDefaultNode(type, fromIndex, length, token);
 				}
 				
 				if (node != null) {
 					nodes.add(node);
+					fromIndex += node.getLength();
+				} else {
+					fromIndex += token.length();
 				}
-				fromIndex += token.length();
 			}
 		}
 		return nodes;
@@ -113,34 +119,38 @@ public class DocumentTokenBuilder {
 	}
 	
 	//end of block
-	protected DocumentNode createEOBNode(DocumentNodeType type, int offset, String expression, DocumentNodeType closeType) {
+	protected DocumentNode createEOBNode(DocumentNodeType type, int offset, String expression, DocumentNodeType closeType, Boolean includeCloseToken) {
 		//go til the end
 		int length = 0;
+
 		while(tokenizer.hasMoreTokens()) {
 			String eobToken = tokenizer.nextToken();
 			DocumentNodeType eobType = getNodeType(eobToken, tokenizer.getPreviousToken(), tokenizer.getNextToken());
+			expression += " " + eobToken;
 			if(eobType == closeType) {
-				tokenizer.previousToken();
-				
-				length = (document.get().indexOf(eobToken, offset) - offset) /*- eobToken.length()*/;
+				if(includeCloseToken == false) {
+					tokenizer.previousToken();
+				}
+				length = (document.get().indexOf(eobToken, offset + 1) - offset) + (includeCloseToken == false ? 0 : eobToken.length());
 				
 				break;
 			}
-			expression += " " + eobToken;
 		}
 		return createNode(type, offset, length, expression);
 	}
 	
 	//end of line
 	protected DocumentNode createEOLNode(DocumentNodeType type, int offset, String expression) {
-		return createEOBNode(type, offset, expression, DocumentNodeType.NewLine);
+		return createEOBNode(type, offset, expression, DocumentNodeType.NewLine, false);
 	}
 	
 	protected DocumentNodeType getNodeType(String token, String previousToken, String nextToken) {
 		DocumentNodeType type = getNodeType(token);
 		//check the previous to be sure we are in a todo or fixme
 		if((type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) && getNodeType(previousToken) != DocumentNodeType.OneLineComment && getNodeType(previousToken) != DocumentNodeType.OpenMultilineComment ) {
-			return null;
+			type = null;
+		} else if((type == DocumentNodeType.String || type == DocumentNodeType.SingleQuoteString) && getNodeType(previousToken) == DocumentNodeType.EscapeChar) {
+			type = null;
 		}
 		return type;
 	}

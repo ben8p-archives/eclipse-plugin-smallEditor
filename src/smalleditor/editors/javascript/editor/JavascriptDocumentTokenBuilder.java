@@ -19,8 +19,9 @@ public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
 	public JavascriptDocumentTokenBuilder(IDocument document) {
 		super(document);
 		this.setElements(
-			new String[] {"function", "\n", "todo", "fixme", ".", ",", "{", "}", "(", ")", "[", "]", ":", ";", "=", "/*", "*/", "//"},
-			new DocumentNodeType[] {DocumentNodeType.Function, DocumentNodeType.NewLine, DocumentNodeType.Todo, DocumentNodeType.Fixme, null, DocumentNodeType.Comma, DocumentNodeType.OpenObject, DocumentNodeType.CloseObject, null, null, DocumentNodeType.OpenArray, DocumentNodeType.CloseArray, DocumentNodeType.Colon, null, null, DocumentNodeType.OpenMultilineComment, DocumentNodeType.CloseMultilineComment, DocumentNodeType.OneLineComment}
+			//new String[] {"'", "\"", "\\", "function", "\n", "todo", "fixme", Pattern.quote("."), Pattern.quote(","), Pattern.quote("{"), Pattern.quote("}"), Pattern.quote("("), Pattern.quote(")"), Pattern.quote("["), Pattern.quote("]"), ":", ";", "=", Pattern.quote("/*"), Pattern.quote("*/"), "//"},
+			new String[] {"'", "\"", "\\", "function", "\n", "todo", "fixme", ".", ",", "{", "}", "(", ")", "[", "]", ":", ";", "=", "/*", "*/", "//"},
+			new DocumentNodeType[] {DocumentNodeType.SingleQuoteString, DocumentNodeType.String, DocumentNodeType.EscapeChar, DocumentNodeType.Function, DocumentNodeType.NewLine, DocumentNodeType.Todo, DocumentNodeType.Fixme, null, DocumentNodeType.Comma, DocumentNodeType.OpenObject, DocumentNodeType.CloseObject, null, null, DocumentNodeType.OpenArray, DocumentNodeType.CloseArray, DocumentNodeType.Colon, null, null, DocumentNodeType.OpenMultilineComment, DocumentNodeType.CloseMultilineComment, DocumentNodeType.OneLineComment}
 		);
 	}
 	
@@ -30,7 +31,7 @@ public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
 
 		if(type == DocumentNodeType.Function) {
 			//go till next block
-			return createEOBNode(type, offset, expression, DocumentNodeType.OpenObject);
+			return createEOBNode(type, offset, expression, DocumentNodeType.OpenObject, false);
 		}
 		
 		return super.createDefaultNode(type, offset, length, expression);

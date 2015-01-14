@@ -79,7 +79,7 @@ public class CommonNonRuleBasedDamagerRepairer implements IPresentationDamager,
 
 			return info.getOffset() + info.getLength();
 		} catch (BadLocationException x) {
-			System.out.println("endOfLineOf BadLocationException");
+//			System.out.println("endOfLineOf BadLocationException");
 			return fDocument.getLength();
 		}
 	}
@@ -113,7 +113,7 @@ public class CommonNonRuleBasedDamagerRepairer implements IPresentationDamager,
 
 				return new Region(start, end - start);
 			} catch (BadLocationException x) {
-				System.out.println("getDamageRegion BadLocationException");
+//				System.out.println("getDamageRegion BadLocationException");
 			}
 		}
 

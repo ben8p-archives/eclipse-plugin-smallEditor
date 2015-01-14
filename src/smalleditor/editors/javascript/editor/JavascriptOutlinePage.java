@@ -60,7 +60,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 			int cursor = lineElements.length;
 			Boolean pickupNext = false;
 			while(--cursor >= 0) {
-				System.out.println(lineElements[cursor]);
+//				System.out.println(lineElements[cursor]);
 				if(!lineElements[cursor].trim().equals("")) {
 					
 					if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
@@ -78,7 +78,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 			}
 			
 			
-			System.out.println(functionName);
+//			System.out.println(functionName);
 		}
 		
 		//if (!functions.containsKey(functionName)) {

@@ -21,7 +21,7 @@ public class DocumentTokenizer {
 		String content = document.get();
 		
 		for(String wordToSeparate: wordsToSeparate) {
-			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + wordToSeparate + " ");
+			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + (wordToSeparate == "\\" ? "\\\\" : wordToSeparate) + " ");
 		}
 		
 		content = content.replaceAll("\n", NEWLINE + "\n");

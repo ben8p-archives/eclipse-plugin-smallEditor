@@ -72,7 +72,7 @@ public class CommonLinterBuilder {
 			String charset = encodedStorage.getCharset();
 			return readContent(inputStream, charset);
 		} catch (IOException exception) {
-			System.out.println("Failed to load resources");
+//			System.out.println("Failed to load resources");
 		}
 		return null;
 	}

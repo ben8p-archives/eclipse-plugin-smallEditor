@@ -58,7 +58,7 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 			}
 			
 		
-			System.out.println("currWord for content assist:" + currWord + " -token:" + currToken);
+//			System.out.println("currWord for content assist:" + currWord + " -token:" + currToken);
 			// compute proposal
 			List suggestions = provider.suggest(currWord);
 			

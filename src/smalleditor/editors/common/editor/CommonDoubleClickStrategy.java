@@ -70,7 +70,7 @@ public class CommonDoubleClickStrategy implements ITextDoubleClickStrategy {
 						|| !Character.isWhitespace(prevChar))
 					result = matchNonWhitespace(doc, caretPos);
 			} catch (BadLocationException x) {
-				System.out.println("BadLocationException");
+//				System.out.println("BadLocationException");
 			}
 		}
 
