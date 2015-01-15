@@ -45,7 +45,12 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 	}
 	
 	private Object addFunction(String expression, int offset, int length) throws BadLocationException {
-		String functionSignature = getNaked(expression);
+		String functionSignature;
+		try {
+			functionSignature = getNaked(expression);
+		} catch (StringIndexOutOfBoundsException e) {
+			return null;
+		}
 		int braceOffset = functionSignature.indexOf("(");
 		String functionName = functionSignature.substring(0, braceOffset).trim();
 		String arguments = functionSignature.substring(
@@ -134,7 +139,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 	 * Method getNaked.
 	 * @param funcName
 	 */
-	private String getNaked(String funcName) {
+	private String getNaked(String funcName) throws StringIndexOutOfBoundsException {
 		if (funcName == null) {
 			return null;
 		}

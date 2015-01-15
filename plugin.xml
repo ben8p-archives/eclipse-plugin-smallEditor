@@ -27,8 +27,8 @@
 				name="LeSS Editor (smallEditor)" 
 				extensions="less" icon="res/icons/editor-less.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.css.editor.CssEditor" 
-				id="smalleditor.editors.css.editor.CssEditor">
+				class="smalleditor.editors.less.editor.LessEditor" 
+				id="smalleditor.editors.less.editor.LessEditor">
 		</editor>
 		<editor 
 				name="HTML Editor (smallEditor)" 

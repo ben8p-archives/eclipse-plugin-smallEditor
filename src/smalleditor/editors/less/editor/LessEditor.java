@@ -1,22 +1,22 @@
-package smalleditor.editors.css.editor;
+package smalleditor.editors.less.editor;
 
 import static smalleditor.util.CharUtility.cssBrackets;
 
 import org.eclipse.jface.text.IDocument;
 
 import smalleditor.editors.common.editor.CommonOutlinePage;
-import smalleditor.editors.common.editor.CommonEditor;
+import smalleditor.editors.css.editor.CssEditor;
 
-public class CssEditor extends CommonEditor {
-	protected CssSourceViewerConfiguration configuration;
+public class LessEditor extends CssEditor {
+	protected LessSourceViewerConfiguration configuration;
 
-	public CssEditor() {
+	public LessEditor() {
 		super();
 		// create the document provider
-		setDocumentProvider(new CssDocumentProvider());
+		setDocumentProvider(new LessDocumentProvider());
 		
 		//create the configuration of the editor
-		configuration = new CssSourceViewerConfiguration(this);
+		configuration = new LessSourceViewerConfiguration(this);
 		setSourceViewerConfiguration(configuration);
 		
 	}
@@ -28,8 +28,8 @@ public class CssEditor extends CommonEditor {
 	
 	
 	protected CommonOutlinePage getOutlinePage(IDocument document) {
-		CssOutlinePage cssContentOutlinePage = new CssOutlinePage(document);
-		return cssContentOutlinePage;
+		LessOutlinePage javascriptContentOutlinePage = new LessOutlinePage(document);
+		return javascriptContentOutlinePage;
 	}
 	
 
