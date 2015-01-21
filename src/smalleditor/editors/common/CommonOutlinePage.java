@@ -77,7 +77,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		}
 		return new CommonOutlineElementList(getSyntacticElements(document));
 	}
-	private List getSyntacticElements(IDocument document) {
+	protected List getSyntacticElements(IDocument document) {
 		List elementList = new LinkedList();
 		
 		List<DocumentNode> nodes = scanner.buildNodes();

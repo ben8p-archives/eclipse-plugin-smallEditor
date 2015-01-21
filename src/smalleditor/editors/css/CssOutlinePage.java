@@ -8,6 +8,10 @@
  */
 package smalleditor.editors.css;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 
@@ -16,10 +20,13 @@ import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.editors.common.CommonOutlineClassNameElement;
 import smalleditor.editors.common.CommonOutlinePage;
-import smalleditor.utils.CharUtility;
 
 public class CssOutlinePage extends CommonOutlinePage {
 //	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	
+	private int deep = 0;
+	private HashMap tree = new HashMap();
+	private Boolean canGoDeeper = true;
 	
 	public CssOutlinePage(IDocument document) {
 		super(document);
@@ -33,14 +40,58 @@ public class CssOutlinePage extends CommonOutlinePage {
 	}
 
 	@Override
+	protected List getSyntacticElements(IDocument document) {
+		deep = 0;
+		return super.getSyntacticElements(document);
+	}
+	
+	@Override
 	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
+		CommonOutlineClassNameElement object = null;
+		List<CommonOutlineClassNameElement> elements = null;
 		try {
 			if (node.getType() == DocumentNodeType.OpenObject || node.getType() == DocumentNodeType.Comma) {
-				return addClassName(expression, offset, length);
+				if(node.getType() == DocumentNodeType.Comma && canGoDeeper == true) {
+					deep++;
+					canGoDeeper = false;
+				}
+				if(node.getType() == DocumentNodeType.OpenObject) {
+					if(canGoDeeper == true) {
+						deep++;
+					}
+					canGoDeeper = true;
+				}
+				object = (CommonOutlineClassNameElement) addClassName(expression, offset, length);
+				if(object != null) {
+					elements = (List) tree.get(deep);
+					if(elements == null) {
+						elements = new ArrayList<CommonOutlineClassNameElement>();
+						tree.put(deep, elements);
+					}
+					elements.add(object);
+				}
+			}
+			if (node.getType() == DocumentNodeType.CloseObject) {
+				List<CommonOutlineClassNameElement> parents = (List) tree.get(deep - 1);
+				elements = (List) tree.get(deep);
+				
+				if(parents != null && elements != null) {
+					for(CommonOutlineClassNameElement element: elements) {
+						for(CommonOutlineClassNameElement parent: parents) {
+							parent.addChildElement(element);
+							element.setParent(parent);
+						}
+					}
+				}
+				tree.remove(deep);
+				deep--;
 			}
 		} catch (BadLocationException e) {
 		}
-		return null;
+		if(deep > 1) {
+			object = null;
+		}
+		return object;
 	}
 	
 	private Object addClassName(String expression, int offset, int length) throws BadLocationException {
@@ -48,9 +99,9 @@ public class CssOutlinePage extends CommonOutlinePage {
 		int line = document.getLineOfOffset(offset);
 		int lineOffset = document.getLineOffset(line);
 		String lineStr = document.get(lineOffset, offset - lineOffset);
-		if(lineStr.contains(Character.toString(CharUtility.colon))) {
-			return null;
-		}
+//		if(lineStr.contains(Character.toString(CharUtility.colon))) {
+//			return null;
+//		}
 		String[] lineElementsStrings = lineStr.split(",");
 		className = lineElementsStrings[lineElementsStrings.length - 1].trim();
 		//System.out.println(className);

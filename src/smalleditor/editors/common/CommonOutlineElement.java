@@ -1,5 +1,6 @@
 package smalleditor.editors.common;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -20,6 +21,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 
 	protected CommonOutlineElement parent;
 	protected List children;
+	protected HashMap childrenByName;
 
 	/**
 	 * Creates a new JSElement and stores parent element and location in the
@@ -37,6 +39,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		this.offset = offset;
 		this.length = length;
 		this.children = new LinkedList();
+		this.childrenByName = new HashMap();
 	}
 
 	/**
@@ -52,6 +55,15 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		}
 
 		return null;
+	}
+	
+	public void addChildElement(CommonOutlineElement anElement) {
+		String elementName = anElement.getName();
+		//if (!childrenByName.containsKey(elementName)) {
+		this.children.add(anElement);
+		this.childrenByName.put(elementName, anElement);
+		anElement.setParent(this);
+		//}
 	}
 
 	/**
@@ -154,11 +166,12 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 	/**
 	 * @param element
 	 */
-	protected void setParent(CommonOutlineElement element) {
+	public void setParent(CommonOutlineElement element) {
 		parent = element;
 	}
 
 	public boolean sharesParentWith(CommonOutlineElement anElement) {
+		if(anElement == null) { return false; }
 		if (parent == null) {
 			return anElement.getParent() == null;
 		}
