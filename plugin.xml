@@ -6,36 +6,36 @@
 				name="Javascript Editor (smallEditor)" 
 				extensions="js" icon="res/icons/editor-js.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.javascript.editor.JavascriptEditor" 
-				id="smalleditor.editors.javascript.editor.JavascriptEditor">
+				class="smalleditor.editors.javascript.JavascriptEditor" 
+				id="smalleditor.editors.javascript.JavascriptEditor">
 		</editor>
 		<editor 
 				name="JSON Editor (smallEditor)" 
 				extensions="json" icon="res/icons/editor-json.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.json.editor.JsonEditor" 
-				id="smalleditor.editors.json.editor.JsonEditor">
+				class="smalleditor.editors.json.JsonEditor" 
+				id="smalleditor.editors.json.JsonEditor">
 		</editor>
 		<editor 
 				name="CSS Editor (smallEditor)" 
 				extensions="css" icon="res/icons/editor-css.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.css.editor.CssEditor" 
-				id="smalleditor.editors.css.editor.CssEditor">
+				class="smalleditor.editors.css.CssEditor" 
+				id="smalleditor.editors.css.CssEditor">
 		</editor>
 		<editor 
 				name="LeSS Editor (smallEditor)" 
 				extensions="less" icon="res/icons/editor-less.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.less.editor.LessEditor" 
-				id="smalleditor.editors.less.editor.LessEditor">
+				class="smalleditor.editors.less.LessEditor" 
+				id="smalleditor.editors.less.LessEditor">
 		</editor>
 		<editor 
 				name="HTML Editor (smallEditor)" 
 				extensions="html" icon="res/icons/editor-html.gif" 
 				contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor" 
-				class="smalleditor.editors.html.editor.HtmlEditor" 
-				id="smalleditor.editors.html.editor.HtmlEditor">
+				class="smalleditor.editors.html.HtmlEditor" 
+				id="smalleditor.editors.html.HtmlEditor">
 		</editor>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">

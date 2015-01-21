@@ -5,7 +5,7 @@ import org.eclipse.ui.plugin.*;
 import org.eclipse.core.resources.*;
 import org.eclipse.jface.preference.IPreferenceStore;
 
-import smalleditor.preference.PreferenceNames;
+import smalleditor.preferences.PreferenceNames;
 
 import java.util.*;
 

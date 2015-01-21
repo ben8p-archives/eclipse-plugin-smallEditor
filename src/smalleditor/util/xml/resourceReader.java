@@ -1,5 +1,5 @@
 /*
- * resourceReader.java	Created on 9 Jan 2015
+ * ResourceReader.java	Created on 9 Jan 2015
  * 
  * Copyright © 2015 ING Group. All rights reserved.
  * 
@@ -20,7 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class resourceReader {
+public class ResourceReader {
 	public static HashMap read(InputStream file) {
 		HashMap elementMap = new HashMap();
 		
