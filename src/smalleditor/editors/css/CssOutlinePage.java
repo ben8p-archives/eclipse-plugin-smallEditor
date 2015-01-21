@@ -30,7 +30,6 @@ public class CssOutlinePage extends CommonOutlinePage {
 	
 	public CssOutlinePage(IDocument document) {
 		super(document);
-		this.setSort(false);
 	}
 
 	@Override
