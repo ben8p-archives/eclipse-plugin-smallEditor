@@ -45,7 +45,7 @@ public class CssOutlinePage extends CommonOutlinePage {
 	}
 	
 	@Override
-	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
 		CommonOutlineClassNameElement object = null;
 		List<CommonOutlineClassNameElement> elements = null;
 		try {

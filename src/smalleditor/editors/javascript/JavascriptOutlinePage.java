@@ -35,7 +35,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 	}
 
 	@Override
-	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
 		try {
 			if (node.getType() == DocumentNodeType.Function) {
 				return addFunction(expression, offset, length);

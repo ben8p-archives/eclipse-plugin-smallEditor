@@ -82,19 +82,23 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		
 		List<DocumentNode> nodes = scanner.buildNodes();
 		Iterator it = nodes.iterator();
+		int currentIndex = 0;
 		while (it.hasNext()) {
 			DocumentNode item = (DocumentNode) it.next();
+			
+			DocumentNode nextItem = it.hasNext() ? nodes.get(currentIndex + 1) : null;
 			
 			int offset = item.getStart();
 			int length = item.getLength();
 			String expression = getExpression(offset, length);
 			
-			Object object = processToken(item, expression, offset, length);
+			Object object = processToken(item, nextItem, expression, offset, length);
 			if(object != null) {
 				elementList.add(object);
 			}
 			
 			//System.out.println(item);
+			currentIndex++;
 		}
 		
 		
@@ -131,7 +135,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 //		return aToken;
 //	}
 	
-	protected Object processToken(DocumentNode node, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
 		return null;
 	}
 	
