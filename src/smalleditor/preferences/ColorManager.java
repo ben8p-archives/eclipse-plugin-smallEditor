@@ -8,11 +8,27 @@ import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
+
 import smalleditor.Activator;
 
 public class ColorManager {
-	protected Map fColorTable = new HashMap(10);
+	private static ColorManager instance;
+	protected Map<RGB, Color> fColorTable = new HashMap<RGB, Color>(10);
 
+	public void dispose() {
+		for (Color c : fColorTable.values()) {
+			c.dispose();
+		}
+		fColorTable.clear();
+	}
+	
+	public static ColorManager getDefault() {
+		if (instance == null) {
+			instance = new ColorManager();
+		}
+		return instance;
+	}
+	
 	public Color getContrastColor(Color color) {
 		
 		int red = color.getRed();

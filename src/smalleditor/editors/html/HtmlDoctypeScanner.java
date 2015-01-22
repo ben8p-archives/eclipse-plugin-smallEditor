@@ -31,7 +31,7 @@ import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.PreferenceNames;
 
 public class HtmlDoctypeScanner extends RuleBasedScanner {
-	private ColorManager colorManager = new ColorManager();
+	private ColorManager colorManager = ColorManager.getDefault();
 
 	private static final class TagStartRule extends ExtendedWordRule {
 		private Pattern pattern;

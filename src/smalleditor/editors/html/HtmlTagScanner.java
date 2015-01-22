@@ -40,7 +40,7 @@ import smalleditor.preferences.PreferenceNames;
  * @author Max Stepanov
  */
 public class HtmlTagScanner extends QueuedRuleBasedScanner {
-	private ColorManager colorManager = new ColorManager();
+	private ColorManager colorManager = ColorManager.getDefault();
 	
 	// as per the html5 spec, these are elements that define "sections", but
 	// we've added

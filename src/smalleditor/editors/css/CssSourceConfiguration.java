@@ -53,7 +53,7 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 
 	public final static String CONTENT_TYPE = Constants.CONTENT_TYPE_CSS;
 
-	private ColorManager colorManager = new ColorManager();
+	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
 
 	public static final String[] CONTENT_TYPES = new String[] { CSS_DEFAULT,

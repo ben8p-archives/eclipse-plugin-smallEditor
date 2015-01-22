@@ -18,13 +18,12 @@ import smalleditor.preferences.ColorManager;
 
 public class CommonSourceViewerConfiguration extends SourceViewerConfiguration {
 	private CommonDoubleClickStrategy doubleClickStrategy;
-	protected ColorManager colorManager;
+	protected ColorManager colorManager = ColorManager.getDefault();
 	protected CommonEditor editor;
 	protected CommonSourceConfiguration sourceConfiguration = null;
 	
 	
 	public CommonSourceViewerConfiguration(CommonEditor editor) {
-		this.colorManager = new ColorManager();
 		this.editor = editor;
 	}
 	

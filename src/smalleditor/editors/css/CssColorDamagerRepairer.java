@@ -18,7 +18,7 @@ import smalleditor.preferences.ColorManager;
  * @version $Revision: 1.1 $
  */
 public class CssColorDamagerRepairer extends CommonNonRuleBasedDamagerRepairer {
-	private ColorManager colorManager = new ColorManager();
+	private ColorManager colorManager = ColorManager.getDefault();
 
 	/**
 	 * @see IPresentationRepairer#createPresentation(TextPresentation,

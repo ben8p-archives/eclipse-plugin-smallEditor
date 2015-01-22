@@ -50,7 +50,7 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 
 	public final static String CONTENT_TYPE = Constants.CONTENT_TYPE_JS;
 
-	private ColorManager colorManager = new ColorManager();
+	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
 
 	public static final String[] CONTENT_TYPES = new String[] { 
