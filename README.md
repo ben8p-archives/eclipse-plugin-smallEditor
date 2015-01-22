@@ -13,6 +13,7 @@ a set of Editors for eclipse (plugin)
 # json editor features:
 - syntax highlight
 - occurences highlight
+- outline
 - on the fly validation (using JSONLint)
 - autocomplete
 - folding
