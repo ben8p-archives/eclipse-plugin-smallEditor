@@ -8,15 +8,13 @@
  */
 package smalleditor.editors.html;
 
-import org.eclipse.jface.text.IDocument;
-
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class HtmlDocumentTokenBuilder extends DocumentTokenBuilder {
 
-	public HtmlDocumentTokenBuilder(IDocument document) {
-		super(document);
+	public HtmlDocumentTokenBuilder() {
+		super();
 		this.setElements(
 			new String[] {"\n", "todo", "fixme", "<!--", "-->"},
 			new DocumentNodeType[] {DocumentNodeType.NewLine, DocumentNodeType.Todo, DocumentNodeType.Fixme, DocumentNodeType.OpenMultilineComment, DocumentNodeType.CloseMultilineComment}

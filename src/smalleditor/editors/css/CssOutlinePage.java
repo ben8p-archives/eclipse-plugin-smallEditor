@@ -18,6 +18,7 @@ import org.eclipse.jface.text.IDocument;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineClassNameElement;
 import smalleditor.editors.common.CommonOutlinePage;
 
@@ -34,18 +35,18 @@ public class CssOutlinePage extends CommonOutlinePage {
 
 	@Override
 	protected DocumentTokenBuilder getScanner() {
-		CssDocumentTokenBuilder scanner = new CssDocumentTokenBuilder(document);
+		CssDocumentTokenBuilder scanner = (CssDocumentTokenBuilder) CssDocumentTokenBuilder.getDefault(DocumentType.CSS);
 		return scanner;
 	}
 
 	@Override
-	protected List getSyntacticElements(IDocument document) {
+	protected List getSyntacticElements(List<DocumentNode> nodes) {
 		deep = 0;
-		return super.getSyntacticElements(document);
+		return super.getSyntacticElements(nodes);
 	}
 	
 	@Override
-	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
 		CommonOutlineClassNameElement object = null;
 		List<CommonOutlineClassNameElement> elements = null;
 		try {

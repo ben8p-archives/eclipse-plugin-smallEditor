@@ -18,6 +18,7 @@ import org.eclipse.jface.text.IDocument;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineBaseElement;
 import smalleditor.editors.common.CommonOutlineBlockElement;
 import smalleditor.editors.common.CommonOutlineElement;
@@ -35,22 +36,33 @@ public class JsonOutlinePage extends CommonOutlinePage {
 
 	@Override
 	protected DocumentTokenBuilder getScanner() {
-		JsonDocumentTokenBuilder scanner = new JsonDocumentTokenBuilder(document);
+		JsonDocumentTokenBuilder scanner = (JsonDocumentTokenBuilder) JsonDocumentTokenBuilder.getDefault(DocumentType.JSON);
 		return scanner;
 	}
 
 	@Override
-	protected List getSyntacticElements(IDocument document) {
+	protected List getSyntacticElements(List<DocumentNode> nodes) {
 		deep = 0;
-		return super.getSyntacticElements(document);
+		return super.getSyntacticElements(nodes);
 	}
 	
 	@Override
-	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
 		CommonOutlineElement object = null;
 		List<CommonOutlineElement> elements = null;
 		try {
 			if (node.getType() == DocumentNodeType.OpenObject) {
+				if(previousNode != null && previousNode.getType() == DocumentNodeType.Colon) {
+					//open object wins over colon
+					elements = (List) tree.get(deep);
+					if(elements != null) {
+						for(CommonOutlineElement element: elements) {
+							element.removeLastChildElement();
+						}
+					}
+				}
+				
+				
 				deep++;
 			
 				object = (CommonOutlineElement) addBlock(expression, offset, length);
@@ -64,7 +76,7 @@ public class JsonOutlinePage extends CommonOutlinePage {
 				}
 			}
 			
-			if (node.getType() == DocumentNodeType.Colon && nextNode != null && nextNode.getType() != DocumentNodeType.OpenObject) {
+			if (node.getType() == DocumentNodeType.Colon) {
 				object = (CommonOutlineElement) addElement(expression, offset, length);
 				if(object != null) {
 					elements = (List) tree.get(deep);

@@ -16,8 +16,8 @@ import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
 
-	public JavascriptDocumentTokenBuilder(IDocument document) {
-		super(document);
+	public JavascriptDocumentTokenBuilder() {
+		super();
 		this.setElements(
 			//new String[] {"'", "\"", "\\", "function", "\n", "todo", "fixme", Pattern.quote("."), Pattern.quote(","), Pattern.quote("{"), Pattern.quote("}"), Pattern.quote("("), Pattern.quote(")"), Pattern.quote("["), Pattern.quote("]"), ":", ";", "=", Pattern.quote("/*"), Pattern.quote("*/"), "//"},
 			new String[] {"'", "\"", "\\", "function", "\n", "todo", "fixme", ".", ",", "{", "}", "(", ")", "[", "]", ":", ";", "=", "/*", "*/", "//"},
@@ -26,15 +26,15 @@ public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
 	}
 	
 	@Override
-	protected DocumentNode createDefaultNode(DocumentNodeType type, int offset,
+	protected DocumentNode createDefaultNode(IDocument document, DocumentNodeType type, int offset,
 			int length, String expression) {
 
 		if(type == DocumentNodeType.Function) {
 			//go till next block
-			return createEOBNode(type, offset, expression, DocumentNodeType.OpenObject, false);
+			return createEOBNode(document, type, offset, expression, DocumentNodeType.OpenObject, false);
 		}
 		
-		return super.createDefaultNode(type, offset, length, expression);
+		return super.createDefaultNode(document, type, offset, length, expression);
 	}
 	
 	

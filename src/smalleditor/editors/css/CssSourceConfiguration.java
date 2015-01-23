@@ -337,7 +337,7 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 			allKeywords.add(keywordToken);
 			allKeywords.add("-webkit-" + keywordToken);
 			allKeywords.add("-moz-" + keywordToken);
-			allKeywords.add("-opera-" + keywordToken);
+			allKeywords.add("-o-" + keywordToken);
 			allKeywords.add("-ms-" + keywordToken);
 			allKeywords.add("-khtml-" + keywordToken);
 		}

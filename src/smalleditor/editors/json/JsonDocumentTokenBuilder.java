@@ -8,15 +8,12 @@
  */
 package smalleditor.editors.json;
 
-import org.eclipse.jface.text.IDocument;
-
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class JsonDocumentTokenBuilder extends DocumentTokenBuilder {
 
-	public JsonDocumentTokenBuilder(IDocument document) {
-		super(document);
+	public JsonDocumentTokenBuilder() {
 		this.setElements(
 			//new String[] {"'", "\"", "\\", "function", "\n", "todo", "fixme", Pattern.quote("."), Pattern.quote(","), Pattern.quote("{"), Pattern.quote("}"), Pattern.quote("("), Pattern.quote(")"), Pattern.quote("["), Pattern.quote("]"), ":", ";", "=", Pattern.quote("/*"), Pattern.quote("*/"), "//"},
 			new String[] {"\"", "\\", "\n", ",", "{", "}", "[", "]", ":"},

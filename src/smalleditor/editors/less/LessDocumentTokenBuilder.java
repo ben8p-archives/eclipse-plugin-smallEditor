@@ -8,14 +8,12 @@
  */
 package smalleditor.editors.less;
 
-import org.eclipse.jface.text.IDocument;
-
 import smalleditor.editors.css.CssDocumentTokenBuilder;
 
 public class LessDocumentTokenBuilder extends CssDocumentTokenBuilder {
 
-	public LessDocumentTokenBuilder(IDocument document) {
-		super(document);
+	public LessDocumentTokenBuilder() {
+		super();
 	}
 	
 }

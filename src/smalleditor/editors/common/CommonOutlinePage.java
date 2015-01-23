@@ -17,6 +17,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
@@ -28,6 +29,9 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	protected IDocument document;
 	protected DocumentTokenBuilder scanner = null;
 	protected Boolean sort = true;
+	
+	private List<DocumentNode> previousNodes = null;
+	private List elementList = null;
 	
 	protected void setSort(Boolean s) {
 		sort = s;
@@ -49,17 +53,18 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		super.createControl(parent);
 
 		// apply tree filters
-//		PatternFilter filter = new PatternFilter() {};
-//		filter.setIncludeLeadingWildcard(true);
+		PatternFilter filter = new PatternFilter() {};
+		filter.setIncludeLeadingWildcard(true);
 		
 		TreeViewer viewer = getTreeViewer();
+		viewer.setUseHashlookup(true);
 		viewer.setContentProvider(new WorkbenchContentProvider());
 		viewer.setLabelProvider(new WorkbenchLabelProvider());
-
+		//viewer.setInput(ResourcesPlugin.getWorkspace().getRoot());
 		if(this.sort) {
 			viewer.setSorter(new CommonOutlineNameSorter());
 		}
-//		viewer.addFilter(filter);
+		viewer.addFilter(filter);
 		
 	}
 	
@@ -71,71 +76,54 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	 * 
 	 * @return
 	 */
-	private IAdaptable getContentOutline(IDocument document) {
+	private IAdaptable getContentOutline(List<DocumentNode> nodes) {
 		if(scanner == null) {
 			return null;
 		}
-		return new CommonOutlineElementList(getSyntacticElements(document));
-	}
-	protected List getSyntacticElements(IDocument document) {
-		List elementList = new LinkedList();
 		
-		List<DocumentNode> nodes = scanner.buildNodes();
+		return new CommonOutlineElementList(getSyntacticElements(nodes));
+	}
+	private IAdaptable getContentOutline() {
+		if(scanner == null) {
+			return null;
+		}
+		List<DocumentNode> nodes = scanner.buildNodes(document);
+		return getContentOutline(nodes);
+	}
+	protected List getSyntacticElements(List<DocumentNode> nodes) {
+		
+		if(previousNodes != null && previousNodes == nodes) {
+			return elementList;
+		}
+		previousNodes = nodes;
+		
+		elementList = new LinkedList();
+		
+		DocumentNode previousItem = null;
+		
 		Iterator it = nodes.iterator();
-		int currentIndex = 0;
 		while (it.hasNext()) {
 			DocumentNode item = (DocumentNode) it.next();
-			
-			DocumentNode nextItem = it.hasNext() ? nodes.get(currentIndex + 1) : null;
 			
 			int offset = item.getStart();
 			int length = item.getLength();
 			String expression = getExpression(offset, length);
 			
-			Object object = processToken(item, nextItem, expression, offset, length);
+			Object object = processToken(item, previousItem, expression, offset, length);
 			if(object != null) {
 				elementList.add(object);
 			}
 			
 			//System.out.println(item);
-			currentIndex++;
+			previousItem = item;
 		}
 		
-		
-		
-//		scanner.setRange(document, 0, document.getLength());
-//		IToken token = scanner.nextToken();
-//		while (!token.isEOF()) {
-//			int offset = scanner.getTokenOffset();
-//			int length = scanner.getTokenLength();
-//			String expression = getExpression(offset, length);
-//			
-//			
-//			Object object = processToken(token, expression, offset, length);
-//			if(object != null) {
-//				elementList.add(object);
-//			}
-//			
-//			token = scanner.nextToken();
-//		}
+
 		return elementList;
 	}
 
-//	/**
-//	 * Skips ahead and finds next non-whitespace token.
-//	 * 
-//	 */
-//	public IToken nextNonWhitespaceToken() {
-//		IToken aToken = scanner.nextToken();
-//
-//		while (!aToken.isEOF() && aToken.isWhitespace()) {
-//			aToken = scanner.nextToken();
-//		}
-//
-//		return aToken;
-//	}
-	
-	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
+
+	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
 		return null;
 	}
 	
@@ -147,23 +135,25 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	 * Forces the outlinePage to update its contents.
 	 * 
 	 */
+	public void update(List<DocumentNode> nodes) {
+		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(nodes);
+		update(currentNodes);
+	}
 	public void update() {
+		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline();
+		update(currentNodes);
+	}
+	
+	public void update(CommonOutlineElementList currentNodes) {
 		if(getControl() == null) {
-			return;
+			return; 
 		}
 		getControl().setRedraw(false);
 		TreeViewer viewer = getTreeViewer();
 
 		Object[] expanded = viewer.getExpandedElements();
-		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(document);
+		
 		viewer.setInput(currentNodes);
-
-		/*
-		 * Is automatically expanding the tree helpful? Should this be a
-		 * preference? Or should we only expand those nodes that are already
-		 * expanded?
-		 */
-		// getTreeViewer().expandAll();
 
 		// How about just expanding the root if it's alone?
 		if (currentNodes.size() == 1) {

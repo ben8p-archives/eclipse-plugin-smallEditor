@@ -15,23 +15,84 @@ import java.util.List;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 
+import smalleditor.editors.css.CssDocumentTokenBuilder;
+import smalleditor.editors.html.HtmlDocumentTokenBuilder;
+import smalleditor.editors.javascript.JavascriptDocumentTokenBuilder;
+import smalleditor.editors.json.JsonDocumentTokenBuilder;
+
 public class DocumentTokenBuilder {
-	private IDocument document;
 	private List<DocumentNode> nodes;
+//	private ArrayList<String> lines = new ArrayList<String>();
 	private String[] elements = null;
 	private DocumentNodeType[] elementsType = null;
 	private DocumentTokenizer tokenizer;
+	private String previousDocumentContent = null;
 	
-	public DocumentTokenBuilder(IDocument document) {
+	private static DocumentTokenBuilder instanceLess = null;
+	private static DocumentTokenBuilder instanceCss = null;
+	private static DocumentTokenBuilder instanceJs = null;
+	private static DocumentTokenBuilder instanceJson = null;
+	private static DocumentTokenBuilder instanceHtml = null;
+	
+	public static DocumentTokenBuilder getDefault(DocumentType type) {
+		if(type == DocumentType.CSS) {
+			instanceCss = instanceCss == null ? new CssDocumentTokenBuilder() : instanceCss;
+			return instanceCss;
+		}
+		if(type == DocumentType.LESS) {
+			instanceLess = instanceLess == null ? new CssDocumentTokenBuilder() : instanceLess;
+			return instanceLess;
+		}
+		if(type == DocumentType.JS) {
+			instanceJs = instanceJs == null ? new JavascriptDocumentTokenBuilder() : instanceJs;
+			return instanceJs;
+		}
+		if(type == DocumentType.JSON) {
+			instanceJson = instanceJson == null ? new JsonDocumentTokenBuilder() : instanceJson;
+			return instanceJson;
+		}
+		if(type == DocumentType.HTML) {
+			instanceHtml = instanceHtml == null ? new HtmlDocumentTokenBuilder() : instanceHtml;
+			return instanceHtml;
+		}
+		
+		return null;
+	}
+
+	
+	public DocumentTokenBuilder() {
 		super();
-		this.document = document;
 	}
 	protected void setElements(String[] newElements, DocumentNodeType[] newElementsType) {
 		elements = newElements;
 		elementsType = newElementsType;
 	}
 	
-	public List<DocumentNode> buildNodes() {
+//	private String getLine(IDocument document, int line) {
+//		String lineContent;
+//		try {
+//			lineContent = lines.get(line);
+//			if(lineContent == null) {
+//				lineContent = document.get(
+//					document.getLineOffset(line),
+//					document.getLineLength(line)
+//				);
+//				lines.add(line, lineContent);
+//			}
+//			return lineContent;
+//			
+//		} catch (BadLocationException e) {
+//			
+//		}
+//		return null;
+//	}
+	
+	public List<DocumentNode> buildNodes(IDocument document) {
+		String documentContent = document.get();
+		if(previousDocumentContent != null && previousDocumentContent.equals(documentContent)) {
+			return nodes;
+		}
+		previousDocumentContent = documentContent;
 		
 		nodes = new LinkedList<DocumentNode>();
 		
@@ -41,6 +102,7 @@ public class DocumentTokenBuilder {
 			DocumentNode node = null;
 			
 			tokenizer = new DocumentTokenizer(document, elements);
+			System.out.println("token counts:" + tokenizer.countTokens());
 			while(tokenizer.hasMoreTokens()) {
 				String token = tokenizer.nextToken();
 				
@@ -54,10 +116,10 @@ public class DocumentTokenBuilder {
 				}
 				
 				
-				fromIndex = document.get().indexOf(token, fromIndex);
+				fromIndex = documentContent.indexOf(token, fromIndex);
 				
 //				try {
-//					String lineContent = 
+//					String lineContent = getLine(document, document.getLineOfOffset(fromIndex));
 //						document.get(
 //							document.getLineOffset(
 //								document.getLineOfOffset(fromIndex)
@@ -77,17 +139,17 @@ public class DocumentTokenBuilder {
 				int length = token.length();
 				
 				if(type == DocumentNodeType.OneLineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
-					node = createEOLNode(type, fromIndex, token);
+					node = createEOLNode(document, type, fromIndex, token);
 				} else if(type == DocumentNodeType.OpenMultilineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
-					node = createEOBNode(type, fromIndex, token, DocumentNodeType.CloseMultilineComment, true);
+					node = createEOBNode(document, type, fromIndex, token, DocumentNodeType.CloseMultilineComment, true);
 				} else if(type == DocumentNodeType.Todo || type == DocumentNodeType.Fixme) {
-					node = createEOBNode(type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment, false);
+					node = createEOBNode(document, type, fromIndex, token, previousType == DocumentNodeType.OneLineComment ? DocumentNodeType.NewLine : DocumentNodeType.CloseMultilineComment, false);
 				} else if(type == DocumentNodeType.String) {
-					node = createEOBNode(type, fromIndex, token, DocumentNodeType.String, true);
+					node = createEOBNode(document, type, fromIndex, token, DocumentNodeType.String, true);
 				} else if(type == DocumentNodeType.SingleQuoteString) {
-					node = createEOBNode(type, fromIndex, token, DocumentNodeType.SingleQuoteString, true);
+					node = createEOBNode(document, type, fromIndex, token, DocumentNodeType.SingleQuoteString, true);
 				} else {
-					node = createDefaultNode(type, fromIndex, length, token);
+					node = createDefaultNode(document, type, fromIndex, length, token);
 				}
 				
 				if (node != null) {
@@ -101,11 +163,11 @@ public class DocumentTokenBuilder {
 		return nodes;
 	}
 	
-	protected DocumentNode createDefaultNode(DocumentNodeType type, int offset, int length, String expression) {
-		return createNode(type, offset, length, expression);
+	protected DocumentNode createDefaultNode(IDocument document, DocumentNodeType type, int offset, int length, String expression) {
+		return createNode(document, type, offset, length, expression);
 	}
 	
-	protected DocumentNode createNode(DocumentNodeType type, int offset, int length, String expression) {
+	protected DocumentNode createNode(IDocument document, DocumentNodeType type, int offset, int length, String expression) {
 		DocumentNode node = new DocumentNode(type);
 		node.setPosition(offset, length);
 		try {
@@ -119,7 +181,7 @@ public class DocumentTokenBuilder {
 	}
 	
 	//end of block
-	protected DocumentNode createEOBNode(DocumentNodeType type, int offset, String expression, DocumentNodeType closeType, Boolean includeCloseToken) {
+	protected DocumentNode createEOBNode(IDocument document, DocumentNodeType type, int offset, String expression, DocumentNodeType closeType, Boolean includeCloseToken) {
 		//go til the end
 		int length = 0;
 
@@ -136,12 +198,12 @@ public class DocumentTokenBuilder {
 				break;
 			}
 		}
-		return createNode(type, offset, length, expression);
+		return createNode(document, type, offset, length, expression);
 	}
 	
 	//end of line
-	protected DocumentNode createEOLNode(DocumentNodeType type, int offset, String expression) {
-		return createEOBNode(type, offset, expression, DocumentNodeType.NewLine, false);
+	protected DocumentNode createEOLNode(IDocument document, DocumentNodeType type, int offset, String expression) {
+		return createEOBNode(document, type, offset, expression, DocumentNodeType.NewLine, false);
 	}
 	
 	protected DocumentNodeType getNodeType(String token, String previousToken, String nextToken) {

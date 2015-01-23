@@ -15,18 +15,18 @@ import org.eclipse.jface.text.IDocument;
 public class DocumentTokenizer {
 	private String[] tokens;
 	private int cursorPosition = -1;
-	private final String NEWLINE = "NEWLINEDELIMITER_asdf54as5f647af7weafsadfasfa7a8wf7r8aer";
+//	private final String NEWLINE = "NEWLINEDELIMITER_asdf54as5f647af7weafsadfasfa7a8wf7r8aer";
 	
 	public DocumentTokenizer(IDocument document, String[] wordsToSeparate) {
 		String content = document.get();
 		
+		//content = content.replaceAll("[\t ]+", "");
 		for(String wordToSeparate: wordsToSeparate) {
 			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + (wordToSeparate == "\\" ? "\\\\" : wordToSeparate) + " ");
 		}
+		//content = content.replaceAll("\n", NEWLINE + "\n");
 		
-		content = content.replaceAll("\n", NEWLINE + "\n");
-		
-		tokens = content.split("\\s+");
+		tokens = content.split("[\t ]+");
 		
 	}
 
@@ -57,13 +57,15 @@ public class DocumentTokenizer {
 	public String getNextToken() {
 		int newCursor = cursorPosition + 1;
 		if(tokens.length <= newCursor) { return null; }
-		return tokens[newCursor].replaceAll(NEWLINE, "\n");
+		//tokens[newCursor] = tokens[newCursor].replaceAll(NEWLINE, "\n");
+		return tokens[newCursor];
 	}
 	/* get the previous, no cursor move */
 	public String getPreviousToken() {
 		int newCursor = cursorPosition - 1;
 		if(newCursor < 0) { return null; }
-		return tokens[newCursor].replaceAll(NEWLINE, "\n");
+		//tokens[newCursor] = tokens[newCursor].replaceAll(NEWLINE, "\n");
+		return tokens[newCursor];
 	}
 	
 }

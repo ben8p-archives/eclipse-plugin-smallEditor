@@ -1,5 +1,6 @@
 package smalleditor.editors.html;
 
+import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 
@@ -11,7 +12,7 @@ public class HtmlReconcilingStrategy extends CommonReconcilingStrategy {
 	
 	@Override
 	protected HtmlDocumentTokenBuilder getDocumentTokenBuilder() {
-		return new HtmlDocumentTokenBuilder(document);
+		return (HtmlDocumentTokenBuilder) HtmlDocumentTokenBuilder.getDefault(DocumentType.HTML);
 	}
 	
 }

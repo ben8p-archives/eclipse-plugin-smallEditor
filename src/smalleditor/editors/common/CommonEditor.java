@@ -10,7 +10,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
@@ -36,6 +35,7 @@ import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
+import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.preferences.PreferenceNames;
 
 public class CommonEditor extends TextEditor implements ISelectionChangedListener {
@@ -57,12 +57,12 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 
 	}
 	
-	public void doSave(IProgressMonitor monitor) {
-		super.doSave(monitor);
-		if (outlinePage != null) {
-			outlinePage.update();
-		}
-	}
+//	public void doSave(IProgressMonitor monitor) {
+//		super.doSave(monitor);
+//		if (outlinePage != null) {
+//			outlinePage.update();
+//		}
+//	}
 
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
@@ -112,13 +112,22 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	 * This might be a hack: We're trapping this update to ensure that the 
 	 * outline is always up to date.
 	 */
-	protected void updateContentDependentActions() {
-		super.updateContentDependentActions();
-
-		if (!updatingContentDependentActions && outlinePage != null) {
-				updatingContentDependentActions = true;
-				outlinePage.update();
-				updatingContentDependentActions = false;
+//	protected void updateContentDependentActions() {
+//		super.updateContentDependentActions();
+//
+//		if (!updatingContentDependentActions && outlinePage != null) {
+//			updatingContentDependentActions = true;
+////			System.out.println("outlinePage.update");
+//			outlinePage.update();
+////			System.out.println("outlinePage.update DONE");
+//			updatingContentDependentActions = false;
+//		}
+//		
+//		
+//	}
+	public void updateOutline(List<DocumentNode> nodes) {
+		if(outlinePage != null) {
+			outlinePage.update(nodes);
 		}
 	}
 	

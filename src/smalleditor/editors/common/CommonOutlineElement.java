@@ -65,6 +65,13 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		anElement.setParent(this);
 		//}
 	}
+	public void removeLastChildElement() {
+		CommonOutlineElement anElement = (CommonOutlineElement) this.children.get(this.children.size() - 1);
+		this.children.remove(anElement);
+		this.childrenByName.remove(anElement.name);
+
+		//}
+	}
 
 	/**
 	 * Method declared on IWorkbenchAdapter

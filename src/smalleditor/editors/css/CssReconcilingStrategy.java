@@ -2,8 +2,13 @@ package smalleditor.editors.css;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.progress.WorkbenchJob;
 
+import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.css.CssLinterBuilder;
@@ -22,12 +27,24 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 
 	@Override
 	protected CssDocumentTokenBuilder getDocumentTokenBuilder() {
-		return new CssDocumentTokenBuilder(document);
+		return (CssDocumentTokenBuilder) CssDocumentTokenBuilder.getDefault(DocumentType.CSS);
 	}
 	
 	protected void processReconcile() {
 		super.processReconcile();
-		lintContent();
+		WorkbenchJob workbenchJob = new WorkbenchJob("Lint content") {//$NON-NLS-1$
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				lintContent();
+				return Status.OK_STATUS;
+			}
+		};
+		workbenchJob.setPriority(WorkbenchJob.DECORATE);
+		workbenchJob.schedule();
+//		Display.getDefault().asyncExec(new Runnable() {
+//			public void run() {
+//				lintContent();
+//			}
+//		});
 	}
 
 	private void lintContent() {

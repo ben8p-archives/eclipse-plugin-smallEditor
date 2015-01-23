@@ -14,6 +14,7 @@ import org.eclipse.jface.text.IDocument;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineFunctionElement;
 import smalleditor.editors.common.CommonOutlinePage;
 import smalleditor.utils.CharUtility;
@@ -30,12 +31,12 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 
 	@Override
 	protected DocumentTokenBuilder getScanner() {
-		JavascriptDocumentTokenBuilder scanner = new JavascriptDocumentTokenBuilder(this.document);
+		JavascriptDocumentTokenBuilder scanner = (JavascriptDocumentTokenBuilder) JavascriptDocumentTokenBuilder.getDefault(DocumentType.JS);
 		return scanner;
 	}
 
 	@Override
-	protected Object processToken(DocumentNode node, DocumentNode nextNode, String expression, int offset, int length) {
+	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
 		try {
 			if (node.getType() == DocumentNodeType.Function) {
 				return addFunction(expression, offset, length);

@@ -28,11 +28,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
-/**
- * DOCUMENT ME!
- * 
- * @author Addi
- */
+
 public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	protected List children = new ArrayList();
 

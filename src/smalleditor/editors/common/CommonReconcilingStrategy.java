@@ -3,6 +3,8 @@ package smalleditor.editors.common;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Position;
@@ -10,6 +12,7 @@ import org.eclipse.jface.text.reconciler.DirtyRegion;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategyExtension;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
@@ -58,7 +61,7 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 	}
 	
 	protected DocumentTokenBuilder getDocumentTokenBuilder() {
-		return new DocumentTokenBuilder(document);
+		return null;
 	}
 	
 	protected void processReconcile() {
@@ -66,10 +69,20 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 			return;
 		}
 		
-		List<DocumentNode> nodes = getDocumentTokenBuilder().buildNodes();
+		WorkbenchJob workbenchJob = new WorkbenchJob("Refresh Outline") {//$NON-NLS-1$
+			public IStatus runInUIThread(IProgressMonitor monitor) {
 		
-		updateFoldingStructure(nodes);
-		updateTaskAnnotation(nodes);
+				List<DocumentNode> nodes = getDocumentTokenBuilder().buildNodes(document);
+				
+				updateFoldingStructure(nodes);
+				updateTaskAnnotation(nodes);
+				updateOutline(nodes);
+				return Status.OK_STATUS;
+			}
+	
+		};
+		workbenchJob.setPriority(WorkbenchJob.DECORATE);
+		workbenchJob.schedule();
 	}
 
 	private void updateTaskAnnotation(List<DocumentNode> nodes) {
@@ -83,5 +96,11 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 
 		this.editor.updateFoldingStructure(fPositions);
 	}
+	private void updateOutline(List<DocumentNode> nodes) {
+//		List<Position> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
+//
+		this.editor.updateOutline(nodes);
+	}
+	
 
 }
