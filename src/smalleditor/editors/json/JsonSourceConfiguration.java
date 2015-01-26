@@ -53,7 +53,7 @@ public class JsonSourceConfiguration extends CommonSourceConfiguration {
 	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
 
-	public static final String[] CONTENT_TYPES = new String[] { JSON_DEFAULT,
+	public static final String[] CONTENT_TYPES = new String[] { IDocument.DEFAULT_CONTENT_TYPE, JSON_DEFAULT,
 		JSON_COMMENT, JSON_KEYWORD, JSON_STRING, JSON_KEYSTRING};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE } };

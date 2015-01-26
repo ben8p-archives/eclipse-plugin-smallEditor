@@ -1,5 +1,9 @@
 package smalleditor.editors.html;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
@@ -15,6 +19,17 @@ public class HtmlDocumentProvider extends CommonDocumentProvider {
 	public HtmlDocumentProvider() {
 		super();
 		sourceConfiguration = HtmlSourceConfiguration.getDefault();
+	}
+	
+	protected String[] getPartitions() {
+		//Array of constant token types that will be color hilighted.
+		String[] n = super.getPartitions();
+		final List<String> list = new ArrayList<String>();
+		Collections.addAll(list, n);
+		list.remove(IDocument.DEFAULT_CONTENT_TYPE);
+		n = list.toArray(new String[list.size()]);
+		
+		return n;
 	}
 
 	protected RuleBasedPartitionScanner getPartitionScanner() {

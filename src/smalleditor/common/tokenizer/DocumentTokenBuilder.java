@@ -102,7 +102,7 @@ public class DocumentTokenBuilder {
 			DocumentNode node = null;
 			
 			tokenizer = new DocumentTokenizer(document, elements);
-			System.out.println("token counts:" + tokenizer.countTokens());
+//			System.out.println("token counts:" + tokenizer.countTokens());
 			while(tokenizer.hasMoreTokens()) {
 				String token = tokenizer.nextToken();
 				

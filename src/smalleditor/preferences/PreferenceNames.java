@@ -9,5 +9,7 @@ public interface PreferenceNames {
 	String P_SHOW_MATCHING_BRACKETS = "matchingBrackets";
 //	String P_MARK_OCCURENCES_COLOR = "markOccurencesColor";
 	String P_MARK_OCCURENCES = "markOccurences";
+	String P_TRAILING_SPACE = "removeTrailingSpaces";
+	String P_LINT_CODE = "enableCodeLinters";
 	
 }

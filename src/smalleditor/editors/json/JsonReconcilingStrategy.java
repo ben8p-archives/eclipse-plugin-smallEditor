@@ -8,11 +8,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.WorkbenchJob;
 
+import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.common.CommonLinterBuilder;
 import smalleditor.linters.json.JsonLinterBuilder;
+import smalleditor.preferences.PreferenceNames;
 
 public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
 	protected CommonLinterBuilder linterBuilder;
@@ -34,6 +36,12 @@ public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
 	
 	protected void processReconcile() {
 		super.processReconcile();
+		
+		Boolean useLinters = Activator.getDefault().getPreferenceStore().getBoolean(
+				PreferenceNames.P_LINT_CODE);
+		if (useLinters == false) {
+			return;
+		}
 		
 		WorkbenchJob workbenchJob = new WorkbenchJob("Lint content") {//$NON-NLS-1$
 			public IStatus runInUIThread(IProgressMonitor monitor) {

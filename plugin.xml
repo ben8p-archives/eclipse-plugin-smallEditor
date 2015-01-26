@@ -41,8 +41,8 @@
 	<extension point="org.eclipse.ui.preferencePages">
 		<page 
 				name="smallEditor preferences" 
-				class="smalleditor.preference.PreferencePage" 
-				id="smalleditor.preference.PreferencePage">
+				class="smalleditor.preferences.PreferencePage" 
+				id="smalleditor.preferences.PreferencePage">
 		</page>
 	</extension>
 	

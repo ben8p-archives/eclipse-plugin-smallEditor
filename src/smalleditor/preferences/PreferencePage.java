@@ -38,14 +38,19 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 				getFieldEditorParent()));
 		addField(new ColorFieldEditor(P_KEYWORD_COLOR, "&Keyword Color:",
 				getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_DEFAULT_COLOR, "D&efault Color:",
+		addField(new ColorFieldEditor(P_DEFAULT_COLOR, "&Default Color:",
 				getFieldEditorParent()));
 		
-		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, "&Show matching brackets", getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, "Color for matching brackets:",
+		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, "Show matching &brackets", getFieldEditorParent()));
+		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, "Color for &matching brackets:",
 				getFieldEditorParent()));
 		
-		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, "&Mark occurences", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, "Mark &occurences", getFieldEditorParent()));
+		
+		addField(new BooleanFieldEditor(P_TRAILING_SPACE, "&Remove trailing spaces on save", getFieldEditorParent()));
+		
+		addField(new BooleanFieldEditor(P_LINT_CODE, "&Enable code linters", getFieldEditorParent()));
+		
 //		addField(new ColorFieldEditor(P_MARK_OCCURENCES_COLOR, "Color for matching occurences:",
 //				getFieldEditorParent()));
 	}

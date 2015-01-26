@@ -10,6 +10,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
@@ -208,6 +209,19 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void doSave(IProgressMonitor progressMonitor) {
+		Boolean removeTrailingSpaces = Activator.getDefault().getPreferenceStore().getBoolean(
+				PreferenceNames.P_TRAILING_SPACE);
+		if (removeTrailingSpaces == true) {
+			IDocument document = this.getDocumentProvider().getDocument(
+					this.getEditorInput());
+			document.set(document.get().replaceAll("(?m)[ \t]+$", ""));
+		}
+		
+		super.doSave(progressMonitor);
 	}
 
 	private void markOccurrences() {

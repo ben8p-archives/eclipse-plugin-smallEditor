@@ -63,7 +63,7 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
 
-	public static final String[] CONTENT_TYPES = new String[] { HTML_DEFAULT,
+	public static final String[] CONTENT_TYPES = new String[] { /*IDocument.DEFAULT_CONTENT_TYPE,*/ HTML_DEFAULT,
 		HTML_COMMENT, HTML_TAG, HTML_STRING, HTML_ATTRIBUTE, HTML_SCRIPT, HTML_STYLE, HTML_SVG, HTML_TAG_CLOSE, HTML_CDATA, HTML_DOCTYPE};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE },
@@ -122,6 +122,7 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 		return TextUtility.combine(new String[][] { CONTENT_TYPES, JavascriptSourceConfiguration.CONTENT_TYPES,
 				CssSourceConfiguration.CONTENT_TYPES });
 	}
+	
 
 	public String[][] getTopContentTypes() {
 		return TOP_CONTENT_TYPES;

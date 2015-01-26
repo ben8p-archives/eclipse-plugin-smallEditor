@@ -1,13 +1,14 @@
 package smalleditor;
 
-import org.eclipse.ui.plugin.*;
-//import org.eclipse.core.runtime.*;
-import org.eclipse.core.resources.*;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import smalleditor.preferences.PreferenceNames;
-
-import java.util.*;
 
 public class Activator extends AbstractUIPlugin {
 	// The shared instance.
@@ -41,6 +42,7 @@ public class Activator extends AbstractUIPlugin {
 	public static IWorkspace getWorkspace() {
 		return ResourcesPlugin.getWorkspace();
 	}
+	
 
 //	public static String getResourceString(String key) {
 //		ResourceBundle bundle = Activator.getDefault().getResourceBundle();
@@ -84,7 +86,9 @@ public class Activator extends AbstractUIPlugin {
 		store.setDefault(PreferenceNames.P_MATCHING_BRACKETS_COLOR, "128,128,128");
 		
 		store.setDefault(PreferenceNames.P_MARK_OCCURENCES, true);
-//		store.setDefault(PreferenceNames.P_MARK_OCCURENCES_COLOR, "128,128,128");
+		store.setDefault(PreferenceNames.P_TRAILING_SPACE, true);
+		store.setDefault(PreferenceNames.P_LINT_CODE, true);
+		
 
 		this.defaultsInitialized = true;
 	}

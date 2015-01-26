@@ -30,6 +30,7 @@ public class CommonSourceConfiguration implements IPartitioningConfiguration,
 	}
 	protected CommonSourceConfiguration() {
 	}
+	
 	public String[] getContentTypes() {
 		return null;
 	}

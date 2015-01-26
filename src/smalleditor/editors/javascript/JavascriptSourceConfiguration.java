@@ -54,7 +54,7 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 	private CommonScanner scanner;
 
 	public static final String[] CONTENT_TYPES = new String[] { 
-		JS_DEFAULT, JS_COMMENT, JS_KEYWORD, JS_STRING};
+		IDocument.DEFAULT_CONTENT_TYPE, JS_DEFAULT, JS_COMMENT, JS_KEYWORD, JS_STRING};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE } };
 	/**
