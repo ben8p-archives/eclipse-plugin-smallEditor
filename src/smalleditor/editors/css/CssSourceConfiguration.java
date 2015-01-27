@@ -18,14 +18,18 @@ import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.rules.EndOfLineRule;
 import org.eclipse.jface.text.rules.IPredicateRule;
+import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.MultiLineRule;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WordPatternRule;
+import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
+import smalleditor.common.rules.AttributeNameWordDetector;
+import smalleditor.common.rules.ExtendedWordRule;
 import smalleditor.common.rules.ISubPartitionScanner;
 import smalleditor.common.rules.SubPartitionScanner;
 import smalleditor.editors.common.CommonEditor;
@@ -34,6 +38,7 @@ import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.editors.common.CommonPredicateWordRule;
 import smalleditor.editors.common.CommonScanner;
 import smalleditor.editors.common.CommonSourceConfiguration;
+import smalleditor.editors.html.HtmlTokenType;
 import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.PreferenceNames;
 import smalleditor.utils.Constants;
@@ -289,44 +294,65 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 		 */
 		
 		
-		List rules = new ArrayList();
+		List<IPredicateRule> rules = new ArrayList<IPredicateRule>();
 
 		rules.add(new MultiLineRule("/*", "*/", getToken(CSS_COMMENT)));
 		rules.add(new EndOfLineRule("//", getToken(CSS_COMMENT)));
 		
 		rules.add(new SingleLineRule("\"", "\"", getToken(CSS_STRING)));
 		rules.add(new SingleLineRule("\'", "\'", getToken(CSS_STRING)));
-		rules.add(new SingleLineRule("@","import", getToken(CSS_KEYWORD)));
-		rules.add(new SingleLineRule("@","media", getToken(CSS_KEYWORD)));
 		
-		rules.add(new SingleLineRule("@", ";", getToken(CSS_KEYWORD)));
+//		rules.add(new SingleLineRule("@","import", getToken(CSS_KEYWORD)));
+//		rules.add(new SingleLineRule("@","media", getToken(CSS_KEYWORD)));
+//		rules.add(new SingleLineRule("@", ";", getToken(CSS_KEYWORD)));
+		
+		WordRule atWordRule = new ExtendedWordRule(
+				new CssAtWordDetector(),
+				getToken(CSS_KEYWORD), true) {
+			@Override
+			protected IToken getWordToken(String word) {
+				return null;
+			}
+		};
+		rules.add((IPredicateRule) atWordRule);
+		
 
 		rules.add(new SingleLineRule("(", ")", getToken(CSS_STRING)));
 		rules.add(new SingleLineRule("!" ,"important", getToken(CSS_KEYWORD)));
 		
+		WordRule hexaWordRule = new ExtendedWordRule(
+				new CommonHexaColorDetector(),
+				getToken(CSS_COLOR), true) {
+			@Override
+			protected IToken getWordToken(String word) {
+				return null;
+			}
+		};
+		rules.add((IPredicateRule) hexaWordRule);
 		
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "0", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "1", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "2", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "3", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "4", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "5", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "6", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "7", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "8", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "9", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "a", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "b", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "c", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "d", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "e", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "f", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "A", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "B", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "C", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "D", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "E", getToken(CSS_COLOR)));
-		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "F", getToken(CSS_COLOR)));
+		
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "0", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "1", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "2", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "3", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "4", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "5", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "6", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "7", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "8", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "9", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "a", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "b", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "c", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "d", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "e", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "f", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "A", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "B", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "C", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "D", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "E", getToken(CSS_COLOR)));
+//		rules.add(new WordPatternRule(new CommonHexaColorDetector(), "#", "F", getToken(CSS_COLOR)));
 		
 		List<String> allKeywords = new ArrayList<String>();
 		for (String keywordToken : keywordTokens) {

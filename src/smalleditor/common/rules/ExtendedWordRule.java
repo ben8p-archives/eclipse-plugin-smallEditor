@@ -8,13 +8,14 @@
 package smalleditor.common.rules;
 
 import org.eclipse.jface.text.rules.ICharacterScanner;
+import org.eclipse.jface.text.rules.IPredicateRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.IWordDetector;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WordRule;
 
-public abstract class ExtendedWordRule extends WordRule {
-
+public abstract class ExtendedWordRule extends WordRule implements IPredicateRule {
+	protected IToken successToken = Token.UNDEFINED;
 	/** Buffer used for pattern detection. */
 	private final StringBuffer buffer = new StringBuffer();
 
@@ -43,8 +44,26 @@ public abstract class ExtendedWordRule extends WordRule {
 		super(detector, defaultToken, ignoreCase);
 		this.ignoreCase = ignoreCase;
 	}
+	
+	public IToken getSuccessToken() {
+		return successToken;
+	}
 
 	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.text.rules.IPredicateRule#evaluate(org.eclipse.jface
+	 * .text.rules.ICharacterScanner, boolean)
+	 */
+	public IToken evaluate(ICharacterScanner scanner, boolean resume) {
+		successToken = this.evaluate(scanner);// true);
+		return successToken;
+	}
+	
+	/*
+	 * 
+	 * 
 	 * @see IRule#evaluate(ICharacterScanner)
 	 */
 	public IToken evaluate(ICharacterScanner scanner) {
