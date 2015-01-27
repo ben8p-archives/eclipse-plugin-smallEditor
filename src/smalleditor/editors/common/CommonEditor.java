@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.filebuffers.FileBuffers;
+import org.eclipse.core.filebuffers.manipulation.RemoveTrailingWhitespaceOperation;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -92,7 +94,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
-			IDocument document = getDocumentProvider().getDocument(getEditorInput());
+			IDocument document = getDocument();
 
 			outlinePage = getOutlinePage(document);
 			if(outlinePage != null) {
@@ -187,8 +189,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	}
 
 	public void updateTask(List<Position> positions) {
-		IDocument document = this.getDocumentProvider().getDocument(
-				this.getEditorInput());
+		IDocument document = getDocument();
 		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 
 		IMarker marker;
@@ -216,17 +217,27 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		Boolean removeTrailingSpaces = Activator.getDefault().getPreferenceStore().getBoolean(
 				PreferenceNames.P_TRAILING_SPACE);
 		if (removeTrailingSpaces == true) {
-			IDocument document = this.getDocumentProvider().getDocument(
-					this.getEditorInput());
-			document.set(document.get().replaceAll("(?m)[ \t]+$", ""));
+			RemoveTrailingWhitespaceOperation removeSpacesOperation = new RemoveTrailingWhitespaceOperation();
+			try {
+				removeSpacesOperation.run(
+						FileBuffers.getTextFileBufferManager().getTextFileBuffer(getDocument()),
+						progressMonitor);
+			} catch (Exception e) {
+				System.out
+						.println("Error while removing the trailing whitespaces.");
+			}
 		}
 		
 		super.doSave(progressMonitor);
 	}
 
+	private IDocument getDocument() {
+		//return getSourceViewer().getDocument();
+		return this.getDocumentProvider().getDocument(getEditorInput());
+	}
+	
 	private void markOccurrences() {
-		IDocument document = this.getDocumentProvider().getDocument(
-				this.getEditorInput());
+		IDocument document = getDocument();
 		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 		ISelection selection = getSelectionProvider().getSelection();
 		String markerType = "slicemarker";

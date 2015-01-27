@@ -50,53 +50,54 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 		String functionSignature;
 		try {
 			functionSignature = getNaked(expression);
-		} catch (StringIndexOutOfBoundsException e) {
-			return null;
-		}
-		int braceOffset = functionSignature.indexOf("(");
-		String functionName = functionSignature.substring(0, braceOffset).trim();
-		String arguments = functionSignature.substring(
-				functionSignature.indexOf("("),
-				functionSignature.indexOf(")") + 1);
-
-		if(functionName.equals("")) {
-			int line = document.getLineOfOffset(offset);
-			int lineOffset = document.getLineOffset(line);
-			String lineStr = document.get(lineOffset, offset - lineOffset);
-			String[] lineElements = lineStr.replaceAll("(\\w+)", " $1 ").replaceAll("\\s+", " ").split(" ");
-			int cursor = lineElements.length;
-			Boolean pickupNext = false;
-			while(--cursor >= 0) {
-//				System.out.println(lineElements[cursor]);
-				if(!lineElements[cursor].trim().equals("")) {
-					
-					if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
-						pickupNext = true;
-						continue;
-					}
-					if(pickupNext) {
-						functionName = lineElements[cursor];
-						if(!functionName.matches("\\w+")) {
-							functionName = "";
+			int braceOffset = functionSignature.indexOf("(");
+			String functionName = functionSignature.substring(0, braceOffset).trim();
+			String arguments = functionSignature.substring(
+					functionSignature.indexOf("("),
+					functionSignature.indexOf(")") + 1);
+	
+			if(functionName.equals("")) {
+				int line = document.getLineOfOffset(offset);
+				int lineOffset = document.getLineOffset(line);
+				String lineStr = document.get(lineOffset, offset - lineOffset);
+				String[] lineElements = lineStr.replaceAll("(\\w+)", " $1 ").replaceAll("\\s+", " ").split(" ");
+				int cursor = lineElements.length;
+				Boolean pickupNext = false;
+				while(--cursor >= 0) {
+	//				System.out.println(lineElements[cursor]);
+					if(!lineElements[cursor].trim().equals("")) {
+						
+						if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
+							pickupNext = true;
+							continue;
 						}
-						break;
+						if(pickupNext) {
+							functionName = lineElements[cursor];
+							if(!functionName.matches("\\w+")) {
+								functionName = "";
+							}
+							break;
+						}
 					}
 				}
+				
+				
+	//			System.out.println(functionName);
 			}
 			
+			//if (!functions.containsKey(functionName)) {
+			CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
+	
 			
-//			System.out.println(functionName);
+			//functions.put(functionName, aFunction);
+	
+			//detectFunctionContext(aFunction);
+			
+			return aFunction;
 		}
-		
-		//if (!functions.containsKey(functionName)) {
-		CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
-
-		
-		//functions.put(functionName, aFunction);
-
-		//detectFunctionContext(aFunction);
-		
-		return aFunction;
+		catch (StringIndexOutOfBoundsException e) {
+			return null;
+		}
 		//}
 		//return null;
 		

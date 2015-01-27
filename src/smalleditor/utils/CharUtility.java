@@ -10,7 +10,7 @@ package smalleditor.utils;
  *
  */
 public final class CharUtility {
-	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}'};
+	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}', '\'', '\'', '"', '"'};
 	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
 	public static final char[] jsonBrackets = {'[', ']', '{', '}'};
 	public static final char[] jsonContentAssistTriggers = {':'};

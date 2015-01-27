@@ -38,7 +38,7 @@ public class HtmlDocumentProvider extends CommonDocumentProvider {
 				new NullPartitionerSwitchStrategy());
 	}
 	@Override
-	protected void setupDocument(Object element, IDocument document) {		
+	protected void setupDocument(IDocument document) {		
 		IDocumentPartitioner partitioner = new ExtendedFastPartitioner(
 				 getPartitionScanner(), getPartitions());
 		partitioner.connect(document);
