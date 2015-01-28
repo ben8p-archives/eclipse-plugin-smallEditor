@@ -73,6 +73,10 @@ public final class TextUtility {
 		return arrays;
 	}
 
+	public static boolean isEmpty(String text) {
+		return text == null || text.trim().length() == 0;
+	}
+
 	public static char[][] removeDuplicates(char[][] arrays) {
 		List<char[]> list = new ArrayList<char[]>();
 		Set<String> strings = new HashSet<String>();
