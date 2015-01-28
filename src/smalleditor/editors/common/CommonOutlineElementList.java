@@ -143,7 +143,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 * @return
 	 */
 	public String getLabel(Object object) {
-		return object == null ? "" : object.toString();
+		return object == null ? "" : object.toString(); //$NON-NLS-1$
 	}
 
 	/**

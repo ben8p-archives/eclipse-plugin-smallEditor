@@ -67,7 +67,7 @@ public class DocumentNode {
 
 	public void setValue(String value) {
 		if (value != null) {
-			value.replaceAll("\\\"", "\"");
+			value.replaceAll("\\\"", "\""); //$NON-NLS-1$ //$NON-NLS-2$
 			this.value = value;
 		}
 	}
@@ -82,9 +82,9 @@ public class DocumentNode {
 
 	@Override
 	public String toString() {
-		String toString = "[[type: " + type.toString();
-		toString += ", offset: " + position.offset + ", length: " + position.length;
-		toString += ", line: " + line + ", value: " + value + "]]";
+		String toString = "[[type: " + type.toString(); //$NON-NLS-1$
+		toString += ", offset: " + position.offset + ", length: " + position.length; //$NON-NLS-1$ //$NON-NLS-2$
+		toString += ", line: " + line + ", value: " + value + "]]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return toString;
 	}
 

@@ -178,9 +178,6 @@ public final class CompositePartitionScanner extends RuleBasedPartitionScanner {
 		if (defaultTokenState != null && defaultTokenState.hasToken()) {
 			IToken token = defaultTokenState.token;
 			defaultTokenState = null;
-//			if (traceEnabled) {
-//				trace(MessageFormat.format("> {0} {1}:{2}", token.getData(), getTokenOffset(), getTokenLength())); //$NON-NLS-1$
-//			}
 			return token;
 		}
 		if (fContentType == null || hasSwitch) {
@@ -314,15 +311,9 @@ public final class CompositePartitionScanner extends RuleBasedPartitionScanner {
 				defaultTokenState = null;
 			}
 		}
-//		if (traceEnabled) {
-//			trace(MessageFormat.format("> {0} {1}:{2}", token.getData(), getTokenOffset(), getTokenLength())); //$NON-NLS-1$
-//		}
 		return token;
 	}
 
-//	private void trace(String string) {
-//		IdeLog.logTrace(CommonEditorPlugin.getDefault(), string);
-//	}
 
 	private boolean hasSwitchingSequence() {
 		if (currentPartitionScanner.foundSequence()) {

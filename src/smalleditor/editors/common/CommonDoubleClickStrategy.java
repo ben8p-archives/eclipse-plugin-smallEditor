@@ -59,7 +59,7 @@ public class CommonDoubleClickStrategy implements ITextDoubleClickStrategy {
 				// Otherwise, if one of the characters is a non-blank, then a
 				// word is any run of
 				// non-blank characters.
-				String punctuation = "({[]})'\"";
+				String punctuation = "({[]})'\""; //$NON-NLS-1$
 				if (Character.isJavaIdentifierPart(currChar)
 						|| Character.isJavaIdentifierPart(prevChar))
 					result = matchIdentifiers(doc, caretPos);
@@ -115,9 +115,9 @@ public class CommonDoubleClickStrategy implements ITextDoubleClickStrategy {
 		// boolean upScanInclusive = false;
 		// boolean downScanInclusive = false;
 
-		String openingPunctuation = "({[";
-		String closingPunctuation = ")}]";
-		String quotes = "'\"";
+		String openingPunctuation = "({["; //$NON-NLS-1$
+		String closingPunctuation = ")}]"; //$NON-NLS-1$
+		String quotes = "'\""; //$NON-NLS-1$
 		int limit = doc.getLength();
 		char firstChar = doc.getChar(caretPos);
 		char nextChar = (caretPos < (limit - 1)) ? doc.getChar(caretPos + 1)

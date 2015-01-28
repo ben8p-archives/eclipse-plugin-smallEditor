@@ -1,11 +1,3 @@
-/*
- * JavascriptContentOutlinePage.java	Created on 8 Jan 2015
- * 
- * Copyright © 2015 ING Group. All rights reserved.
- * 
- * This software is the confidential and proprietary information of 
- * ING Group ("Confidential Information"). 
- */
 package smalleditor.editors.common;
 
 import java.util.Iterator;
@@ -182,7 +174,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 			expression = document.get(offset, length);// sourceBuffer.substring(offset,
 															// offset + length);
 		} catch (BadLocationException e) {
-			expression = "";
+			expression = ""; //$NON-NLS-1$
 		}
 		return expression;
 	}

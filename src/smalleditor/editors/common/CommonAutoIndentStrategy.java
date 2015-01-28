@@ -13,7 +13,7 @@ import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IDocument;
 
 public class CommonAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
-	private String indent = "";
+	private String indent = ""; //$NON-NLS-1$
 
 	public CommonAutoIndentStrategy(String indent) {
 		super();
@@ -132,7 +132,7 @@ public class CommonAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy 
 
 	
 	private boolean isOpening(String text) {
-		String[] delimiters = {"{", "(", "[", "'", "\""};
+		String[] delimiters = {"{", "(", "[", "'", "\""}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		for (String delimiter : delimiters) {
 			if (text.endsWith(delimiter)) {
@@ -143,14 +143,14 @@ public class CommonAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy 
 		return false;
 	}
 	private String getClosing(String text) {
-		String openner = "{(['\"";
-		String closer = "})]'\"";
+		String openner = "{(['\""; //$NON-NLS-1$
+		String closer = "})]'\""; //$NON-NLS-1$
 
 		int pos = openner.indexOf(text);
 		return Character.toString(closer.charAt(pos));
 	}
 	private boolean isClosingBlock(String text) {
-		String[] delimiters = {"}", "]"};
+		String[] delimiters = {"}", "]"}; //$NON-NLS-1$ //$NON-NLS-2$
 
 		for (String delimiter : delimiters) {
 			if (text.endsWith(delimiter)) {

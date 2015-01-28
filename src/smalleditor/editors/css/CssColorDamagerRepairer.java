@@ -28,7 +28,7 @@ public class CssColorDamagerRepairer extends CommonNonRuleBasedDamagerRepairer {
 	public void createPresentation(TextPresentation presentation,
 			ITypedRegion region) {
 		if(region.getLength() < 7) { return; }
-		String hexa = "";
+		String hexa = ""; //$NON-NLS-1$
 		try {
 			hexa = fDocument.get(region.getOffset(), region.getLength());
 		} catch (BadLocationException e) {

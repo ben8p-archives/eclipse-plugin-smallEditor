@@ -29,11 +29,11 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 		try {
 			IDocument document = textViewer.getDocument();
 			int currOffset = documentOffset - 1; //cursor place in the text
-			String currWord = "";
-			String currToken = "";
+			String currWord = ""; //$NON-NLS-1$
+			String currToken = ""; //$NON-NLS-1$
 			char currChar;
 			char indentChar;
-			String indentPath = "";
+			String indentPath = ""; //$NON-NLS-1$
 			
 			String completionProposalAutoActivationCharacters = new String(getCompletionProposalAutoActivationCharacters());
 			//calculate the indentation
@@ -80,9 +80,9 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 		while (it.hasNext()) {
 			HashMap item = (HashMap) it.next();
 			
-			Boolean appendValue = (Boolean) item.get("append-value");
-			String stringValue = (String) item.get("value");
-			String currSuggestion = (appendValue == true ? replacedWord + stringValue : stringValue).replace("\n", "\n" + indentPath);
+			Boolean appendValue = (Boolean) item.get("append-value"); //$NON-NLS-1$
+			String stringValue = (String) item.get("value"); //$NON-NLS-1$
+			String currSuggestion = (appendValue == true ? replacedWord + stringValue : stringValue).replace("\n", "\n" + indentPath); //$NON-NLS-1$ //$NON-NLS-2$
 			int documentOffset = offset - replacedWord.length();
 			int length = replacedWord.length();
 			

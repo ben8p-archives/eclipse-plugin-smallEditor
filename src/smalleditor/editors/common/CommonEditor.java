@@ -13,6 +13,8 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
@@ -34,17 +36,22 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
+import org.eclipse.ui.texteditor.ITextEditorActionConstants;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.editors.common.actions.FoldingActionsGroup;
 import smalleditor.preferences.PreferenceNames;
+import smalleditor.nls.Messages;
 
 public class CommonEditor extends TextEditor implements ISelectionChangedListener {
 	protected ProjectionSupport projectionSupport;
 	protected ProjectionAnnotationModel annotationModel;
 	protected CommonOutlinePage outlinePage;
+	
+	private FoldingActionsGroup foldingActionsGroup;
 
 	private ProjectionAnnotation[] oldAnnotations;
 	private boolean[] annotationCollapsedState;
@@ -59,14 +66,27 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		setPreferenceStore(new ChainedPreferenceStore(stores));
 
 	}
-	
-//	public void doSave(IProgressMonitor monitor) {
-//		super.doSave(monitor);
-//		if (outlinePage != null) {
-//			outlinePage.update();
-//		}
-//	}
 
+	@Override
+	protected void createActions() {
+		super.createActions();
+		// Folding setup
+		foldingActionsGroup = new FoldingActionsGroup(this);
+	}
+	
+	@Override
+	protected void rulerContextMenuAboutToShow(IMenuManager menu) {
+		super.rulerContextMenuAboutToShow(menu);
+		
+		IMenuManager foldingMenu = new MenuManager(Messages.getString("Folding.GroupName"), "folding"); //$NON-NLS-1$
+		menu.appendToGroup(ITextEditorActionConstants.GROUP_RULERS, foldingMenu);
+		getFoldingActionsGroup().fillMenu(foldingMenu);
+	}
+	
+	protected FoldingActionsGroup getFoldingActionsGroup() {
+		return foldingActionsGroup;
+	}
+	
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
 		ProjectionViewer viewer = (ProjectionViewer) getSourceViewer();
@@ -226,7 +246,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 						progressMonitor);
 			} catch (Exception e) {
 				System.out
-						.println("Error while removing the trailing whitespaces.");
+						.println("Error while removing the trailing whitespaces."); //$NON-NLS-1$
 			}
 		}
 		
@@ -242,7 +262,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		IDocument document = getDocument();
 		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 		ISelection selection = getSelectionProvider().getSelection();
-		String markerType = "slicemarker";
+		String markerType = "slicemarker"; //$NON-NLS-1$
 
 		// cleanup old annotations
 		try {
@@ -269,7 +289,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 			int caretOffset = textSelection.getOffset() - lineOffset;
 			String line = document.get(lineOffset,
 					document.getLineLength(textSelection.getStartLine()));
-			String[] words = line.split("[^\\w]");
+			String[] words = line.split("[^\\w]"); //$NON-NLS-1$
 			int offset = 0;
 			String word = null;
 			List<Position> positions = new LinkedList<Position>();
@@ -287,7 +307,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 			if (word != null && !word.isEmpty()) {
 				// get all the positions of that word
 
-				Pattern p = Pattern.compile("\\b" + word + "\\b");
+				Pattern p = Pattern.compile("\\b" + word + "\\b"); //$NON-NLS-1$ //$NON-NLS-2$
 				Matcher m = p.matcher(document.get());
 				while (m.find()) {
 					Position position = new Position(m.start());

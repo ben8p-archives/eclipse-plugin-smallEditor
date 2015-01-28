@@ -1,11 +1,3 @@
-/*
- * StringTokenizer.java	Created on 12 Jan 2015
- * 
- * Copyright © 2015 ING Group. All rights reserved.
- * 
- * This software is the confidential and proprietary information of 
- * ING Group ("Confidential Information"). 
- */
 package smalleditor.common.tokenizer;
 
 import java.util.regex.Pattern;
@@ -22,11 +14,11 @@ public class DocumentTokenizer {
 		
 		//content = content.replaceAll("[\t ]+", "");
 		for(String wordToSeparate: wordsToSeparate) {
-			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + (wordToSeparate == "\\" ? "\\\\" : wordToSeparate) + " ");
+			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + (wordToSeparate == "\\" ? "\\\\" : wordToSeparate) + " "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		}
 		//content = content.replaceAll("\n", NEWLINE + "\n");
 		
-		tokens = content.split("[\t ]+");
+		tokens = content.split("[\t ]+"); //$NON-NLS-1$
 		
 	}
 

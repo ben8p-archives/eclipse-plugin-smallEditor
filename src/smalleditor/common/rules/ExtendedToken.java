@@ -36,7 +36,7 @@ public class ExtendedToken extends Token {
 	 * @return the contents
 	 */
 	public String getContents() {
-		return contents != null ? contents : "";
+		return contents != null ? contents : ""; //$NON-NLS-1$
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class ExtendedToken extends Token {
 		if (contents != null && contents.length() > beginIndex) {
 			return contents.substring(beginIndex);
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 }

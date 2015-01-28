@@ -48,7 +48,7 @@ public class CommonOutlineFunctionElement extends CommonOutlineElement {
 	public String getLabel(Object o) {
 		String firstPart = name;
 		if (firstPart.length() <= 0) {
-			firstPart = "<anonymous>";
+			firstPart = "<anonymous>"; //$NON-NLS-1$
 		}
 
 		return firstPart + arguments;

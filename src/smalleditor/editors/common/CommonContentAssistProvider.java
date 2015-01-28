@@ -21,9 +21,9 @@ public class CommonContentAssistProvider implements IContentAssistProvider{
 			while (it.hasNext()) {
 				Map.Entry pairs = (Map.Entry)it.next();
 
-				if(pairs.getKey().toString().startsWith(context) || pairs.getKey().toString().equals("all")) {
+				if(pairs.getKey().toString().startsWith(context) || pairs.getKey().toString().equals("all")) { //$NON-NLS-1$
 					HashMap value = (HashMap) pairs.getValue();
-					ArrayList<HashMap> fixedValue = fixupList((ArrayList) value.get("values"), (Boolean) value.get("append-value"));
+					ArrayList<HashMap> fixedValue = fixupList((ArrayList) value.get("values"), (Boolean) value.get("append-value")); //$NON-NLS-1$ //$NON-NLS-2$
 					buffer.addAll(fixedValue);
 				}
 				//it.remove();
@@ -38,8 +38,8 @@ public class CommonContentAssistProvider implements IContentAssistProvider{
 		ArrayList<HashMap> fixedList = new ArrayList<HashMap>();
 		for (String s : list) {
 			HashMap hash = new HashMap();
-			hash.put("append-value", appendValue);
-			hash.put("value", s);
+			hash.put("append-value", appendValue); //$NON-NLS-1$
+			hash.put("value", s); //$NON-NLS-1$
 			fixedList.add(hash);
 		}
 		

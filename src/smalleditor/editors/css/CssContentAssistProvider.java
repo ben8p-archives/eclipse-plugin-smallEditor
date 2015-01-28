@@ -9,6 +9,6 @@ public class CssContentAssistProvider extends CommonContentAssistProvider {
 		super();
 
 		this.elementsList = ResourceReader.read(this.getClass().getClassLoader()
-				.getResourceAsStream("res/data/css.xml"));
+				.getResourceAsStream("res/data/css.xml")); //$NON-NLS-1$
 	}
 }

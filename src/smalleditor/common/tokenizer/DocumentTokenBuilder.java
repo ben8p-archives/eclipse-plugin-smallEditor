@@ -1,11 +1,3 @@
-/*
- * StringTokenizer.java	Created on 12 Jan 2015
- * 
- * Copyright © 2015 ING Group. All rights reserved.
- * 
- * This software is the confidential and proprietary information of 
- * ING Group ("Confidential Information"). 
- */
 package smalleditor.common.tokenizer;
 
 import java.util.Arrays;
@@ -118,24 +110,6 @@ public class DocumentTokenBuilder {
 				
 				fromIndex = documentContent.indexOf(token, fromIndex);
 				
-//				try {
-//					String lineContent = getLine(document, document.getLineOfOffset(fromIndex));
-//						document.get(
-//							document.getLineOffset(
-//								document.getLineOfOffset(fromIndex)
-//							),
-//							document.getLineLength(
-//								document.getLineOfOffset(fromIndex)
-//							)
-//						)
-//					;
-//					if(lineContent.contains("todo")) {
-//						System.out.println(lineContent);
-//					}
-//				} catch (BadLocationException e) {
-//				}
-				
-				
 				int length = token.length();
 				
 				if(type == DocumentNodeType.OneLineComment && nextType != DocumentNodeType.Todo && nextType != DocumentNodeType.Fixme) {
@@ -188,7 +162,7 @@ public class DocumentTokenBuilder {
 		while(tokenizer.hasMoreTokens()) {
 			String eobToken = tokenizer.nextToken();
 			DocumentNodeType eobType = getNodeType(eobToken, tokenizer.getPreviousToken(), tokenizer.getNextToken());
-			expression += " " + eobToken;
+			expression += " " + eobToken; //$NON-NLS-1$
 			if(eobType == closeType) {
 				if(includeCloseToken == false) {
 					tokenizer.previousToken();

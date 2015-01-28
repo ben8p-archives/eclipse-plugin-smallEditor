@@ -13,6 +13,7 @@ import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.css.CssLinterBuilder;
+import smalleditor.nls.Messages;
 import smalleditor.preferences.PreferenceNames;
 
 public class CssReconcilingStrategy extends CommonReconcilingStrategy {
@@ -41,7 +42,7 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 			return;
 		}
 		
-		WorkbenchJob workbenchJob = new WorkbenchJob("Lint content") {//$NON-NLS-1$
+		WorkbenchJob workbenchJob = new WorkbenchJob(Messages.getString("Lint.Job")) {//$NON-NLS-1$
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				lintContent();
 				return Status.OK_STATUS;

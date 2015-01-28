@@ -22,7 +22,7 @@ public class CollectingCharacterScanner implements ICharacterScanner {
 	 * 
 	 */
 	public CollectingCharacterScanner(ICharacterScanner baseCharacterScanner) {
-		this(baseCharacterScanner, "");
+		this(baseCharacterScanner, ""); //$NON-NLS-1$
 	}
 
 	/**

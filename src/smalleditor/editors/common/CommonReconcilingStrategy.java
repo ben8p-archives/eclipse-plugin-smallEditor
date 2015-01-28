@@ -16,6 +16,7 @@ import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.nls.Messages;
 
 public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		IReconcilingStrategyExtension {
@@ -69,7 +70,7 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 			return;
 		}
 		
-		WorkbenchJob workbenchJob = new WorkbenchJob("Refresh Outline") {//$NON-NLS-1$
+		WorkbenchJob workbenchJob = new WorkbenchJob(Messages.getString("Outline.Refresh")) { //$NON-NLS-1$
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 		
 				List<DocumentNode> nodes = getDocumentTokenBuilder().buildNodes(document);

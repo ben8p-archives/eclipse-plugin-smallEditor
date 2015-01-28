@@ -71,7 +71,7 @@ public class ResumableMultiLineRule extends FixedMultiLineRule implements IResum
 	 */
 	public void resetRule() {
 		if (fToken instanceof ExtendedToken) {
-			((ExtendedToken) fToken).setContents("");
+			((ExtendedToken) fToken).setContents("");//$NON-NLS-1$
 		}
 	}
 
