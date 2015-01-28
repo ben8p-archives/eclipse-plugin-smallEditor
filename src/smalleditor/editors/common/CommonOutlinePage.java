@@ -66,6 +66,8 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		}
 		viewer.addFilter(filter);
 		
+		update();
+		
 	}
 	
 	/**
@@ -145,10 +147,9 @@ public class CommonOutlinePage extends ContentOutlinePage {
 	}
 	
 	public void update(CommonOutlineElementList currentNodes) {
-		if(getControl() == null) {
-			return; 
+		if(getControl() != null) {
+			getControl().setRedraw(false);
 		}
-		getControl().setRedraw(false);
 		TreeViewer viewer = getTreeViewer();
 
 		Object[] expanded = viewer.getExpandedElements();

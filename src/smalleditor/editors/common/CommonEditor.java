@@ -165,6 +165,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	}
 
 	public void updateFoldingStructure(List<Position> positions) {
+		if(annotationModel == null) { return; }
 		ProjectionAnnotation[] annotations = new ProjectionAnnotation[positions
 				.size()];
 
@@ -190,6 +191,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 
 	public void updateTask(List<Position> positions) {
 		IDocument document = getDocument();
+		if(!(getEditorInput() instanceof FileEditorInput)) { return; }
 		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 
 		IMarker marker;

@@ -59,6 +59,7 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 	private void lintContent() {
 		try {
 			//System.out.println("linContent after reconcile");
+			if(!(this.editor.getEditorInput() instanceof FileEditorInput)) { return; }
 			IFile file = ((FileEditorInput) this.editor.getEditorInput())
 					.getFile();
 
