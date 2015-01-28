@@ -4,9 +4,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>@import url("web/site.css");</style>
 <script type="text/javascript">
-	var returnval = 0;
+		var returnval = 0;
 	var stylesheet, xmlFile, cache, doc;
+	function loadXMLDoc(filename) {
+		if (window.ActiveXObject) {
+			xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		} else {
+			xhttp = new XMLHttpRequest();
+		}
+		xhttp.open("GET", filename, false);
+		try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
+		xhttp.send("");
+		return xhttp.responseXML;
+	}
 	function init(){
+		xmlFile = loadXMLDoc("site.xml");
+		stylesheet = loadXMLDoc("web/site.xsl");
+		// code for IE
+		if (window.ActiveXObject || xhttp.responseType == "msxml-document") {
+			transformData()
+		}
+		// code for Chrome, Firefox, Opera, etc.
+		else if (document.implementation && document.implementation.createDocument) {
+			transform()
+		}
+/*
 		// NSCP 7.1+ / Mozilla 1.4.1+ / Safari
 		// Use the standard DOM Level 2 technique, if it is supported
 		if (document.implementation && document.implementation.createDocument) {
@@ -33,6 +55,7 @@
 			cache.stylesheet = stylesheet;
 			transformData();
 		}
+*/
 	}
 	// separate transformation function for IE 6.0+
 	function transformData(){
@@ -41,12 +64,12 @@
 		processor.transform();
 		data.innerHTML = processor.output;
 	}
-	// separate transformation function for NSCP 7.1+ and Mozilla 1.4.1+ 
+	// separate transformation function for NSCP 7.1+ and Mozilla 1.4.1+
 	function transform(){
 		returnval+=1;
 		if (returnval==2){
 			var processor = new XSLTProcessor();
-			processor.importStylesheet(stylesheet); 
+			processor.importStylesheet(stylesheet);
 			doc = processor.transformToDocument(xmlFile);
 			document.getElementById("data").innerHTML = doc.documentElement.innerHTML;
 		}
