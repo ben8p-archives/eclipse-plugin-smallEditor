@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="small editor" url="http://ben8p.github.io/smallEditor/">
+      smallEditor
+a set of Editors for eclipse (JavaScript, Less, Css, HTML, Json)
+   </description>
+   <feature url="features/smallEditor_feature_1.0.0.qualifier.jar" id="smallEditor_feature" version="1.0.0.qualifier"/>
+</site>
