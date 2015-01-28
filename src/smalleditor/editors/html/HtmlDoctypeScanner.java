@@ -28,7 +28,7 @@ import smalleditor.common.rules.ExtendedWordRule;
 import smalleditor.editors.common.CommonWhitespaceDetector;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
-import smalleditor.preferences.PreferenceNames;
+import smalleditor.preferences.IPreferenceNames;
 
 public class HtmlDoctypeScanner extends RuleBasedScanner {
 	private ColorManager colorManager = ColorManager.getDefault();
@@ -111,7 +111,7 @@ public class HtmlDoctypeScanner extends RuleBasedScanner {
 	protected IToken createToken(String string) {
 		if(string == "entity.name.tag.doctype.html" || string == HtmlTokenType.TAG_END.getScope() || string == HtmlTokenType.TAG_START.getScope()) {
 			return new Token(new TextAttribute(
-					colorManager.getColorFromPreferencesKey(PreferenceNames.P_KEYWORD_COLOR), null, SWT.BOLD));
+					colorManager.getColorFromPreferencesKey(IPreferenceNames.P_KEYWORD_COLOR), null, SWT.BOLD));
 		}
 		
 		return new Token(string);

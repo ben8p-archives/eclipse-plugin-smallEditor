@@ -34,7 +34,7 @@ import smalleditor.common.rules.TagNameWordDetector;
 import smalleditor.common.rules.TagWordRule;
 import smalleditor.editors.common.CommonWhitespaceDetector;
 import smalleditor.preferences.ColorManager;
-import smalleditor.preferences.PreferenceNames;
+import smalleditor.preferences.IPreferenceNames;
 
 /**
  * @author Max Stepanov
@@ -273,15 +273,15 @@ public class HtmlTagScanner extends QueuedRuleBasedScanner {
 	protected IToken createToken(String string) {
 		if(string == HtmlTokenType.DOUBLE_QUOTED_STRING.getScope() || string == HtmlTokenType.SINGLE_QUOTED_STRING.getScope()) {
 			return new Token(new TextAttribute(
-					colorManager.getColorFromPreferencesKey(PreferenceNames.P_STRING_COLOR)));
+					colorManager.getColorFromPreferencesKey(IPreferenceNames.P_STRING_COLOR)));
 		}
 		if(string == HtmlTokenType.ATTR_STYLE.getScope() || string == HtmlTokenType.ATTRIBUTE.getScope() || string == HtmlTokenType.ATTR_CLASS.getScope() || string == HtmlTokenType.ATTR_ID.getScope()) {
 			return new Token(new TextAttribute(
-					colorManager.getColorFromPreferencesKey(PreferenceNames.P_DEFAULT_COLOR), null, SWT.BOLD));
+					colorManager.getColorFromPreferencesKey(IPreferenceNames.P_DEFAULT_COLOR), null, SWT.BOLD));
 		}
 		if(string == HtmlTokenType.META.getScope() || string == HtmlTokenType.SCRIPT.getScope() || string == HtmlTokenType.STYLE.getScope() || string == HtmlTokenType.BLOCK_TAG.getScope() || string == HtmlTokenType.STRUCTURE_TAG.getScope() || string == HtmlTokenType.INLINE_TAG.getScope() || string == HtmlTokenType.TAG_START.getScope() || string == HtmlTokenType.TAG_SELF_CLOSE.getScope() || string == HtmlTokenType.TAG_END.getScope()) {
 			return new Token(new TextAttribute(
-					colorManager.getColorFromPreferencesKey(PreferenceNames.P_KEYWORD_COLOR)));
+					colorManager.getColorFromPreferencesKey(IPreferenceNames.P_KEYWORD_COLOR)));
 		}
 		
 		return new Token(string);

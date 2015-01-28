@@ -13,7 +13,7 @@ import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.javascript.JavascriptLinterBuilder;
-import smalleditor.preferences.PreferenceNames;
+import smalleditor.preferences.IPreferenceNames;
 
 public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 	protected JavascriptLinterBuilder linterBuilder;
@@ -37,7 +37,7 @@ public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 		super.processReconcile();
 		
 		Boolean useLinters = Activator.getDefault().getPreferenceStore().getBoolean(
-				PreferenceNames.P_LINT_CODE);
+				IPreferenceNames.P_LINT_CODE);
 		if (useLinters == false) {
 			return;
 		}

@@ -33,8 +33,8 @@ import smalleditor.editors.common.CommonScanner;
 import smalleditor.editors.common.CommonSourceConfiguration;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
-import smalleditor.preferences.PreferenceNames;
-import smalleditor.utils.Constants;
+import smalleditor.preferences.IPreferenceNames;
+import smalleditor.utils.IConstants;
 
 /**
  * @author Max Stepanov
@@ -48,7 +48,7 @@ public class JsonSourceConfiguration extends CommonSourceConfiguration {
 	public final static String JSON_STRING = PREFIX + "string";
 	public final static String JSON_KEYSTRING = PREFIX + "keystring";
 
-	public final static String CONTENT_TYPE = Constants.CONTENT_TYPE_JSON;
+	public final static String CONTENT_TYPE = IConstants.CONTENT_TYPE_JSON;
 
 	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
@@ -160,7 +160,7 @@ public class JsonSourceConfiguration extends CommonSourceConfiguration {
 	protected CommonScanner getScanner() {
 		if (scanner == null) {
 			Color defaultColor = colorManager
-					.getColorFromPreferencesKey(PreferenceNames.P_DEFAULT_COLOR);
+					.getColorFromPreferencesKey(IPreferenceNames.P_DEFAULT_COLOR);
 			scanner = new CommonScanner(defaultColor);
 			scanner.setDefaultReturnToken(new Token(new TextAttribute(
 					defaultColor)));
@@ -188,26 +188,26 @@ public class JsonSourceConfiguration extends CommonSourceConfiguration {
 
 		CommonNonRuleBasedDamagerRepairer commentRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_COMMENT_COLOR)));
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_COMMENT_COLOR)));
 		reconciler.setDamager(commentRepairer, JSON_COMMENT);
 		reconciler.setRepairer(commentRepairer, JSON_COMMENT);
 
 		CommonNonRuleBasedDamagerRepairer stringRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_STRING_COLOR)));
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_STRING_COLOR)));
 		reconciler.setDamager(stringRepairer, JSON_STRING);
 		reconciler.setRepairer(stringRepairer, JSON_STRING);
 		
 		CommonNonRuleBasedDamagerRepairer keyStringRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_DEFAULT_COLOR), null,
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_DEFAULT_COLOR), null,
 						SWT.BOLD));
 		reconciler.setDamager(keyStringRepairer, JSON_KEYSTRING);
 		reconciler.setRepairer(keyStringRepairer, JSON_KEYSTRING);
 
 		CommonNonRuleBasedDamagerRepairer keywordRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_KEYWORD_COLOR), null,
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_KEYWORD_COLOR), null,
 						SWT.BOLD));
 		reconciler.setDamager(keywordRepairer, JSON_KEYWORD);
 		reconciler.setRepairer(keywordRepairer, JSON_KEYWORD);

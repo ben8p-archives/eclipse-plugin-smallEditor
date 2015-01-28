@@ -14,8 +14,8 @@ import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.ScriptableObject;
 
-import smalleditor.linters.common.problem.Problem;
-import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.problem.IProblem;
+import smalleditor.linters.common.problem.IProblemHandler;
 import smalleditor.linters.common.problem.ProblemImpl;
 import smalleditor.linters.common.text.Text;
 /**
@@ -88,14 +88,14 @@ public class CommonLinter {
 	 * @return <code>true</code> if no problems have been found, otherwise
 	 *         <code>false</code>
 	 */
-	public boolean check(String code, ProblemHandler handler) {
+	public boolean check(String code, IProblemHandler handler) {
 		if (code == null) {
 			throw new NullPointerException("code is null");
 		}
 		return check(new Text(code), handler);
 	}
 
-	public boolean check(Text text, ProblemHandler handler) {
+	public boolean check(Text text, IProblemHandler handler) {
 		if (text == null) {
 			throw new NullPointerException("code is null");
 		}
@@ -165,7 +165,7 @@ public class CommonLinter {
 			throw new IllegalArgumentException("No linter found");
 	}
 
-	private void handleProblems(ProblemHandler handler, Text text) {
+	private void handleProblems(IProblemHandler handler, Text text) {
 		NativeArray errors = (NativeArray) linter.get("errors", linter);
 		long length = errors.getLength();
 		//int lengthE = exclude.length;
@@ -183,7 +183,7 @@ public class CommonLinter {
 					}
 				}*/
 				//if (exit == false) {
-				Problem problem = createProblem(error, text);
+				IProblem problem = createProblem(error, text);
 				handler.handleProblem(problem);
 				//}
 			}

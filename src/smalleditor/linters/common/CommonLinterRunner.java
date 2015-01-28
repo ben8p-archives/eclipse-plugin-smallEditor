@@ -10,8 +10,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import smalleditor.linters.common.problem.Problem;
-import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.problem.IProblem;
+import smalleditor.linters.common.problem.IProblemHandler;
 
 public class CommonLinterRunner {
 
@@ -103,7 +103,7 @@ public class CommonLinterRunner {
 	private void processFiles() throws IOException {
 		for (File file : files) {
 			String code = readFileContents(file);
-			ProblemHandler handler = new SysoutProblemHandler(
+			IProblemHandler handler = new SysoutProblemHandler(
 					file.getAbsolutePath());
 			linter.check(code, handler);
 		}
@@ -132,7 +132,7 @@ public class CommonLinterRunner {
 		}
 	}
 
-	private static final class SysoutProblemHandler implements ProblemHandler {
+	private static final class SysoutProblemHandler implements IProblemHandler {
 
 		private final String fileName;
 
@@ -140,7 +140,7 @@ public class CommonLinterRunner {
 			this.fileName = fileName;
 		}
 
-		public void handleProblem(Problem problem) {
+		public void handleProblem(IProblem problem) {
 			int line = problem.getLine();
 			String message = problem.getMessage();
 			System.out.println("Problem in file " + fileName + " at line "

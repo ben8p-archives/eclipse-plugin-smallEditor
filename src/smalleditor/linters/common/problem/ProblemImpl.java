@@ -1,6 +1,6 @@
 package smalleditor.linters.common.problem;
 
-public class ProblemImpl implements Problem {
+public class ProblemImpl implements IProblem {
 	private final int line;
 	private final int character;
 	private final String message;

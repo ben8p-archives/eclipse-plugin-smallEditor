@@ -4,6 +4,7 @@ import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import smalleditor.Activator;
+import smalleditor.nls.Messages;
 
 /**
  * This class represents a preference page that is contributed to the
@@ -17,12 +18,12 @@ import smalleditor.Activator;
  */
 
 public class PreferencePage extends FieldEditorPreferencePage implements
-		IWorkbenchPreferencePage, PreferenceNames {
+		IWorkbenchPreferencePage, IPreferenceNames {
 
 	public PreferencePage() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("Preferences for JavaScript editor.");
+		setDescription(Messages.getString("Preferences.Description"));
 	}
 
 	/**
@@ -30,26 +31,25 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	 * GUI blocks needed to manipulate various types of preferences. Each field
 	 * editor knows how to save and restore itself.
 	 */
-
+	
 	public void createFieldEditors() {
-		addField(new ColorFieldEditor(P_COMMENT_COLOR, "&Comment Color:",
+		addField(new ColorFieldEditor(P_COMMENT_COLOR, Messages.getString("Preferences.CommentColor"),
 				getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_STRING_COLOR, "&String Color:",
+		addField(new ColorFieldEditor(P_STRING_COLOR, Messages.getString("Preferences.StringColor"),
 				getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_KEYWORD_COLOR, "&Keyword Color:",
+		addField(new ColorFieldEditor(P_KEYWORD_COLOR, Messages.getString("Preferences.KeywordColor"),
 				getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_DEFAULT_COLOR, "&Default Color:",
-				getFieldEditorParent()));
-		
-		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, "Show matching &brackets", getFieldEditorParent()));
-		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, "Color for &matching brackets:",
+		addField(new ColorFieldEditor(P_DEFAULT_COLOR, Messages.getString("Preferences.DefaultColor"),
 				getFieldEditorParent()));
 		
-		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, "Mark &occurences", getFieldEditorParent()));
+		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, Messages.getString("Preferences.ColorMatching"),
+				getFieldEditorParent()));
 		
-		addField(new BooleanFieldEditor(P_TRAILING_SPACE, "&Remove trailing spaces on save", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, Messages.getString("Preferences.ShowMatching"), getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, Messages.getString("Preferences.MarkOccurences"), getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_TRAILING_SPACE, Messages.getString("Preferences.TrailingSpaces"), getFieldEditorParent()));
 		
-		addField(new BooleanFieldEditor(P_LINT_CODE, "&Enable code linters", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_LINT_CODE, Messages.getString("Preferences.Linters"), getFieldEditorParent()));
 		
 //		addField(new ColorFieldEditor(P_MARK_OCCURENCES_COLOR, "Color for matching occurences:",
 //				getFieldEditorParent()));

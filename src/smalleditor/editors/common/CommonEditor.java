@@ -43,7 +43,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.editors.common.actions.FoldingActionsGroup;
-import smalleditor.preferences.PreferenceNames;
+import smalleditor.preferences.IPreferenceNames;
 import smalleditor.nls.Messages;
 
 public class CommonEditor extends TextEditor implements ISelectionChangedListener {
@@ -165,8 +165,8 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 					matchChars, IDocumentExtension3.DEFAULT_PARTITIONING);
 			support.setCharacterPairMatcher(matcher);
 			support.setMatchingCharacterPainterPreferenceKeys(
-					PreferenceNames.P_SHOW_MATCHING_BRACKETS,
-					PreferenceNames.P_MATCHING_BRACKETS_COLOR);
+					IPreferenceNames.P_SHOW_MATCHING_BRACKETS,
+					IPreferenceNames.P_MATCHING_BRACKETS_COLOR);
 		}
 
 	}
@@ -237,7 +237,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
 		Boolean removeTrailingSpaces = Activator.getDefault().getPreferenceStore().getBoolean(
-				PreferenceNames.P_TRAILING_SPACE);
+				IPreferenceNames.P_TRAILING_SPACE);
 		if (removeTrailingSpaces == true) {
 			RemoveTrailingWhitespaceOperation removeSpacesOperation = new RemoveTrailingWhitespaceOperation();
 			try {
@@ -272,7 +272,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 
 		// if it is disabled, we get out
 		Boolean markOccurences = getPreferenceStore().getBoolean(
-				PreferenceNames.P_MARK_OCCURENCES);
+				IPreferenceNames.P_MARK_OCCURENCES);
 		if (!markOccurences || !(selection instanceof ITextSelection)) {
 			return;
 		}

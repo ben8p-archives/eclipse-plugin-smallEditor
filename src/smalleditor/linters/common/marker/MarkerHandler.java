@@ -2,11 +2,11 @@ package smalleditor.linters.common.marker;
 
 import org.eclipse.core.runtime.CoreException;
 
-import smalleditor.linters.common.problem.Problem;
-import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.problem.IProblem;
+import smalleditor.linters.common.problem.IProblemHandler;
 import smalleditor.linters.common.text.Text;
 
-public final class MarkerHandler implements ProblemHandler {
+public final class MarkerHandler implements IProblemHandler {
 
 	private final MarkerAdapter markerAdapter;
 	private final Text code;
@@ -16,7 +16,7 @@ public final class MarkerHandler implements ProblemHandler {
 		this.code = code;
 	}
 
-	public void handleProblem(Problem problem) {
+	public void handleProblem(IProblem problem) {
 		int line = problem.getLine();
 		int character = problem.getCharacter();
 		String message = problem.getMessage();

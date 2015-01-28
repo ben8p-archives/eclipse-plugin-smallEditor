@@ -34,8 +34,8 @@ import smalleditor.editors.common.CommonScanner;
 import smalleditor.editors.common.CommonSourceConfiguration;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
-import smalleditor.preferences.PreferenceNames;
-import smalleditor.utils.Constants;
+import smalleditor.preferences.IPreferenceNames;
+import smalleditor.utils.IConstants;
 
 /**
  * @author Max Stepanov
@@ -48,7 +48,7 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 	public final static String JS_KEYWORD = PREFIX + "keyword";
 	public final static String JS_STRING = PREFIX + "string";
 
-	public final static String CONTENT_TYPE = Constants.CONTENT_TYPE_JS;
+	public final static String CONTENT_TYPE = IConstants.CONTENT_TYPE_JS;
 
 	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
@@ -217,7 +217,7 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 	protected CommonScanner getScanner() {
 		if (scanner == null) {
 			Color defaultColor = colorManager
-					.getColorFromPreferencesKey(PreferenceNames.P_DEFAULT_COLOR);
+					.getColorFromPreferencesKey(IPreferenceNames.P_DEFAULT_COLOR);
 			scanner = new CommonScanner(defaultColor);
 			scanner.setDefaultReturnToken(new Token(new TextAttribute(
 					defaultColor)));
@@ -246,21 +246,21 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 		CommonNonRuleBasedDamagerRepairer commentRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
 						colorManager
-								.getColorFromPreferencesKey(PreferenceNames.P_COMMENT_COLOR)));
+								.getColorFromPreferencesKey(IPreferenceNames.P_COMMENT_COLOR)));
 		reconciler.setDamager(commentRepairer, JS_COMMENT);
 		reconciler.setRepairer(commentRepairer, JS_COMMENT);
 
 		CommonNonRuleBasedDamagerRepairer stringRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
 						colorManager
-								.getColorFromPreferencesKey(PreferenceNames.P_STRING_COLOR)));
+								.getColorFromPreferencesKey(IPreferenceNames.P_STRING_COLOR)));
 		reconciler.setDamager(stringRepairer, JS_STRING);
 		reconciler.setRepairer(stringRepairer, JS_STRING);
 
 		CommonNonRuleBasedDamagerRepairer keywordRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
 						colorManager
-								.getColorFromPreferencesKey(PreferenceNames.P_KEYWORD_COLOR),
+								.getColorFromPreferencesKey(IPreferenceNames.P_KEYWORD_COLOR),
 						null, SWT.BOLD));
 		reconciler.setDamager(keywordRepairer, JS_KEYWORD);
 		reconciler.setRepairer(keywordRepairer, JS_KEYWORD);

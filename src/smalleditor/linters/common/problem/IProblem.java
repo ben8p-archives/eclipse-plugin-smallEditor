@@ -3,7 +3,7 @@ package smalleditor.linters.common.problem;
 /**
  * Holds information about a problem found by JSHint.
  */
-public interface Problem {
+public interface IProblem {
 
 	/**
 	 * Returns the line number in which the problem occurred.

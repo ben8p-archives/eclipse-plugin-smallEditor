@@ -1,6 +1,6 @@
 package smalleditor.preferences;
 
-public interface PreferenceNames {
+public interface IPreferenceNames {
 	String P_COMMENT_COLOR = "commentColor";
 	String P_STRING_COLOR = "stringColor";
 	String P_KEYWORD_COLOR = "keywordColor";

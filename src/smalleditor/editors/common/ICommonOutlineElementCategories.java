@@ -15,7 +15,7 @@ package smalleditor.editors.common;
  * @author fitzpata
  * 
  */
-public interface CommonOutlineElementCategories {
+public interface ICommonOutlineElementCategories {
 	static final int FUNCTION = 1;
 	static final int CLASSNAME = 2;
 	static final int BLOCK = 3;

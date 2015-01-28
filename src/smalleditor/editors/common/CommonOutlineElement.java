@@ -13,7 +13,7 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
  * @author Addi
  */
 abstract public class CommonOutlineElement implements IWorkbenchAdapter,
-		IAdaptable, CommonOutlineElementCategories {
+		IAdaptable, ICommonOutlineElementCategories {
 	protected String name;
 	protected int offset;
 	protected int numberOfLines;

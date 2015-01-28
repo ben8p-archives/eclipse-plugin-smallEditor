@@ -14,7 +14,7 @@ import smalleditor.editors.common.CommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.css.CssLinterBuilder;
 import smalleditor.nls.Messages;
-import smalleditor.preferences.PreferenceNames;
+import smalleditor.preferences.IPreferenceNames;
 
 public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 	protected CssLinterBuilder linterBuilder;
@@ -37,7 +37,7 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 		super.processReconcile();
 		
 		Boolean useLinters = Activator.getDefault().getPreferenceStore().getBoolean(
-				PreferenceNames.P_LINT_CODE);
+				IPreferenceNames.P_LINT_CODE);
 		if (useLinters == false) {
 			return;
 		}

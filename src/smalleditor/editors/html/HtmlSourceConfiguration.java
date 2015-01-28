@@ -36,8 +36,8 @@ import smalleditor.editors.css.CssSourceConfiguration;
 import smalleditor.editors.html.rules.HtmlDocTypeRule;
 import smalleditor.editors.javascript.JavascriptSourceConfiguration;
 import smalleditor.preferences.ColorManager;
-import smalleditor.preferences.PreferenceNames;
-import smalleditor.utils.Constants;
+import smalleditor.preferences.IPreferenceNames;
+import smalleditor.utils.IConstants;
 import smalleditor.utils.TextUtility;
 
 /**
@@ -58,7 +58,7 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 	public final static String HTML_CDATA = PREFIX + "cdata"; //$NON-NLS-1$
 	public final static String HTML_DOCTYPE = PREFIX + "doctype"; //$NON-NLS-1$
 
-	public final static String CONTENT_TYPE = Constants.CONTENT_TYPE_HTML;
+	public final static String CONTENT_TYPE = IConstants.CONTENT_TYPE_HTML;
 
 	private ColorManager colorManager = ColorManager.getDefault();
 	private CommonScanner scanner;
@@ -67,8 +67,8 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 		HTML_COMMENT, HTML_TAG, HTML_STRING, HTML_ATTRIBUTE, HTML_SCRIPT, HTML_STYLE, HTML_SVG, HTML_TAG_CLOSE, HTML_CDATA, HTML_DOCTYPE};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE },
-		{ CONTENT_TYPE, Constants.CONTENT_TYPE_JS },
-		{ CONTENT_TYPE, Constants.CONTENT_TYPE_CSS }/*,
+		{ CONTENT_TYPE, IConstants.CONTENT_TYPE_JS },
+		{ CONTENT_TYPE, IConstants.CONTENT_TYPE_CSS }/*,
 		{ CONTENT_TYPE, Constants.CONTENT_TYPE_SVG }*/ };
 	
 	
@@ -178,7 +178,7 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 	protected CommonScanner getScanner() {
 		if (scanner == null) {
 			Color defaultColor = colorManager
-					.getColorFromPreferencesKey(PreferenceNames.P_DEFAULT_COLOR);
+					.getColorFromPreferencesKey(IPreferenceNames.P_DEFAULT_COLOR);
 			scanner = new CommonScanner(defaultColor);
 			scanner.setDefaultReturnToken(new Token(new TextAttribute(
 					defaultColor)));
@@ -230,13 +230,13 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 		
 		CommonNonRuleBasedDamagerRepairer commentRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_COMMENT_COLOR)));
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_COMMENT_COLOR)));
 		reconciler.setDamager(commentRepairer, HTML_COMMENT);
 		reconciler.setRepairer(commentRepairer, HTML_COMMENT);
 
 		CommonNonRuleBasedDamagerRepairer stringRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColorFromPreferencesKey(PreferenceNames.P_STRING_COLOR)));
+						colorManager.getColorFromPreferencesKey(IPreferenceNames.P_STRING_COLOR)));
 		reconciler.setDamager(stringRepairer, HTML_STRING);
 		reconciler.setRepairer(stringRepairer, HTML_STRING);
 		

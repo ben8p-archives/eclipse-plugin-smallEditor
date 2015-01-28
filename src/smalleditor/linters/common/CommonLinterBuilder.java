@@ -23,7 +23,7 @@ import org.eclipse.jface.text.IDocument;
 
 import smalleditor.linters.common.marker.MarkerAdapter;
 import smalleditor.linters.common.marker.MarkerHandler;
-import smalleditor.linters.common.problem.ProblemHandler;
+import smalleditor.linters.common.problem.IProblemHandler;
 import smalleditor.linters.common.text.Text;
 
 public class CommonLinterBuilder {
@@ -41,7 +41,7 @@ public class CommonLinterBuilder {
 
 	public void check(IFile file) throws CoreException {
 		Text code = readContent(file);
-		ProblemHandler handler = new MarkerHandler(new MarkerAdapter(file),
+		IProblemHandler handler = new MarkerHandler(new MarkerAdapter(file),
 				code);
 		try {
 			checker.check(code, handler);
@@ -56,7 +56,7 @@ public class CommonLinterBuilder {
 		Text code = new Text(doc.get());
 		MarkerAdapter marker = new MarkerAdapter(file);
 		marker.removeMarkers();
-		ProblemHandler handler = new MarkerHandler(marker, code);
+		IProblemHandler handler = new MarkerHandler(marker, code);
 		try {
 			checker.check(code, handler);
 		} catch (RuntimeException exception) {
