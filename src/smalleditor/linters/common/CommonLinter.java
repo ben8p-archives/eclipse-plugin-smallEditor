@@ -136,7 +136,7 @@ public class CommonLinter {
 			context.evaluateString(scope, code, "fake console", 1, null);
 			//System.out.println(Context.toString(evaluatedCode));
 			
-			fakeConsole = (Function) scope.get("fakeConsole");
+			fakeConsole = (Function) scope.get("fakeConsole", scope);
 			
 			linter = findLinterFunction(scope);
 		} catch (RhinoException exception) {
