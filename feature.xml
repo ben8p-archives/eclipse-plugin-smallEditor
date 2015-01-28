@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="smallEditorFeature"
-      label="SmallEditorFeature"
+      id="smallEditor_feature"
+      label="SmallEditor-feature"
       version="1.0.0.qualifier">
 
    <description url="https://github.com/ben8p/smallEditor">
-      smallEditor
+      smallEditor 
 a set of Editors for eclipse (JavaScript, Less, Css, HTML, Json)
    </description>
 
