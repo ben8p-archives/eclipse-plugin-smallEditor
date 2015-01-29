@@ -108,6 +108,7 @@ public class JsonOutlinePage extends CommonOutlinePage {
 				deep--;
 			}
 		} catch (BadLocationException e) {
+			e.printStackTrace();
 		}
 		if(deep > 1) {
 			object = null;

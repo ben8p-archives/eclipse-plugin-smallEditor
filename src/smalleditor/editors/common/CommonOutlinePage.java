@@ -310,6 +310,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 			expression = document.get(offset, length);// sourceBuffer.substring(offset,
 															// offset + length);
 		} catch (BadLocationException e) {
+			e.printStackTrace();
 			expression = ""; //$NON-NLS-1$
 		}
 		return expression;

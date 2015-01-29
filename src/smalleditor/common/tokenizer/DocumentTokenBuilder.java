@@ -147,6 +147,7 @@ public class DocumentTokenBuilder {
 		try {
 			node.setLine(document.getLineOfOffset(offset));
 		} catch (BadLocationException e) {
+			e.printStackTrace();
 			node.setLine(-1);
 		}
 		

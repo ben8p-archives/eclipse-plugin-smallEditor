@@ -61,6 +61,7 @@ public class ResourceReader {
 			
 			return elementMap;
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

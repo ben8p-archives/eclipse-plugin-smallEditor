@@ -65,7 +65,9 @@ public class CommonContentAssistProcessor implements IContentAssistProcessor {
 			if (suggestions.size() > 0) {
 				proposals = buildProposals(suggestions, currToken, documentOffset, indentPath);
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return proposals;
 	}

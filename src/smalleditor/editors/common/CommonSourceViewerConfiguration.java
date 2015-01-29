@@ -38,7 +38,7 @@ public class CommonSourceViewerConfiguration extends SourceViewerConfiguration {
 	@Override
 	public IAutoEditStrategy[] getAutoEditStrategies(
 			ISourceViewer sourceViewer, String contentType) {
-		System.out.println(contentType);
+//		System.out.println(contentType);
 		return new IAutoEditStrategy[] { new CommonAutoIndentStrategy(getIndent()) };
 	}
 	

@@ -21,8 +21,9 @@ public class Text {
 		StringReader reader = new StringReader(text);
 		try {
 			read(reader);
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
+		} catch (IOException e) {
+			//e.printStackTrace();
+			throw new RuntimeException(e);
 		} finally {
 			reader.close();
 		}

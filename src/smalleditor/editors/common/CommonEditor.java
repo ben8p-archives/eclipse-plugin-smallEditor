@@ -245,8 +245,9 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 						FileBuffers.getTextFileBufferManager().getTextFileBuffer(getDocument()),
 						progressMonitor);
 			} catch (Exception e) {
-				System.out
-						.println("Error while removing the trailing whitespaces."); //$NON-NLS-1$
+				e.printStackTrace();
+//				System.out
+//						.println("Error while removing the trailing whitespaces."); //$NON-NLS-1$
 			}
 		}
 		
@@ -267,7 +268,8 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		// cleanup old annotations
 		try {
 			file.deleteMarkers(markerType, true, IResource.DEPTH_INFINITE);
-		} catch (CoreException e1) {
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 
 		// if it is disabled, we get out
@@ -330,6 +332,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

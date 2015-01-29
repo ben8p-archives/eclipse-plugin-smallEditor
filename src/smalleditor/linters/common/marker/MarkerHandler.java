@@ -44,8 +44,8 @@ public final class MarkerHandler implements IProblemHandler {
 			String codeStr) {
 		try {
 			markerAdapter.createMarker(line, start, start, message, codeStr);
-		} catch (CoreException ce) {
-
+		} catch (CoreException e) {
+			e.printStackTrace();
 		}
 	}
 

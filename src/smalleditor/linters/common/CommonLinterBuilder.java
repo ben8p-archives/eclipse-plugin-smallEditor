@@ -71,7 +71,8 @@ public class CommonLinterBuilder {
 			IEncodedStorage encodedStorage=((IEncodedStorage) file);
 			String charset = encodedStorage.getCharset();
 			return readContent(inputStream, charset);
-		} catch (IOException exception) {
+		} catch (IOException e) {
+			e.printStackTrace();
 //			System.out.println("Failed to load resources");
 		}
 		return null;

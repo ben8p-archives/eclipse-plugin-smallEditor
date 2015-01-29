@@ -42,6 +42,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 				return addFunction(expression, offset, length);
 			}
 		} catch (BadLocationException e) {
+			e.printStackTrace();
 		}		
 		return null;
 	}
@@ -96,6 +97,7 @@ public class JavascriptOutlinePage extends CommonOutlinePage {
 			return aFunction;
 		}
 		catch (StringIndexOutOfBoundsException e) {
+			e.printStackTrace();
 			return null;
 		}
 		//}

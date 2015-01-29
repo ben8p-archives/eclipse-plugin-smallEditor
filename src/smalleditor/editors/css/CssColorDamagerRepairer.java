@@ -32,6 +32,7 @@ public class CssColorDamagerRepairer extends CommonNonRuleBasedDamagerRepairer {
 		try {
 			hexa = fDocument.get(region.getOffset(), region.getLength());
 		} catch (BadLocationException e) {
+			e.printStackTrace();
 			return;
 		}
 		Color backColor = colorManager.getColor(hexa);

@@ -29,7 +29,8 @@ public class CssLinterBuilder extends CommonLinterBuilder {
 		try {
 			linter.load();
 			//linter.configure(new Configuration());
-		} catch (IOException exception) {
+		} catch (IOException e) {
+			e.printStackTrace();
 //			System.out.println("Failed to intialize Linter");
 		}
 		return linter;

@@ -155,7 +155,9 @@ public class CommonLinter {
 			ScriptableObject scope = context.initStandardObjects();
 			fakeConsole.call(context, scope, null, null);
 			
-		} catch (Exception exception) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

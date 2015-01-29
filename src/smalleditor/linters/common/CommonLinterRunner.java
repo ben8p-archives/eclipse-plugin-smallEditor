@@ -31,6 +31,7 @@ public class CommonLinterRunner {
 			//configureLinter();
 			processFiles();
 		} catch (Exception e) {
+			e.printStackTrace();
 //			System.out.println(e.getMessage());
 //			System.out.println();
 //			System.out
@@ -80,7 +81,8 @@ public class CommonLinterRunner {
 	private void setCharset(String name) {
 		try {
 			charset = Charset.forName(name);
-		} catch (Exception exception) {
+		} catch (Exception e) {
+//			e.printStackTrace();
 			throw new IllegalArgumentException(
 					"Unknown or unsupported charset: " + name);
 		}
