@@ -1,12 +1,12 @@
 package smalleditor.linters.common.problem;
 
-public class ProblemImpl implements IProblem {
+public class Problem implements IProblem {
 	private final int line;
 	private final int character;
 	private final String message;
 	private final String id;
 
-	public ProblemImpl(int line, int character, String message, String id) {
+	public Problem(int line, int character, String message, String id) {
 		this.line = line;
 		this.character = character;
 		this.message = message;

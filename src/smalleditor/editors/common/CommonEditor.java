@@ -52,6 +52,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	protected CommonOutlinePage outlinePage;
 	
 	private FoldingActionsGroup foldingActionsGroup;
+	private Boolean initialFoldingDone = false;
 
 	private ProjectionAnnotation[] oldAnnotations;
 	private boolean[] annotationCollapsedState;
@@ -192,21 +193,39 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		// this will hold the new annotations along
 		// with their corresponding positions
 		HashMap<ProjectionAnnotation, Position> newAnnotations = new HashMap<ProjectionAnnotation, Position>();
-
+		
+		storeOutlineState();
+		
 		for (int i = 0; i < positions.size(); i++) {
 			ProjectionAnnotation annotation = new ProjectionAnnotation();
 			newAnnotations.put(annotation, positions.get(i));
 			annotations[i] = annotation;
-			if (annotationCollapsedState != null
-					&& annotationCollapsedState.length > i
-					&& annotationCollapsedState[i]) {
+			
+			Boolean startFolded = getPreferenceStore().getBoolean(
+					IPreferenceNames.P_INITIAL_FOLDING);
+			if (initialFoldingDone == false && startFolded == true) {
 				annotation.markCollapsed();
+			} else {
+				if (annotationCollapsedState != null
+						&& annotationCollapsedState.length > i
+						&& annotationCollapsedState[i]) {
+					annotation.markCollapsed();
+				}
 			}
 		}
 
+		initialFoldingDone = true;
 		annotationModel.modifyAnnotations(oldAnnotations, newAnnotations, null);
 
 		oldAnnotations = annotations;
+	}
+	private void storeOutlineState() {
+		if (oldAnnotations != null) {
+			annotationCollapsedState = new boolean[oldAnnotations.length];
+			for (int i = 0; i < oldAnnotations.length; i++) {
+				annotationCollapsedState[i] = oldAnnotations[i].isCollapsed();
+			}
+		}
 	}
 
 	public void updateTask(List<Position> positions) {

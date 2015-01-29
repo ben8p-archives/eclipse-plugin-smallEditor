@@ -50,6 +50,7 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 		addField(new BooleanFieldEditor(P_TRAILING_SPACE, Messages.getString("Preferences.TrailingSpaces"), getFieldEditorParent()));
 		
 		addField(new BooleanFieldEditor(P_LINT_CODE, Messages.getString("Preferences.Linters"), getFieldEditorParent()));
+		addField(new BooleanFieldEditor(P_INITIAL_FOLDING, Messages.getString("Preferences.StartFolded"), getFieldEditorParent()));
 		
 //		addField(new ColorFieldEditor(P_MARK_OCCURENCES_COLOR, "Color for matching occurences:",
 //				getFieldEditorParent()));

@@ -11,5 +11,6 @@ public interface IPreferenceNames {
 	String P_MARK_OCCURENCES = "markOccurences";
 	String P_TRAILING_SPACE = "removeTrailingSpaces";
 	String P_LINT_CODE = "enableCodeLinters";
+	String P_INITIAL_FOLDING = "startFolded";
 	
 }

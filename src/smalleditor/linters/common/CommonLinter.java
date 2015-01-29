@@ -16,7 +16,7 @@ import org.mozilla.javascript.ScriptableObject;
 
 import smalleditor.linters.common.problem.IProblem;
 import smalleditor.linters.common.problem.IProblemHandler;
-import smalleditor.linters.common.problem.ProblemImpl;
+import smalleditor.linters.common.problem.Problem;
 import smalleditor.linters.common.text.Text;
 /**
  * Lightweight Java wrapper for the Linter code analysis tool.
@@ -192,7 +192,7 @@ public class CommonLinter {
 		}
 	}
 
-	private ProblemImpl createProblem(ScriptableObject error, Text text) {
+	private Problem createProblem(ScriptableObject error, Text text) {
 		
 		String reason = getPropertyAsString(error, "reason", "");
 		int line = getPropertyAsInt(error, "line", -1);
@@ -204,7 +204,7 @@ public class CommonLinter {
 		
 		String message = reason.endsWith(".") ? reason.substring(0,
 				reason.length() - 1) : reason;
-		return new ProblemImpl(line, character, message, id);
+		return new Problem(line, character, message, id);
 	}
 
 	private int fixPosition(Text text, int line, int character) {
