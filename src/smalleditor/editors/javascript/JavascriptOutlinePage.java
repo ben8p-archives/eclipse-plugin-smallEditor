@@ -16,11 +16,11 @@ import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineFunctionElement;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonOutlinePage;
 import smalleditor.utils.CharUtility;
 import smalleditor.utils.TextUtility;
 
-public class JavascriptOutlinePage extends CommonOutlinePage {
+public class JavascriptOutlinePage extends ACommonOutlinePage {
 	public static final String FUNCTION = "function";
 	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	//protected HashMap functions = new HashMap();

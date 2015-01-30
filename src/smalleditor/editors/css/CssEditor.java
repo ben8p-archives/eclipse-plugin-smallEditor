@@ -4,10 +4,10 @@ import static smalleditor.utils.CharUtility.cssBrackets;
 
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.editors.common.CommonEditor;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonOutlinePage;
 
-public class CssEditor extends CommonEditor {
+public class CssEditor extends ACommonEditor {
 	protected CssSourceViewerConfiguration configuration;
 
 	public CssEditor() {
@@ -27,7 +27,7 @@ public class CssEditor extends CommonEditor {
 	};
 	
 	
-	protected CommonOutlinePage getOutlinePage(IDocument document) {
+	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		CssOutlinePage cssContentOutlinePage = new CssOutlinePage(document);
 		return cssContentOutlinePage;
 	}

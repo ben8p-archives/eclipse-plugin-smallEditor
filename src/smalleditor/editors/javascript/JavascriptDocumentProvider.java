@@ -2,9 +2,9 @@ package smalleditor.editors.javascript;
 
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 
-import smalleditor.editors.common.CommonDocumentProvider;
+import smalleditor.editors.common.ACommonDocumentProvider;
 
-public class JavascriptDocumentProvider extends CommonDocumentProvider {
+public class JavascriptDocumentProvider extends ACommonDocumentProvider {
 
 	public JavascriptDocumentProvider() {
 		super();

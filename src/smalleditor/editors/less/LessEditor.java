@@ -4,7 +4,7 @@ import static smalleditor.utils.CharUtility.cssBrackets;
 
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonOutlinePage;
 import smalleditor.editors.css.CssEditor;
 
 public class LessEditor extends CssEditor {
@@ -27,7 +27,7 @@ public class LessEditor extends CssEditor {
 	};
 	
 	
-	protected CommonOutlinePage getOutlinePage(IDocument document) {
+	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		LessOutlinePage javascriptContentOutlinePage = new LessOutlinePage(document);
 		return javascriptContentOutlinePage;
 	}

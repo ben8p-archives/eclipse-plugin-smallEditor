@@ -22,13 +22,13 @@ import smalleditor.utils.CommonUtility;
 /**
  * @author Max Stepanov
  */
-public class CommonSourceConfiguration implements IPartitioningConfiguration,
+public abstract class ACommonSourceConfiguration implements IPartitioningConfiguration,
 		ISourceViewerConfiguration {
 
-	public static CommonSourceConfiguration getDefault() {
+	public static ACommonSourceConfiguration getDefault() {
 		return null;
 	}
-	protected CommonSourceConfiguration() {
+	protected ACommonSourceConfiguration() {
 	}
 	
 	public String[] getContentTypes() {
@@ -53,7 +53,7 @@ public class CommonSourceConfiguration implements IPartitioningConfiguration,
 			ISourceViewer sourceViewer) {
 	}
 	public IContentAssistProcessor getContentAssistProcessor(
-			CommonEditor editor, String contentType) {
+			ACommonEditor editor, String contentType) {
 		return null;
 	}
 	protected static IToken getToken(String tokenName) {

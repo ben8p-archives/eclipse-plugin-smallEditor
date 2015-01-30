@@ -4,10 +4,10 @@ import static smalleditor.utils.CharUtility.javascriptBrackets;
 
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.editors.common.CommonEditor;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonOutlinePage;
 
-public class JavascriptEditor extends CommonEditor {
+public class JavascriptEditor extends ACommonEditor {
 	protected JavascriptSourceViewerConfiguration configuration;
 
 	public JavascriptEditor() {
@@ -27,7 +27,7 @@ public class JavascriptEditor extends CommonEditor {
 	};
 	
 	
-	protected CommonOutlinePage getOutlinePage(IDocument document) {
+	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		JavascriptOutlinePage javascriptContentOutlinePage = new JavascriptOutlinePage(document);
 		return javascriptContentOutlinePage;
 	}

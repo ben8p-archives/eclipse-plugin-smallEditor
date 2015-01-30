@@ -21,10 +21,10 @@ import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineBaseElement;
 import smalleditor.editors.common.CommonOutlineBlockElement;
-import smalleditor.editors.common.CommonOutlineElement;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonOutlineElement;
+import smalleditor.editors.common.ACommonOutlinePage;
 
-public class JsonOutlinePage extends CommonOutlinePage {
+public class JsonOutlinePage extends ACommonOutlinePage {
 //	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	
 	private int deep = 0;
@@ -48,15 +48,15 @@ public class JsonOutlinePage extends CommonOutlinePage {
 	
 	@Override
 	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
-		CommonOutlineElement object = null;
-		List<CommonOutlineElement> elements = null;
+		ACommonOutlineElement object = null;
+		List<ACommonOutlineElement> elements = null;
 		try {
 			if (node.getType() == DocumentNodeType.OpenObject) {
 				if(previousNode != null && previousNode.getType() == DocumentNodeType.Colon) {
 					//open object wins over colon
 					elements = (List) tree.get(deep);
 					if(elements != null) {
-						for(CommonOutlineElement element: elements) {
+						for(ACommonOutlineElement element: elements) {
 							element.removeLastChildElement();
 						}
 					}
@@ -65,11 +65,11 @@ public class JsonOutlinePage extends CommonOutlinePage {
 				
 				deep++;
 			
-				object = (CommonOutlineElement) addBlock(expression, offset, length);
+				object = (ACommonOutlineElement) addBlock(expression, offset, length);
 				if(object != null) {
 					elements = (List) tree.get(deep);
 					if(elements == null) {
-						elements = new ArrayList<CommonOutlineElement>();
+						elements = new ArrayList<ACommonOutlineElement>();
 						tree.put(deep, elements);
 					}
 					elements.add(object);
@@ -77,11 +77,11 @@ public class JsonOutlinePage extends CommonOutlinePage {
 			}
 			
 			if (node.getType() == DocumentNodeType.Colon) {
-				object = (CommonOutlineElement) addElement(expression, offset, length);
+				object = (ACommonOutlineElement) addElement(expression, offset, length);
 				if(object != null) {
 					elements = (List) tree.get(deep);
 					if(elements != null) {
-						for(CommonOutlineElement element: elements) {
+						for(ACommonOutlineElement element: elements) {
 							element.addChildElement(object);
 							object.setParent(element);
 						}
@@ -91,13 +91,13 @@ public class JsonOutlinePage extends CommonOutlinePage {
 			}
 
 			if (node.getType() == DocumentNodeType.CloseObject) {
-				List<CommonOutlineElement> parents = (List) tree.get(deep - 1);
+				List<ACommonOutlineElement> parents = (List) tree.get(deep - 1);
 				elements = (List) tree.get(deep);
 				
 				if(parents != null && elements != null) {
-					for(CommonOutlineElement element: elements) {
-						for(CommonOutlineElement parent: parents) {
-							if(parent.category() == CommonOutlineElement.BLOCK) {
+					for(ACommonOutlineElement element: elements) {
+						for(ACommonOutlineElement parent: parents) {
+							if(parent.category() == ACommonOutlineElement.BLOCK) {
 								parent.addChildElement(element);
 								element.setParent(parent);
 							}

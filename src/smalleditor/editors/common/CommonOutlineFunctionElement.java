@@ -16,7 +16,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 /**
  * @author fitzpata
  */
-public class CommonOutlineFunctionElement extends CommonOutlineElement {
+public class CommonOutlineFunctionElement extends ACommonOutlineElement {
 
 	protected String arguments;
 

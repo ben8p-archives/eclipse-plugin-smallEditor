@@ -12,14 +12,14 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
  * 
  * @author Addi
  */
-abstract public class CommonOutlineElement implements IWorkbenchAdapter,
+public abstract class ACommonOutlineElement implements IWorkbenchAdapter,
 		IAdaptable, ICommonOutlineElementCategories {
 	protected String name;
 	protected int offset;
 	protected int numberOfLines;
 	protected int length;
 
-	protected CommonOutlineElement parent;
+	protected ACommonOutlineElement parent;
 	protected List children;
 	protected HashMap childrenByName;
 
@@ -34,7 +34,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 	 * @param length
 	 *            the length of the element
 	 */
-	public CommonOutlineElement(String aName, int offset, int length) {
+	public ACommonOutlineElement(String aName, int offset, int length) {
 		this.name = aName;
 		this.offset = offset;
 		this.length = length;
@@ -57,7 +57,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		return null;
 	}
 	
-	public void addChildElement(CommonOutlineElement anElement) {
+	public void addChildElement(ACommonOutlineElement anElement) {
 		String elementName = anElement.getName();
 		//if (!childrenByName.containsKey(elementName)) {
 		this.children.add(anElement);
@@ -66,7 +66,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		//}
 	}
 	public void removeLastChildElement() {
-		CommonOutlineElement anElement = (CommonOutlineElement) this.children.get(this.children.size() - 1);
+		ACommonOutlineElement anElement = (ACommonOutlineElement) this.children.get(this.children.size() - 1);
 		this.children.remove(anElement);
 		this.childrenByName.remove(anElement.name);
 
@@ -166,18 +166,18 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 	/**
 	 * @return
 	 */
-	public CommonOutlineElement getParent() {
+	public ACommonOutlineElement getParent() {
 		return parent;
 	}
 
 	/**
 	 * @param element
 	 */
-	public void setParent(CommonOutlineElement element) {
+	public void setParent(ACommonOutlineElement element) {
 		parent = element;
 	}
 
-	public boolean sharesParentWith(CommonOutlineElement anElement) {
+	public boolean sharesParentWith(ACommonOutlineElement anElement) {
 		if(anElement == null) { return false; }
 		if (parent == null) {
 			return anElement.getParent() == null;
@@ -186,7 +186,7 @@ abstract public class CommonOutlineElement implements IWorkbenchAdapter,
 		return parent.equals(anElement.getParent());
 	}
 
-	public boolean equals(CommonOutlineElement anElement) {
+	public boolean equals(ACommonOutlineElement anElement) {
 		return sharesParentWith(anElement) && name.equals(anElement.getName());
 	}
 

@@ -28,10 +28,10 @@ import smalleditor.common.rules.FixedMultiLineRule;
 import smalleditor.common.rules.ISubPartitionScanner;
 import smalleditor.common.rules.PartitionerSwitchingIgnoreRule;
 import smalleditor.common.rules.TagRule;
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.editors.common.CommonScanner;
-import smalleditor.editors.common.CommonSourceConfiguration;
+import smalleditor.editors.common.ACommonSourceConfiguration;
 import smalleditor.editors.css.CssSourceConfiguration;
 import smalleditor.editors.html.rules.HtmlDocTypeRule;
 import smalleditor.editors.javascript.JavascriptSourceConfiguration;
@@ -43,7 +43,7 @@ import smalleditor.utils.TextUtility;
 /**
  * @author Max Stepanov
  */
-public class HtmlSourceConfiguration extends CommonSourceConfiguration{
+public class HtmlSourceConfiguration extends ACommonSourceConfiguration{
 
 	public final static String PREFIX = "__html_";
 	public final static String HTML_DEFAULT = PREFIX + IDocument.DEFAULT_CONTENT_TYPE; //PREFIX + "default";
@@ -255,16 +255,9 @@ public class HtmlSourceConfiguration extends CommonSourceConfiguration{
 //		reconciler.setRepairer(keywordRepairer, HTML_ATTRIBUTE);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.aptana.editor.common.ISourceViewerConfiguration#getContentAssistProcessor
-	 * (com.aptana.editor.common. AbstractThemeableEditor, java.lang.String)
-	 */
 	@Override
 	public IContentAssistProcessor getContentAssistProcessor(
-			CommonEditor editor, String contentType) {
+			ACommonEditor editor, String contentType) {
 
 		if (contentType.startsWith(JavascriptSourceConfiguration.PREFIX)) {
 			return JavascriptSourceConfiguration.getDefault()

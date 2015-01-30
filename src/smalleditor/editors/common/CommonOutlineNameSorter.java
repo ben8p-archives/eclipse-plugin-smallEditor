@@ -22,6 +22,6 @@ class CommonOutlineNameSorter extends ViewerSorter {
 	 * @return the category
 	 */
 	public int category(Object element) {
-		return ((CommonOutlineElement) element).category();
+		return ((ACommonOutlineElement) element).category();
 	}
 }

@@ -14,7 +14,7 @@ import org.eclipse.jface.text.rules.IWordDetector;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WordRule;
 
-public abstract class ExtendedWordRule extends WordRule implements IPredicateRule {
+public abstract class AExtendedWordRule extends WordRule implements IPredicateRule {
 	protected IToken successToken = Token.UNDEFINED;
 	/** Buffer used for pattern detection. */
 	private final StringBuffer buffer = new StringBuffer();
@@ -39,7 +39,7 @@ public abstract class ExtendedWordRule extends WordRule implements IPredicateRul
 	 *            the case sensitivity associated with this rule
 	 * @see #addWord(String, IToken)
 	 */
-	protected ExtendedWordRule(IWordDetector detector, IToken defaultToken,
+	protected AExtendedWordRule(IWordDetector detector, IToken defaultToken,
 			boolean ignoreCase) {
 		super(detector, defaultToken, ignoreCase);
 		this.ignoreCase = ignoreCase;

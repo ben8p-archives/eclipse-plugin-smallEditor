@@ -1,9 +1,9 @@
 package smalleditor.editors.json;
 
-import smalleditor.editors.common.CommonContentAssistProvider;
+import smalleditor.editors.common.ACommonContentAssistProvider;
 import smalleditor.util.xml.ResourceReader;
 
-public class JsonContentAssistProvider extends CommonContentAssistProvider{
+public class JsonContentAssistProvider extends ACommonContentAssistProvider{
 
 	public JsonContentAssistProvider() {
 		super();

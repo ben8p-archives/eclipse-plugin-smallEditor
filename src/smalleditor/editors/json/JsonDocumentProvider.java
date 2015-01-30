@@ -2,9 +2,9 @@ package smalleditor.editors.json;
 
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 
-import smalleditor.editors.common.CommonDocumentProvider;
+import smalleditor.editors.common.ACommonDocumentProvider;
 
-public class JsonDocumentProvider extends CommonDocumentProvider {
+public class JsonDocumentProvider extends ACommonDocumentProvider {
 
 	public JsonDocumentProvider() {
 		super();

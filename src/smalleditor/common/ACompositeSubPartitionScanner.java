@@ -19,7 +19,7 @@ import smalleditor.common.rules.SequenceCharacterScanner;
  * @author Max Stepanov
  *
  */
-public abstract class CompositeSubPartitionScanner implements ISubPartitionScanner {
+public abstract class ACompositeSubPartitionScanner implements ISubPartitionScanner {
 
 	protected static final int TYPE_DEFAULT = 0;
 
@@ -34,7 +34,7 @@ public abstract class CompositeSubPartitionScanner implements ISubPartitionScann
 	/**
 	 * 
 	 */
-	protected CompositeSubPartitionScanner(ISubPartitionScanner[] subPartitionScanners, IPartitionScannerSwitchStrategy[] switchStrategies) {
+	protected ACompositeSubPartitionScanner(ISubPartitionScanner[] subPartitionScanners, IPartitionScannerSwitchStrategy[] switchStrategies) {
 		this.subPartitionScanners = subPartitionScanners;
 		this.switchStrategies = switchStrategies;
 	}

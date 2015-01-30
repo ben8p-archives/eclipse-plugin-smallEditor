@@ -27,15 +27,15 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
-import smalleditor.common.rules.ExtendedWordRule;
+import smalleditor.common.rules.AExtendedWordRule;
 import smalleditor.common.rules.ISubPartitionScanner;
 import smalleditor.common.rules.SubPartitionScanner;
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.CommonHexaColorDetector;
 import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.editors.common.CommonPredicateWordRule;
 import smalleditor.editors.common.CommonScanner;
-import smalleditor.editors.common.CommonSourceConfiguration;
+import smalleditor.editors.common.ACommonSourceConfiguration;
 import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.IPreferenceNames;
 import smalleditor.utils.IConstants;
@@ -43,7 +43,7 @@ import smalleditor.utils.IConstants;
 /**
  * @author Max Stepanov
  */
-public class CssSourceConfiguration extends CommonSourceConfiguration {
+public class CssSourceConfiguration extends ACommonSourceConfiguration {
 
 	public final static String PREFIX = "__css_";
 	public final static String CSS_DEFAULT = PREFIX + IDocument.DEFAULT_CONTENT_TYPE; //PREFIX + "default";
@@ -303,7 +303,7 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 //		rules.add(new SingleLineRule("@","media", getToken(CSS_KEYWORD)));
 //		rules.add(new SingleLineRule("@", ";", getToken(CSS_KEYWORD)));
 		
-		WordRule atWordRule = new ExtendedWordRule(
+		WordRule atWordRule = new AExtendedWordRule(
 				new CssAtWordDetector(),
 				getToken(CSS_KEYWORD), true) {
 			@Override
@@ -317,7 +317,7 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 		rules.add(new SingleLineRule("(", ")", getToken(CSS_STRING)));
 		rules.add(new SingleLineRule("!" ,"important", getToken(CSS_KEYWORD)));
 		
-		WordRule hexaWordRule = new ExtendedWordRule(
+		WordRule hexaWordRule = new AExtendedWordRule(
 				new CommonHexaColorDetector(),
 				getToken(CSS_COLOR), true) {
 			@Override
@@ -489,15 +489,8 @@ public class CssSourceConfiguration extends CommonSourceConfiguration {
 				.setRepairer(classRepairer, CSS_CLASSNAME);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.aptana.editor.common.ISourceViewerConfiguration#getContentAssistProcessor
-	 * (com.aptana.editor.common. AbstractThemeableEditor, java.lang.String)
-	 */
 	public IContentAssistProcessor getContentAssistProcessor(
-			CommonEditor editor, String contentType) {
+			ACommonEditor editor, String contentType) {
 		return new CssContentAssistProcessor();
 	}
 

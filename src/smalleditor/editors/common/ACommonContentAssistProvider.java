@@ -8,7 +8,7 @@ import java.util.Map;
 
 import smalleditor.common.IContentAssistProvider;
 
-public class CommonContentAssistProvider implements IContentAssistProvider{
+public abstract class ACommonContentAssistProvider implements IContentAssistProvider{
 	protected HashMap elementsList = null;
 	
 	@Override

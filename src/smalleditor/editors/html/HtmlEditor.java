@@ -1,8 +1,11 @@
 package smalleditor.editors.html;
 
-import smalleditor.editors.common.CommonEditor;
+import org.eclipse.jface.text.IDocument;
 
-public class HtmlEditor extends CommonEditor {
+import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonOutlinePage;
+
+public class HtmlEditor extends ACommonEditor {
 	protected HtmlSourceViewerConfiguration configuration;
 	
 
@@ -19,6 +22,11 @@ public class HtmlEditor extends CommonEditor {
 
 	@Override
 	protected char[] getMatchingBrackets() {
+		return null;
+	}
+
+	@Override
+	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		return null;
 	};
 	

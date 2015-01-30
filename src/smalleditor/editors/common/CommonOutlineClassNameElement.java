@@ -16,7 +16,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 /**
  * @author fitzpata
  */
-public class CommonOutlineClassNameElement extends CommonOutlineElement {
+public class CommonOutlineClassNameElement extends ACommonOutlineElement {
 
 	/**
 	 * @param aName

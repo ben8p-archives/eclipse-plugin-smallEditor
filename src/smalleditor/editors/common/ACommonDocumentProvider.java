@@ -8,9 +8,9 @@ import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.editors.text.TextFileDocumentProvider;
 
-public class CommonDocumentProvider extends TextFileDocumentProvider {
-	protected CommonSourceConfiguration sourceConfiguration = null;
-	public CommonDocumentProvider() {
+public abstract class ACommonDocumentProvider extends TextFileDocumentProvider {
+	protected ACommonSourceConfiguration sourceConfiguration = null;
+	public ACommonDocumentProvider() {
 		super();
 	}
 	

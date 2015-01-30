@@ -12,7 +12,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.source.ISourceViewer;
 
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 
 /**
  * @author Max Stepanov
@@ -24,6 +24,6 @@ public interface ISourceViewerConfiguration extends ITopContentTypesProvider {
 	
 	public void setupPresentationReconciler(PresentationReconciler reconciler, ISourceViewer sourceViewer);
 	
-	public IContentAssistProcessor getContentAssistProcessor(CommonEditor editor, String contentType);
+	public IContentAssistProcessor getContentAssistProcessor(ACommonEditor editor, String contentType);
 
 }

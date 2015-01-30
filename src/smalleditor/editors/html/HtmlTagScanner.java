@@ -27,9 +27,9 @@ import smalleditor.common.rules.AttributeNameWordDetector;
 import smalleditor.common.rules.BreakingMultiLineRule;
 import smalleditor.common.rules.BrokenStringRule;
 import smalleditor.common.rules.CharacterMapRule;
-import smalleditor.common.rules.ExtendedWordRule;
+import smalleditor.common.rules.AExtendedWordRule;
 import smalleditor.common.rules.MultiCharacterRule;
-import smalleditor.common.rules.QueuedRuleBasedScanner;
+import smalleditor.common.rules.AQueuedRuleBasedScanner;
 import smalleditor.common.rules.TagNameWordDetector;
 import smalleditor.common.rules.TagWordRule;
 import smalleditor.editors.common.CommonWhitespaceDetector;
@@ -39,7 +39,7 @@ import smalleditor.preferences.IPreferenceNames;
 /**
  * @author Max Stepanov
  */
-public class HtmlTagScanner extends QueuedRuleBasedScanner {
+public class HtmlTagScanner extends AQueuedRuleBasedScanner {
 	private ColorManager colorManager = ColorManager.getDefault();
 	
 	// as per the html5 spec, these are elements that define "sections", but
@@ -144,7 +144,7 @@ public class HtmlTagScanner extends QueuedRuleBasedScanner {
 		}
 		rules.add(tagWordRule);
 
-		WordRule attributeWordRule = new ExtendedWordRule(
+		WordRule attributeWordRule = new AExtendedWordRule(
 				new AttributeNameWordDetector(),
 				createToken(HtmlTokenType.ATTRIBUTE), true) {
 			@Override

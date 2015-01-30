@@ -20,18 +20,18 @@ import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import smalleditor.Activator;
 import smalleditor.preferences.ColorManager;
 
-public class CommonSourceViewerConfiguration extends SourceViewerConfiguration {
+public abstract class ACommonSourceViewerConfiguration extends SourceViewerConfiguration {
 	private CommonDoubleClickStrategy doubleClickStrategy;
 	protected ColorManager colorManager = ColorManager.getDefault();
-	protected CommonEditor editor;
-	protected CommonSourceConfiguration sourceConfiguration = null;
+	protected ACommonEditor editor;
+	protected ACommonSourceConfiguration sourceConfiguration = null;
 	
 	
-	public CommonSourceViewerConfiguration(CommonEditor editor) {
+	public ACommonSourceViewerConfiguration(ACommonEditor editor) {
 		this.editor = editor;
 	}
 	
-	protected IReconcilingStrategy getReconcilingStrategy(CommonEditor editor) {
+	protected IReconcilingStrategy getReconcilingStrategy(ACommonEditor editor) {
 		return new CommonReconcilingStrategy(this.editor);
 	}
 	

@@ -12,7 +12,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 
-import smalleditor.common.CompositeSubPartitionScanner;
+import smalleditor.common.ACompositeSubPartitionScanner;
 import smalleditor.common.IPartitionScannerSwitchStrategy;
 import smalleditor.common.PartitionScannerSwitchStrategy;
 import smalleditor.common.rules.ExtendedToken;
@@ -25,7 +25,7 @@ import smalleditor.utils.HtmlUtililty;
 /**
  * @author Max Stepanov
  */
-public class HtmlSubPartitionScanner extends CompositeSubPartitionScanner {
+public class HtmlSubPartitionScanner extends ACompositeSubPartitionScanner {
 
 	private static final int TYPE_JS = 1;
 	private static final int TYPE_CSS = 2;

@@ -4,10 +4,10 @@ import static smalleditor.utils.CharUtility.jsonBrackets;
 
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.editors.common.CommonEditor;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonOutlinePage;
 
-public class JsonEditor extends CommonEditor {
+public class JsonEditor extends ACommonEditor {
 	protected JsonSourceViewerConfiguration configuration;
 	
 
@@ -27,7 +27,7 @@ public class JsonEditor extends CommonEditor {
 		return jsonBrackets;
 	};
 	
-	protected CommonOutlinePage getOutlinePage(IDocument document) {
+	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		JsonOutlinePage jsonContentOutlinePage = new JsonOutlinePage(document);
 		return jsonContentOutlinePage;
 	}

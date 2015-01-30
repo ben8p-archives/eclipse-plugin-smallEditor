@@ -27,11 +27,11 @@ import org.eclipse.swt.graphics.Color;
 
 import smalleditor.common.rules.ISubPartitionScanner;
 import smalleditor.common.rules.SubPartitionScanner;
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.editors.common.CommonPredicateWordRule;
 import smalleditor.editors.common.CommonScanner;
-import smalleditor.editors.common.CommonSourceConfiguration;
+import smalleditor.editors.common.ACommonSourceConfiguration;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.IPreferenceNames;
@@ -40,7 +40,7 @@ import smalleditor.utils.IConstants;
 /**
  * @author Max Stepanov
  */
-public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
+public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 
 	public final static String PREFIX = "__js_";
 	public final static String JS_DEFAULT = PREFIX + IDocument.DEFAULT_CONTENT_TYPE; //PREFIX + "default";
@@ -266,15 +266,8 @@ public class JavascriptSourceConfiguration extends CommonSourceConfiguration {
 		reconciler.setRepairer(keywordRepairer, JS_KEYWORD);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.aptana.editor.common.ISourceViewerConfiguration#getContentAssistProcessor
-	 * (com.aptana.editor.common. AbstractThemeableEditor, java.lang.String)
-	 */
 	public IContentAssistProcessor getContentAssistProcessor(
-			CommonEditor editor, String contentType) {
+			ACommonEditor editor, String contentType) {
 		return new JavascriptContentAssistProcessor();
 	}
 

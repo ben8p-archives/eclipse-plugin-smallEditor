@@ -1,9 +1,9 @@
 package smalleditor.editors.json;
 
-import smalleditor.editors.common.CommonContentAssistProcessor;
+import smalleditor.editors.common.ACommonContentAssistProcessor;
 import smalleditor.utils.CharUtility;
 
-public class JsonContentAssistProcessor extends CommonContentAssistProcessor {
+public class JsonContentAssistProcessor extends ACommonContentAssistProcessor {
 	public JsonContentAssistProcessor() {
 		this.provider = new JsonContentAssistProvider();
 	}

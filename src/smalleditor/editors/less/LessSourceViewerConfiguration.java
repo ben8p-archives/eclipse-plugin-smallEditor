@@ -7,7 +7,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
 import org.eclipse.jface.text.source.ISourceViewer;
 
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.css.CssSourceViewerConfiguration;
 
 public class LessSourceViewerConfiguration extends CssSourceViewerConfiguration {
@@ -16,7 +16,7 @@ public class LessSourceViewerConfiguration extends CssSourceViewerConfiguration 
 	}
 
 	@Override
-	protected IReconcilingStrategy getReconcilingStrategy(CommonEditor editor) {
+	protected IReconcilingStrategy getReconcilingStrategy(ACommonEditor editor) {
 		return new LessReconcilingStrategy(this.editor);
 	}
 	

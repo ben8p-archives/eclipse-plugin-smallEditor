@@ -1,9 +1,9 @@
 package smalleditor.editors.css;
 
-import smalleditor.editors.common.CommonContentAssistProvider;
+import smalleditor.editors.common.ACommonContentAssistProvider;
 import smalleditor.util.xml.ResourceReader;
 
-public class CssContentAssistProvider extends CommonContentAssistProvider {
+public class CssContentAssistProvider extends ACommonContentAssistProvider {
 
 	public CssContentAssistProvider() {
 		super();

@@ -2,10 +2,10 @@ package smalleditor.editors.css;
 
 import org.eclipse.jface.text.reconciler.IReconcilingStrategy;
 
-import smalleditor.editors.common.CommonEditor;
-import smalleditor.editors.common.CommonSourceViewerConfiguration;
+import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonSourceViewerConfiguration;
 
-public class CssSourceViewerConfiguration extends CommonSourceViewerConfiguration {
+public class CssSourceViewerConfiguration extends ACommonSourceViewerConfiguration {
 	
 	public CssSourceViewerConfiguration(CssEditor editor) {
 		super(editor);
@@ -13,7 +13,7 @@ public class CssSourceViewerConfiguration extends CommonSourceViewerConfiguratio
 	}
 
 	@Override
-	protected IReconcilingStrategy getReconcilingStrategy(CommonEditor editor) {
+	protected IReconcilingStrategy getReconcilingStrategy(ACommonEditor editor) {
 		return new CssReconcilingStrategy(this.editor);
 	}
 

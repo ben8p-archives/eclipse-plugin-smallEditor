@@ -43,7 +43,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 * 
 	 * @param newChildren
 	 */
-	public CommonOutlineElementList(CommonOutlineElement[] newChildren) {
+	public CommonOutlineElementList(ACommonOutlineElement[] newChildren) {
 		for (int i = 0; i < newChildren.length; i++) {
 			children.add(newChildren[i]);
 		}
@@ -70,7 +70,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 */
 	public CommonOutlineElementList add(Iterator iterator) {
 		while (iterator.hasNext()) {
-			add((CommonOutlineElement) iterator.next());
+			add((ACommonOutlineElement) iterator.next());
 		}
 
 		return this;
@@ -83,7 +83,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 * 
 	 * @return
 	 */
-	public CommonOutlineElementList add(CommonOutlineElement anElement) {
+	public CommonOutlineElementList add(ACommonOutlineElement anElement) {
 		children.add(anElement);
 
 		return this;
@@ -162,7 +162,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 * 
 	 * @param adaptable
 	 */
-	public void remove(CommonOutlineElement anElement) {
+	public void remove(ACommonOutlineElement anElement) {
 		children.remove(anElement);
 	}
 
@@ -175,9 +175,9 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 		return children.size();
 	}
 
-	public CommonOutlineElement findEquivilent(CommonOutlineElement anElement) {
+	public ACommonOutlineElement findEquivilent(ACommonOutlineElement anElement) {
 		for (int i = 0; i < size(); i++) {
-			CommonOutlineElement aCandidate = (CommonOutlineElement) children
+			ACommonOutlineElement aCandidate = (ACommonOutlineElement) children
 					.get(i);
 			if (anElement.equals(aCandidate)) {
 				return aCandidate;
@@ -187,10 +187,10 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 		return null;
 	}
 
-	public CommonOutlineElement get(int index) {
+	public ACommonOutlineElement get(int index) {
 		if (index >= size()) {
 			return null;
 		}
-		return (CommonOutlineElement) children.get(index);
+		return (ACommonOutlineElement) children.get(index);
 	}
 }

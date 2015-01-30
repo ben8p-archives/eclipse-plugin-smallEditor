@@ -16,9 +16,9 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import smalleditor.common.IContentAssistProvider;
 import smalleditor.utils.CharUtility;
 
-public class CommonContentAssistProcessor implements IContentAssistProcessor {
+public abstract class ACommonContentAssistProcessor implements IContentAssistProcessor {
 	protected IContentAssistProvider provider;
-	public CommonContentAssistProcessor() {
+	public ACommonContentAssistProcessor() {
 	}
 	
 	@Override

@@ -1,9 +1,9 @@
 package smalleditor.editors.javascript;
 
-import smalleditor.editors.common.CommonContentAssistProcessor;
+import smalleditor.editors.common.ACommonContentAssistProcessor;
 import smalleditor.utils.CharUtility;
 
-public class JavascriptContentAssistProcessor extends CommonContentAssistProcessor {
+public class JavascriptContentAssistProcessor extends ACommonContentAssistProcessor {
 	public JavascriptContentAssistProcessor() {
 		this.provider = new JavascriptContentAssistProvider();
 	}

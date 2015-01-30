@@ -35,7 +35,7 @@ import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.nls.Messages;
 import smalleditor.utils.TextUtility;
 
-public class CommonOutlinePage extends ContentOutlinePage {
+public abstract class ACommonOutlinePage extends ContentOutlinePage {
 	protected IDocument document;
 	protected DocumentTokenBuilder scanner = null;
 	protected Boolean sort = true;
@@ -72,7 +72,7 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		sort = s;
 	}
 	
-	public CommonOutlinePage(IDocument document) {
+	public ACommonOutlinePage(IDocument document) {
 		super();
 		this.document = document;
 		this.scanner = getScanner();
@@ -292,8 +292,8 @@ public class CommonOutlinePage extends ContentOutlinePage {
 		// Attempt to determine which nodes are already expanded bearing in mind
 		// that the object is not the same.
 		for (int i = 0; i < expanded.length; i++) {
-			CommonOutlineElement newExpandedNode = currentNodes
-					.findEquivilent((CommonOutlineElement) expanded[i]);
+			ACommonOutlineElement newExpandedNode = currentNodes
+					.findEquivilent((ACommonOutlineElement) expanded[i]);
 			if (newExpandedNode != null) {
 				viewer.setExpandedState(newExpandedNode, true);
 			}

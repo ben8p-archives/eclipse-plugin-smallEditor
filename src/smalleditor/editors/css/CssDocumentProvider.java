@@ -2,9 +2,9 @@ package smalleditor.editors.css;
 
 import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
 
-import smalleditor.editors.common.CommonDocumentProvider;
+import smalleditor.editors.common.ACommonDocumentProvider;
 
-public class CssDocumentProvider extends CommonDocumentProvider {
+public class CssDocumentProvider extends ACommonDocumentProvider {
 
 	public CssDocumentProvider() {
 		super();

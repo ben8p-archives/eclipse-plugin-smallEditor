@@ -16,7 +16,7 @@ import org.eclipse.jface.text.rules.Token;
 /**
  * @author Max Stepanov
  */
-public class TagWordRule extends ExtendedWordRule {
+public class TagWordRule extends AExtendedWordRule {
 
 	/**
 	 * @param detector

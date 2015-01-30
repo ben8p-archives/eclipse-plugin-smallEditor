@@ -24,7 +24,7 @@ import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.swt.SWT;
 
 import smalleditor.common.rules.CharacterMapRule;
-import smalleditor.common.rules.ExtendedWordRule;
+import smalleditor.common.rules.AExtendedWordRule;
 import smalleditor.editors.common.CommonWhitespaceDetector;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
@@ -33,7 +33,7 @@ import smalleditor.preferences.IPreferenceNames;
 public class HtmlDoctypeScanner extends RuleBasedScanner {
 	private ColorManager colorManager = ColorManager.getDefault();
 
-	private static final class TagStartRule extends ExtendedWordRule {
+	private static final class TagStartRule extends AExtendedWordRule {
 		private Pattern pattern;
 
 		private TagStartRule(IWordDetector detector, IToken defaultToken,

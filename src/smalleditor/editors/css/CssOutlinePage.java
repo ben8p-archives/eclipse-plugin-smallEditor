@@ -12,9 +12,9 @@ import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineClassNameElement;
-import smalleditor.editors.common.CommonOutlinePage;
+import smalleditor.editors.common.ACommonOutlinePage;
 
-public class CssOutlinePage extends CommonOutlinePage {
+public class CssOutlinePage extends ACommonOutlinePage {
 //	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	
 	private int deep = 0;

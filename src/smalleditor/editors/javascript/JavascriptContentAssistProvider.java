@@ -1,9 +1,9 @@
 package smalleditor.editors.javascript;
 
-import smalleditor.editors.common.CommonContentAssistProvider;
+import smalleditor.editors.common.ACommonContentAssistProvider;
 import smalleditor.util.xml.ResourceReader;
 
-public class JavascriptContentAssistProvider extends CommonContentAssistProvider{
+public class JavascriptContentAssistProvider extends ACommonContentAssistProvider{
 
 	public JavascriptContentAssistProvider() {
 		super();

@@ -12,9 +12,9 @@ import smalleditor.common.ExtendedFastPartitioner;
 import smalleditor.common.NullPartitionerSwitchStrategy;
 import smalleditor.common.rules.CompositePartitionScanner;
 import smalleditor.common.rules.NullSubPartitionScanner;
-import smalleditor.editors.common.CommonDocumentProvider;
+import smalleditor.editors.common.ACommonDocumentProvider;
 
-public class HtmlDocumentProvider extends CommonDocumentProvider {
+public class HtmlDocumentProvider extends ACommonDocumentProvider {
 
 	public HtmlDocumentProvider() {
 		super();

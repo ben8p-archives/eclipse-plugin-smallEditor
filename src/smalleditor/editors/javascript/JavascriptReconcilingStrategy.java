@@ -10,7 +10,7 @@ import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentType;
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.javascript.JavascriptLinterBuilder;
 import smalleditor.preferences.IPreferenceNames;
@@ -18,7 +18,7 @@ import smalleditor.preferences.IPreferenceNames;
 public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 	protected JavascriptLinterBuilder linterBuilder;
 
-	public JavascriptReconcilingStrategy(CommonEditor editor) {
+	public JavascriptReconcilingStrategy(ACommonEditor editor) {
 		super(editor);
 		try {
 			linterBuilder = new JavascriptLinterBuilder();

@@ -22,9 +22,9 @@ import smalleditor.nls.Messages;
 public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		IReconcilingStrategyExtension {
 	protected IDocument document = null;
-	protected CommonEditor editor;
+	protected ACommonEditor editor;
 
-	public CommonReconcilingStrategy(CommonEditor editor) {
+	public CommonReconcilingStrategy(ACommonEditor editor) {
 		super();
 		this.editor = editor;
 	}

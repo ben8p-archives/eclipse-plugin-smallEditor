@@ -10,7 +10,7 @@ import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentType;
-import smalleditor.editors.common.CommonEditor;
+import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.CommonReconcilingStrategy;
 import smalleditor.linters.common.CommonLinterBuilder;
 import smalleditor.linters.json.JsonLinterBuilder;
@@ -24,7 +24,7 @@ public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
 		return (JsonDocumentTokenBuilder) JsonDocumentTokenBuilder.getDefault(DocumentType.JSON);
 	}
 	
-	public JsonReconcilingStrategy(CommonEditor editor) {
+	public JsonReconcilingStrategy(ACommonEditor editor) {
 		super(editor);
 		try {
 			linterBuilder = new JsonLinterBuilder();

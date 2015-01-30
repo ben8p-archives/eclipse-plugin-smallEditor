@@ -51,10 +51,10 @@ import smalleditor.editors.common.actions.FoldingActionsGroup;
 import smalleditor.preferences.IPreferenceNames;
 import smalleditor.nls.Messages;
 
-public class CommonEditor extends TextEditor implements ISelectionChangedListener {
+public abstract class ACommonEditor extends TextEditor implements ISelectionChangedListener {
 	protected ProjectionSupport projectionSupport;
 	protected ProjectionAnnotationModel annotationModel;
-	protected CommonOutlinePage outlinePage;
+	protected ACommonOutlinePage outlinePage;
 	
 	private FoldingActionsGroup foldingActionsGroup;
 	private Boolean initialFoldingDone = false;
@@ -67,7 +67,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	
 	private final String OCCURENCE_MARKER_TYPE = "slicemarker"; //$NON-NLS-1$
 
-	public CommonEditor() {
+	public ACommonEditor() {
 		super();
 
 		// merge the preferences
@@ -136,9 +136,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		return super.getAdapter(key);
 	}
 	
-	protected CommonOutlinePage getOutlinePage(IDocument document) {
-		return null;
-	}
+	protected abstract ACommonOutlinePage getOutlinePage(IDocument document);
 	/**
 	 * Updates all content dependent actions.
 	 * 
@@ -390,7 +388,7 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 			if (event.getSelection() instanceof IStructuredSelection) {
 				IStructuredSelection sel = (IStructuredSelection) event.getSelection();
 				if (null != sel) {
-					CommonOutlineElement fe = (CommonOutlineElement) sel.getFirstElement();
+					ACommonOutlineElement fe = (ACommonOutlineElement) sel.getFirstElement();
 					if (null != fe) {
 						selectAndReveal(fe.getStart(), fe.getLength());
 					}

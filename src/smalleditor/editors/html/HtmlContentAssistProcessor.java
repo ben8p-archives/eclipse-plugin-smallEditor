@@ -1,9 +1,9 @@
 package smalleditor.editors.html;
 
-import smalleditor.editors.common.CommonContentAssistProcessor;
+import smalleditor.editors.common.ACommonContentAssistProcessor;
 import smalleditor.utils.CharUtility;
 
-public class HtmlContentAssistProcessor extends CommonContentAssistProcessor {
+public class HtmlContentAssistProcessor extends ACommonContentAssistProcessor {
 	public HtmlContentAssistProcessor() {
 		this.provider = new HtmlContentAssistProvider();
 	}
