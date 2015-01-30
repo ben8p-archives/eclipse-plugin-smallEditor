@@ -25,13 +25,14 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
+import smalleditor.common.rules.EmptyCommentRule;
 import smalleditor.common.rules.ISubPartitionScanner;
 import smalleditor.common.rules.SubPartitionScanner;
 import smalleditor.editors.common.ACommonEditor;
+import smalleditor.editors.common.ACommonSourceConfiguration;
 import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.editors.common.CommonPredicateWordRule;
 import smalleditor.editors.common.CommonScanner;
-import smalleditor.editors.common.ACommonSourceConfiguration;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.IPreferenceNames;
@@ -44,6 +45,7 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 
 	public final static String PREFIX = "__js_";
 	public final static String JS_DEFAULT = PREFIX + IDocument.DEFAULT_CONTENT_TYPE; //PREFIX + "default";
+	public final static String JS_MULTILINE_COMMENT = PREFIX + "multiline_comment";
 	public final static String JS_COMMENT = PREFIX + "comment";
 	public final static String JS_KEYWORD = PREFIX + "keyword";
 	public final static String JS_STRING = PREFIX + "string";
@@ -54,7 +56,7 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 	private CommonScanner scanner;
 
 	public static final String[] CONTENT_TYPES = new String[] { 
-		IDocument.DEFAULT_CONTENT_TYPE, JS_DEFAULT, JS_COMMENT, JS_KEYWORD, JS_STRING};
+		IDocument.DEFAULT_CONTENT_TYPE, JS_DEFAULT, JS_MULTILINE_COMMENT, JS_COMMENT, JS_KEYWORD, JS_STRING};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE } };
 	/**
@@ -147,7 +149,8 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 		
 		List rules = new ArrayList();
 
-		rules.add(new MultiLineRule("/*", "*/", getToken(JS_COMMENT)));
+		rules.add(new EmptyCommentRule(getToken(JS_MULTILINE_COMMENT)));
+		rules.add(new MultiLineRule("/*", "*/", getToken(JS_MULTILINE_COMMENT), (char) 0, true));
 		rules.add(new EndOfLineRule("//", getToken(JS_COMMENT)));
 		rules.add(new SingleLineRule("\"", "\"", getToken(JS_STRING), '\\'));
 		rules.add(new SingleLineRule("/", "/", getToken(JS_STRING), '\\'));
@@ -242,11 +245,13 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 		
 		reconciler.setDamager(dr, JS_DEFAULT);
 		reconciler.setRepairer(dr, JS_DEFAULT);
-
+		
 		CommonNonRuleBasedDamagerRepairer commentRepairer = new CommonNonRuleBasedDamagerRepairer(
 				new TextAttribute(
 						colorManager
 								.getColorFromPreferencesKey(IPreferenceNames.P_COMMENT_COLOR)));
+		reconciler.setDamager(commentRepairer, JS_MULTILINE_COMMENT);
+		reconciler.setRepairer(commentRepairer, JS_MULTILINE_COMMENT);
 		reconciler.setDamager(commentRepairer, JS_COMMENT);
 		reconciler.setRepairer(commentRepairer, JS_COMMENT);
 
