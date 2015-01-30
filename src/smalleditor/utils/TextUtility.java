@@ -31,6 +31,10 @@ public final class TextUtility {
 	private TextUtility() {
 	}
 
+	public static String getStringValue(Object object) {
+		return (object != null) ? object.toString() : "";
+	}
+	
 	/**
 	 * Combines by flattening the string arrays into a single string array. Does
 	 * not add duplicate strings!

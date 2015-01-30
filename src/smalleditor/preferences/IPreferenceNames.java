@@ -15,4 +15,5 @@ public interface IPreferenceNames {
 	String P_FOLDING_STATUS_NONE = "NONE";
 	String P_FOLDING_STATUS_ALL = "ALL";
 	String P_FOLDING_STATUS_FUNCTION = "FUNCTION";
+	String P_SORT_OUTLINE = "outlineSort";
 }

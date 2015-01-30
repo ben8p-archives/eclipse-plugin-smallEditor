@@ -4,14 +4,22 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -23,22 +31,23 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
-
+import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.nls.Messages;
+import smalleditor.preferences.IPreferenceNames;
 import smalleditor.utils.TextUtility;
 
-public abstract class ACommonOutlinePage extends ContentOutlinePage {
+public abstract class ACommonOutlinePage extends ContentOutlinePage implements IPropertyChangeListener {
 	protected IDocument document;
 	protected DocumentTokenBuilder scanner = null;
-	protected Boolean sort = true;
 	
 	private List<DocumentNode> previousNodes = null;
 	private List elementList = null;
@@ -49,6 +58,8 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage {
 	private PatternFilter fFilter;
 	private static final int FILTER_REFRESH_DELAY = 200;
 	private WorkbenchJob fFilterRefreshJob;
+	
+	private IPreferenceStore fPref = null;
 	
 	private static final String INITIAL_FILTER_TEXT = smalleditor.nls.Messages.getString("Outline.InitialFilterText");
 	
@@ -68,8 +79,27 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage {
 		}
 	};
 	
-	protected void setSort(Boolean s) {
-		sort = s;
+	private class SortingAction extends Action {
+		private static final String ICON_PATH = "res/icons/sort_alphab.gif"; //$NON-NLS-1$
+
+		public SortingAction() {
+			setText(Messages.getString("Outline.Sort"));
+			setToolTipText(Messages.getString("Outline.SortInfo"));
+			setDescription(Messages.getString("Outline.SortInfo"));
+			
+			ImageDescriptor sortImage = ImageDescriptor.createFromURL(
+					FileLocator.find(Activator.getDefault().getBundle(),
+					new Path(ICON_PATH),null));
+			
+			setImageDescriptor(sortImage);
+
+			setChecked(isSortingEnabled());
+		}
+
+		public void run() {
+			getPreferenceStore().setValue(IPreferenceNames.P_SORT_OUTLINE,
+					isChecked());
+		}
 	}
 	
 	public ACommonOutlinePage(IDocument document) {
@@ -131,10 +161,15 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage {
 		viewer.setContentProvider(new WorkbenchContentProvider());
 		viewer.setLabelProvider(new WorkbenchLabelProvider());
 		//viewer.setInput(ResourcesPlugin.getWorkspace().getRoot());
-		if(this.sort) {
-			viewer.setSorter(new CommonOutlineNameSorter());
-		}
+		viewer.setSorter(isSortingEnabled() ? new CommonOutlineNameSorter() : null);
+
 		viewer.addFilter(fFilter);
+		
+		IActionBars actionBars = getSite().getActionBars();
+		registerActions(actionBars);
+		actionBars.updateActionBars();
+		
+		getPreferenceStore().addPropertyChangeListener(this);
 		
 		update();
 		
@@ -159,6 +194,42 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage {
 		};
 		fFilterRefreshJob.setSystem(true);
 		
+	}
+
+	@Override
+	public void dispose() {
+		getPreferenceStore().removePropertyChangeListener(this);
+		super.dispose();
+	}
+	
+	public void propertyChange(PropertyChangeEvent event) {
+		String property = event.getProperty();
+
+		if (property
+				.equals(IPreferenceNames.P_SORT_OUTLINE)) {
+			boolean sort = Boolean.parseBoolean(TextUtility.getStringValue(event
+					.getNewValue()));
+			getTreeViewer().setComparator(sort ? new CommonOutlineNameSorter() : null);
+		}
+	}
+	
+	private void registerActions(IActionBars actionBars) {
+		IToolBarManager toolBarManager = actionBars.getToolBarManager();
+		if (toolBarManager != null) {
+			toolBarManager.add(new SortingAction());
+		}
+	}
+	
+	private IPreferenceStore getPreferenceStore() {
+		if(fPref == null) {
+			fPref = Activator.getDefault().getPreferenceStore();
+		}
+		return fPref;
+	}
+	
+	private boolean isSortingEnabled() {
+		return getPreferenceStore().getBoolean(
+				IPreferenceNames.P_SORT_OUTLINE);
 	}
 
 	private boolean isDisposed() {
