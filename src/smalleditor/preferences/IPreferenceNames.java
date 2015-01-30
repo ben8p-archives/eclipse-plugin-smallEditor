@@ -12,5 +12,7 @@ public interface IPreferenceNames {
 	String P_TRAILING_SPACE = "removeTrailingSpaces";
 	String P_LINT_CODE = "enableCodeLinters";
 	String P_INITIAL_FOLDING = "startFolded";
-	
+	String P_FOLDING_STATUS_NONE = "NONE";
+	String P_FOLDING_STATUS_ALL = "ALL";
+	String P_FOLDING_STATUS_FUNCTION = "FUNCTION";
 }

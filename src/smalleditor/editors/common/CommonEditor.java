@@ -13,6 +13,8 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -35,6 +37,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
 import org.eclipse.ui.texteditor.ITextEditorActionConstants;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
@@ -42,6 +45,8 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentNode;
+import smalleditor.common.tokenizer.DocumentNodeType;
+import smalleditor.common.tokenizer.NodePosition;
 import smalleditor.editors.common.actions.FoldingActionsGroup;
 import smalleditor.preferences.IPreferenceNames;
 import smalleditor.nls.Messages;
@@ -57,6 +62,10 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	private ProjectionAnnotation[] oldAnnotations;
 	private boolean[] annotationCollapsedState;
 	protected boolean updatingContentDependentActions = false;
+	
+	private WorkbenchJob markOccurenceWorkbenchJob = null;
+	
+	private final String OCCURENCE_MARKER_TYPE = "slicemarker"; //$NON-NLS-1$
 
 	public CommonEditor() {
 		super();
@@ -185,9 +194,9 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		return empty;
 	}
 
-	public void updateFoldingStructure(List<Position> positions) {
+	public void updateFoldingStructure(List<NodePosition> fPositions) {
 		if(annotationModel == null) { return; }
-		ProjectionAnnotation[] annotations = new ProjectionAnnotation[positions
+		ProjectionAnnotation[] annotations = new ProjectionAnnotation[fPositions
 				.size()];
 
 		// this will hold the new annotations along
@@ -196,21 +205,25 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 		
 		storeOutlineState();
 		
-		for (int i = 0; i < positions.size(); i++) {
+		for (int i = 0; i < fPositions.size(); i++) {
 			ProjectionAnnotation annotation = new ProjectionAnnotation();
-			newAnnotations.put(annotation, positions.get(i));
+			NodePosition position = fPositions.get(i);
+			newAnnotations.put(annotation, position);
 			annotations[i] = annotation;
 			
-			Boolean startFolded = getPreferenceStore().getBoolean(
+			String startFolded = getPreferenceStore().getString(
 					IPreferenceNames.P_INITIAL_FOLDING);
-			if (initialFoldingDone == false && startFolded == true) {
+			if (initialFoldingDone == false
+					&& startFolded == IPreferenceNames.P_FOLDING_STATUS_ALL) {
 				annotation.markCollapsed();
-			} else {
-				if (annotationCollapsedState != null
-						&& annotationCollapsedState.length > i
-						&& annotationCollapsedState[i]) {
-					annotation.markCollapsed();
-				}
+			} else if (initialFoldingDone == false
+					&& startFolded == IPreferenceNames.P_FOLDING_STATUS_FUNCTION
+					&& position.getType() == DocumentNodeType.OpenFunction) {
+				annotation.markCollapsed();
+			} else if (annotationCollapsedState != null
+					&& annotationCollapsedState.length > i
+					&& annotationCollapsedState[i]) {
+				annotation.markCollapsed();
 			}
 		}
 
@@ -279,14 +292,14 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 	}
 	
 	private void markOccurrences() {
-		IDocument document = getDocument();
-		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
+		final IDocument document = getDocument();
+		final IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 		ISelection selection = getSelectionProvider().getSelection();
-		String markerType = "slicemarker"; //$NON-NLS-1$
+		
 
 		// cleanup old annotations
 		try {
-			file.deleteMarkers(markerType, true, IResource.DEPTH_INFINITE);
+			file.deleteMarkers(OCCURENCE_MARKER_TYPE, true, IResource.DEPTH_INFINITE);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -298,61 +311,74 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 			return;
 		}
 
-		ITextSelection textSelection = (ITextSelection) selection;
+		final ITextSelection textSelection = (ITextSelection) selection;
 		// only react when cursor move, not when selected
 		if (textSelection.getLength() > 0) {
 			return;
 		}
-
-		try {
-			int lineOffset = document.getLineOffset(textSelection
-					.getStartLine());
-			int caretOffset = textSelection.getOffset() - lineOffset;
-			String line = document.get(lineOffset,
-					document.getLineLength(textSelection.getStartLine()));
-			String[] words = line.split("[^\\w]"); //$NON-NLS-1$
-			int offset = 0;
-			String word = null;
-			List<Position> positions = new LinkedList<Position>();
-
-			// get word under caret
-			for (int i = 0; i < words.length; i++) {
-				offset += words[i].length() + 1; // 1 for the splittted
-													// char
-				if (offset > caretOffset) {
-					// System.out.println("word under carret is:" + words[i]);
-					word = words[i];
-					break;
-				}
-			}
-			if (word != null && !word.isEmpty()) {
-				// get all the positions of that word
-
-				Pattern p = Pattern.compile("\\b" + word + "\\b"); //$NON-NLS-1$ //$NON-NLS-2$
-				Matcher m = p.matcher(document.get());
-				while (m.find()) {
-					Position position = new Position(m.start());
-					position.setLength(word.length());
-					positions.add(position);
-				}
-			}
-			if (positions.size() > 0) {
-				// create markers
-				IMarker marker;
-
-				for (int index = 0; index < positions.size(); index++) {
-					Position position = positions.get(index);
-					marker = file.createMarker(markerType);
-					marker.setAttribute(IMarker.CHAR_START,
-							position.getOffset());
-					marker.setAttribute(IMarker.CHAR_END, position.getOffset()
-							+ position.getLength());
-
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(markOccurenceWorkbenchJob != null) {
+			markOccurenceWorkbenchJob.cancel();
 		}
+		
+		markOccurenceWorkbenchJob = new WorkbenchJob(Messages.getString("Occurence.Job")) {//$NON-NLS-1$
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				try {
+					int lineOffset = document.getLineOffset(textSelection
+							.getStartLine());
+					int caretOffset = textSelection.getOffset() - lineOffset;
+					String line = document.get(lineOffset,
+							document.getLineLength(textSelection.getStartLine()));
+					String[] words = line.split("[^\\w]"); //$NON-NLS-1$
+					int offset = 0;
+					String word = null;
+					List<Position> positions = new LinkedList<Position>();
+
+					// get word under caret
+					for (int i = 0; i < words.length; i++) {
+						offset += words[i].length() + 1; // 1 for the splittted
+															// char
+						if (offset > caretOffset) {
+							// System.out.println("word under carret is:" + words[i]);
+							word = words[i];
+							break;
+						}
+					}
+					if (word != null && !word.isEmpty()) {
+						// get all the positions of that word
+
+						Pattern p = Pattern.compile("\\b" + word + "\\b"); //$NON-NLS-1$ //$NON-NLS-2$
+						Matcher m = p.matcher(document.get());
+						while (m.find()) {
+							Position position = new Position(m.start());
+							position.setLength(word.length());
+							positions.add(position);
+						}
+					}
+					if (positions.size() > 0) {
+						// create markers
+						IMarker marker;
+
+						for (int index = 0; index < positions.size(); index++) {
+							Position position = positions.get(index);
+							marker = file.createMarker(OCCURENCE_MARKER_TYPE);
+							marker.setAttribute(IMarker.CHAR_START,
+									position.getOffset());
+							marker.setAttribute(IMarker.CHAR_END, position.getOffset()
+									+ position.getLength());
+
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Status.OK_STATUS;
+			}
+		};
+		
+		markOccurenceWorkbenchJob.setPriority(WorkbenchJob.DECORATE);
+		markOccurenceWorkbenchJob.schedule(200);
+
+		
 	}
 
 	/**
@@ -372,4 +398,5 @@ public class CommonEditor extends TextEditor implements ISelectionChangedListene
 			}
 		}
 	}
+
 }

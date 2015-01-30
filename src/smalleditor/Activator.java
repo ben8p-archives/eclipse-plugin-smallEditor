@@ -64,7 +64,7 @@ public class Activator extends AbstractUIPlugin {
 		store.setDefault(IPreferenceNames.P_MARK_OCCURENCES, true);
 		store.setDefault(IPreferenceNames.P_TRAILING_SPACE, true);
 		store.setDefault(IPreferenceNames.P_LINT_CODE, true);
-		store.setDefault(IPreferenceNames.P_INITIAL_FOLDING, true);
+		store.setDefault(IPreferenceNames.P_INITIAL_FOLDING, IPreferenceNames.P_FOLDING_STATUS_NONE);
 
 		this.defaultsInitialized = true;
 	}

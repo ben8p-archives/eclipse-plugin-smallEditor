@@ -16,6 +16,7 @@ import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.common.tokenizer.NodePosition;
 import smalleditor.nls.Messages;
 
 public class CommonReconcilingStrategy implements IReconcilingStrategy,
@@ -93,7 +94,7 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 	}
 	
 	private void updateFoldingStructure(List<DocumentNode> nodes) {
-		List<Position> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
+		List<NodePosition> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
 
 		this.editor.updateFoldingStructure(fPositions);
 	}

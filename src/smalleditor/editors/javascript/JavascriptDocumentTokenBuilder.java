@@ -15,7 +15,7 @@ import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 
 public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
-
+	private Boolean willOpenFunction = false;
 	public JavascriptDocumentTokenBuilder() {
 		super();
 		this.setElements(
@@ -31,8 +31,15 @@ public class JavascriptDocumentTokenBuilder extends DocumentTokenBuilder {
 
 		if(type == DocumentNodeType.Function) {
 			//go till next block
+			willOpenFunction = true;
 			return createEOBNode(document, type, offset, expression, DocumentNodeType.OpenObject, false);
 		}
+		
+		//right after a function we expect an open object, otherwise, something is wrong!
+		if(type == DocumentNodeType.OpenObject && willOpenFunction == true) {
+			type = DocumentNodeType.OpenFunction;
+		}
+		willOpenFunction = false;
 		
 		return super.createDefaultNode(document, type, offset, length, expression);
 	}

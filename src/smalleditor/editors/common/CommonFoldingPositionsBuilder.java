@@ -6,10 +6,10 @@ package smalleditor.editors.common;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.jface.text.Position;
 
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentNodeType;
+import smalleditor.common.tokenizer.NodePosition;
 
 /**
  * @author garner_m
@@ -23,23 +23,25 @@ public class CommonFoldingPositionsBuilder {
 		this.nodes = nodes;
 	}
 
-	public List<Position> buildFoldingPositions() {
+	public List<NodePosition> buildFoldingPositions() {
 
-		List<Position> positions = new LinkedList<Position>();
-		List<Position> positionsStack = new LinkedList<Position>();
-		List<Position> linesStack = new LinkedList<Position>();
+		List<NodePosition> positions = new LinkedList<NodePosition>();
+		List<NodePosition> positionsStack = new LinkedList<NodePosition>();
+		List<NodePosition> linesStack = new LinkedList<NodePosition>();
 		
 		if (nodes != null) {
 			for (DocumentNode node : nodes) {
-				if (isNodeType(node, DocumentNodeType.OpenArray, DocumentNodeType.OpenObject)) {
-					positionsStack.add(0, new Position(getStart(node)));
-					linesStack.add(0, new Position(node.getLine()));
+				if (isNodeType(node, DocumentNodeType.OpenArray, DocumentNodeType.OpenObject, DocumentNodeType.OpenFunction)) {
+					NodePosition position = new NodePosition(getStart(node));
+					positionsStack.add(0, position);
+					linesStack.add(0, new NodePosition(node.getLine()));
+					position.setType(node.getType());
 					continue;
 				}
 				
 				if (isNodeType(node, DocumentNodeType.CloseArray, DocumentNodeType.CloseObject) && positionsStack.size() > 0) {
-					Position position = positionsStack.remove(0);
-					Position line = linesStack.remove(0);
+					NodePosition position = positionsStack.remove(0);
+					NodePosition line = linesStack.remove(0);
 					if(line.getOffset() != node.getLine()) {
 						position.setLength(getEnd(node) - position.getOffset());
 						positions.add(position);

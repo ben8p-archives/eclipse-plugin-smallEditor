@@ -1,6 +1,12 @@
 package smalleditor.preferences;
 
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.*;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
 import smalleditor.Activator;
@@ -25,6 +31,23 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
 		setDescription(Messages.getString("Preferences.Description"));
 	}
+	
+	public static Composite createGroup(Composite appearanceComposite,
+			String string) {
+		Group group = new Group(appearanceComposite, SWT.NONE);
+		group.setFont(appearanceComposite.getFont());
+		group.setText(string);
+
+		group.setLayout(GridLayoutFactory.fillDefaults().margins(5, 5)
+				.numColumns(2).create());
+		group.setLayoutData(GridDataFactory.fillDefaults().span(2, 0)
+				.grab(true, false).create());
+
+		Composite c = new Composite(group, SWT.NONE);
+		c.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
+
+		return c;
+	}
 
 	/**
 	 * Creates the field editors. Field editors are abstractions of the common
@@ -33,27 +56,39 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	 */
 	
 	public void createFieldEditors() {
+		Composite appearanceComposite = getFieldEditorParent();
+		
+		Composite group = createGroup(appearanceComposite, Messages.getString("Preferences.CodeColors"));
 		addField(new ColorFieldEditor(P_COMMENT_COLOR, Messages.getString("Preferences.CommentColor"),
-				getFieldEditorParent()));
+				group));
 		addField(new ColorFieldEditor(P_STRING_COLOR, Messages.getString("Preferences.StringColor"),
-				getFieldEditorParent()));
+				group));
 		addField(new ColorFieldEditor(P_KEYWORD_COLOR, Messages.getString("Preferences.KeywordColor"),
-				getFieldEditorParent()));
+				group));
 		addField(new ColorFieldEditor(P_DEFAULT_COLOR, Messages.getString("Preferences.DefaultColor"),
-				getFieldEditorParent()));
+				group));
 		
-		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, Messages.getString("Preferences.ColorMatching"),
-				getFieldEditorParent()));
+		group = createGroup(appearanceComposite, Messages.getString("Preferences.Brackets"));
+		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, Messages.getString("Preferences.ShowMatching"), group));
+		addField(new ColorFieldEditor(P_MATCHING_BRACKETS_COLOR, Messages.getString("Preferences.ColorMatching"), group));
 		
-		addField(new BooleanFieldEditor(P_SHOW_MATCHING_BRACKETS, Messages.getString("Preferences.ShowMatching"), getFieldEditorParent()));
-		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, Messages.getString("Preferences.MarkOccurences"), getFieldEditorParent()));
-		addField(new BooleanFieldEditor(P_TRAILING_SPACE, Messages.getString("Preferences.TrailingSpaces"), getFieldEditorParent()));
+		group = createGroup(appearanceComposite, Messages.getString("Preferences.Folding"));
+		addField(new ComboFieldEditor(
+				P_INITIAL_FOLDING,
+				Messages.getString("Preferences.StartFolded"),
+				new String[][] {
+						{ Messages.getString("Preferences.StartFoldedNone"), P_FOLDING_STATUS_NONE },
+						{ Messages.getString("Preferences.StartFoldedAll"), P_FOLDING_STATUS_ALL },
+						{ Messages.getString("Preferences.StartFoldedFunction"),
+							P_FOLDING_STATUS_FUNCTION} }, group));
+
+		group = createGroup(appearanceComposite, Messages.getString("Preferences.Misc"));
+		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, Messages.getString("Preferences.MarkOccurences"), group));
+		Label listLabel = new Label(group, SWT.NONE);
+		listLabel.setText(Messages.getString("Preferences.MarkOccurencesColor"));
+		addField(new BooleanFieldEditor(P_TRAILING_SPACE, Messages.getString("Preferences.TrailingSpaces"), group));
+		addField(new BooleanFieldEditor(P_LINT_CODE, Messages.getString("Preferences.Linters"), group));
 		
-		addField(new BooleanFieldEditor(P_LINT_CODE, Messages.getString("Preferences.Linters"), getFieldEditorParent()));
-		addField(new BooleanFieldEditor(P_INITIAL_FOLDING, Messages.getString("Preferences.StartFolded"), getFieldEditorParent()));
-		
-//		addField(new ColorFieldEditor(P_MARK_OCCURENCES_COLOR, "Color for matching occurences:",
-//				getFieldEditorParent()));
 	}
 
 	public void init(IWorkbench workbench) {
