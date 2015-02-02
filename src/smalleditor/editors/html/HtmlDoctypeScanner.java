@@ -29,6 +29,7 @@ import smalleditor.editors.common.CommonWhitespaceDetector;
 import smalleditor.editors.common.CommonWordDetector;
 import smalleditor.preferences.ColorManager;
 import smalleditor.preferences.IPreferenceNames;
+import smalleditor.utils.TextUtility;
 
 public class HtmlDoctypeScanner extends RuleBasedScanner {
 	private ColorManager colorManager = ColorManager.getDefault();
@@ -76,7 +77,7 @@ public class HtmlDoctypeScanner extends RuleBasedScanner {
 
 		// Tags
 		WordRule wordRule = new WordRule(new CommonWordDetector(),
-				createToken(""), true);
+				createToken(TextUtility.EMPTY_STRING), true);
 		wordRule.addWord("DOCTYPE", createToken("entity.name.tag.doctype.html")); //$NON-NLS-1$ //$NON-NLS-2$
 		rules.add(wordRule);
 
@@ -89,7 +90,7 @@ public class HtmlDoctypeScanner extends RuleBasedScanner {
 				createToken(HtmlTokenType.TAG_START), false));
 
 		setRules(rules.toArray(new IRule[rules.size()]));
-		setDefaultReturnToken(createToken(""));
+		setDefaultReturnToken(createToken(TextUtility.EMPTY_STRING));
 	}
 
 	/**

@@ -23,7 +23,7 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
  */
 public final class TextUtility {
 
-	// TODO Move to util plugin
+	public static String EMPTY_STRING = "";
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public final class TextUtility {
 	}
 
 	public static String getStringValue(Object object) {
-		return (object != null) ? object.toString() : "";
+		return (object != null) ? object.toString() : EMPTY_STRING;
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public final class TextUtility {
 		if (beforeLen == 0) {
 			return source;
 		}
-		StringBuffer result = new StringBuffer("");
+		StringBuffer result = new StringBuffer(EMPTY_STRING);
 		int lastIndex = 0;
 		int index = source.indexOf(whatBefore, lastIndex);
 		while (index >= 0) {
@@ -181,7 +181,7 @@ public final class TextUtility {
 	 */
 	public static String pad(String string, int desiredLength, char padChar) {
 		if (string == null) {
-			string = "";
+			string = EMPTY_STRING;
 		}
 
 		int diff = desiredLength - string.length();
@@ -275,7 +275,7 @@ public final class TextUtility {
 		if (items != null) {
 			switch (items.length) {
 			case 0: {
-				result = "";
+				result = EMPTY_STRING;
 				break;
 			}
 

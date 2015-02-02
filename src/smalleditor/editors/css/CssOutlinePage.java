@@ -13,6 +13,7 @@ import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.CommonOutlineClassNameElement;
 import smalleditor.editors.common.ACommonOutlinePage;
+import smalleditor.utils.TextUtility;
 
 public class CssOutlinePage extends ACommonOutlinePage {
 //	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -88,7 +89,7 @@ public class CssOutlinePage extends ACommonOutlinePage {
 	}
 	
 	private Object addClassName(String expression, int offset, int length) throws BadLocationException {
-		String className = "";
+		String className = TextUtility.EMPTY_STRING;
 		int line = document.getLineOfOffset(offset);
 		int lineOffset = document.getLineOffset(line);
 		String lineStr = document.get(lineOffset, offset - lineOffset);
@@ -117,9 +118,9 @@ public class CssOutlinePage extends ACommonOutlinePage {
 //		}
 //
 //		funcName = funcName.trim().substring(FUNCTION.length()).trim();
-//		funcName = CharUtility.replaceInString(funcName.trim(), LINE_SEPARATOR, "");
+//		funcName = CharUtility.replaceInString(funcName.trim(), LINE_SEPARATOR, TextUtility.EMPTY_STRING);
 //
-//		StringBuffer strBuf = new StringBuffer("");
+//		StringBuffer strBuf = new StringBuffer(TextUtility.EMPTY_STRING);
 //		int len = funcName.length();
 //		boolean wasSpace = false;
 //		for (int i = 0; i < len; i++) {

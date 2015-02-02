@@ -1,7 +1,6 @@
 package smalleditor.editors.css;
 
 import smalleditor.editors.common.ACommonContentAssistProcessor;
-import smalleditor.utils.CharUtility;
 
 public class CssContentAssistProcessor extends ACommonContentAssistProcessor {
 	public CssContentAssistProcessor() {
@@ -11,6 +10,6 @@ public class CssContentAssistProcessor extends ACommonContentAssistProcessor {
 	
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		return CharUtility.cssContentAssistTriggers;
+		return null; //CharUtility.cssContentAssistTriggers;
 	}
 }

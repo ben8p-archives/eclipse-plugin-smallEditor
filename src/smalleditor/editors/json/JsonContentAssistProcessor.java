@@ -1,7 +1,6 @@
 package smalleditor.editors.json;
 
 import smalleditor.editors.common.ACommonContentAssistProcessor;
-import smalleditor.utils.CharUtility;
 
 public class JsonContentAssistProcessor extends ACommonContentAssistProcessor {
 	public JsonContentAssistProcessor() {
@@ -11,6 +10,6 @@ public class JsonContentAssistProcessor extends ACommonContentAssistProcessor {
 	
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		return CharUtility.jsonContentAssistTriggers;
+		return null; //CharUtility.jsonContentAssistTriggers;
 	}
 }

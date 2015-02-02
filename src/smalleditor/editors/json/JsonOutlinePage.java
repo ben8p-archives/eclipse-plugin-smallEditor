@@ -23,6 +23,7 @@ import smalleditor.editors.common.CommonOutlineBaseElement;
 import smalleditor.editors.common.CommonOutlineBlockElement;
 import smalleditor.editors.common.ACommonOutlineElement;
 import smalleditor.editors.common.ACommonOutlinePage;
+import smalleditor.utils.TextUtility;
 
 public class JsonOutlinePage extends ACommonOutlinePage {
 //	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -121,7 +122,7 @@ public class JsonOutlinePage extends ACommonOutlinePage {
 		int lineOffset = document.getLineOffset(line);
 		String lineStr = document.get(lineOffset, offset - lineOffset);
 
-		return lineStr.trim().equals("") ? expression : lineStr.replaceAll(":", "").replaceAll("\"", "").trim();
+		return lineStr.trim().equals(TextUtility.EMPTY_STRING) ? expression : lineStr.replaceAll(":", TextUtility.EMPTY_STRING).replaceAll("\"", TextUtility.EMPTY_STRING).trim();
 	}
 	
 	private CommonOutlineBaseElement addElement(String expression, int offset, int length) throws BadLocationException {

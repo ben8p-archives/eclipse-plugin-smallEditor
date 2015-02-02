@@ -28,6 +28,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
+import smalleditor.utils.TextUtility;
+
 
 public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	protected List children = new ArrayList();
@@ -143,7 +145,7 @@ public class CommonOutlineElementList implements IWorkbenchAdapter, IAdaptable {
 	 * @return
 	 */
 	public String getLabel(Object object) {
-		return object == null ? "" : object.toString(); //$NON-NLS-1$
+		return object == null ? TextUtility.EMPTY_STRING : object.toString(); //$NON-NLS-1$
 	}
 
 	/**

@@ -12,7 +12,7 @@ public class DocumentTokenizer {
 	public DocumentTokenizer(IDocument document, String[] wordsToSeparate) {
 		String content = document.get();
 		
-		//content = content.replaceAll("[\t ]+", "");
+		//content = content.replaceAll("[\t ]+", TextUtility.EMPTY_STRING);
 		for(String wordToSeparate: wordsToSeparate) {
 			content = content.replaceAll(Pattern.quote(wordToSeparate), " " + (wordToSeparate == "\\" ? "\\\\" : wordToSeparate) + " "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		}

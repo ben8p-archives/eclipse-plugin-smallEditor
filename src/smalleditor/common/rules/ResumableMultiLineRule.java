@@ -11,6 +11,8 @@ package smalleditor.common.rules;
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IToken;
 
+import smalleditor.utils.TextUtility;
+
 
 /**
  * @author Max Stepanov
@@ -49,12 +51,12 @@ public class ResumableMultiLineRule extends FixedMultiLineRule implements IResum
 	 */
 	@Override
 	protected boolean endSequenceDetected(ICharacterScanner scanner) {
-		CollectingCharacterScanner collectingCharacterScanner = new CollectingCharacterScanner(scanner, fResume ? "" : String.valueOf(fStartSequence)); //$NON-NLS-1$
+		CollectingCharacterScanner collectingCharacterScanner = new CollectingCharacterScanner(scanner, fResume ? TextUtility.EMPTY_STRING : String.valueOf(fStartSequence)); //$NON-NLS-1$
 		scanner = (fResume && fToken instanceof ExtendedToken) ? new PrefixedCharacterScanner(((ExtendedToken) fToken).getContentSubstring(fStartSequence.length), collectingCharacterScanner) : collectingCharacterScanner;
 		if (doDetectEndSequence(scanner)) {
 			if (fToken instanceof ExtendedToken) {
 				ExtendedToken extendedToken = (ExtendedToken) fToken;
-				String prefix = fResume ? extendedToken.getContents() : ""; //$NON-NLS-1$
+				String prefix = fResume ? extendedToken.getContents() : TextUtility.EMPTY_STRING; //$NON-NLS-1$
 				extendedToken.setContents(prefix.concat(collectingCharacterScanner.getContents()));
 			}
 			return true;
@@ -71,7 +73,7 @@ public class ResumableMultiLineRule extends FixedMultiLineRule implements IResum
 	 */
 	public void resetRule() {
 		if (fToken instanceof ExtendedToken) {
-			((ExtendedToken) fToken).setContents("");//$NON-NLS-1$
+			((ExtendedToken) fToken).setContents(TextUtility.EMPTY_STRING);//$NON-NLS-1$
 		}
 	}
 

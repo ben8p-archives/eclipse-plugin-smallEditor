@@ -140,7 +140,7 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 			public void focusGained(FocusEvent e) {
 				if (fSearchBox.getText().equals(INITIAL_FILTER_TEXT)) {
 					fSearchBox.removeModifyListener(fSearchModifyListener);
-					fSearchBox.setText("");
+					fSearchBox.setText(TextUtility.EMPTY_STRING);
 					fSearchBox.addModifyListener(fSearchModifyListener);
 				}
 				fSearchBox.setForeground(null);
@@ -382,7 +382,7 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 															// offset + length);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
-			expression = ""; //$NON-NLS-1$
+			expression = TextUtility.EMPTY_STRING; //$NON-NLS-1$
 		}
 		return expression;
 	}

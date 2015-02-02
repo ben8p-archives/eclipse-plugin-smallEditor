@@ -15,6 +15,7 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 
 import smalleditor.common.IContentAssistProvider;
 import smalleditor.utils.CharUtility;
+import smalleditor.utils.TextUtility;
 
 public abstract class ACommonContentAssistProcessor implements IContentAssistProcessor {
 	protected IContentAssistProvider provider;
@@ -29,13 +30,14 @@ public abstract class ACommonContentAssistProcessor implements IContentAssistPro
 		try {
 			IDocument document = textViewer.getDocument();
 			int currOffset = documentOffset - 1; //cursor place in the text
-			String currWord = ""; //$NON-NLS-1$
-			String currToken = ""; //$NON-NLS-1$
+			String currWord = TextUtility.EMPTY_STRING; //$NON-NLS-1$
+			String currToken = TextUtility.EMPTY_STRING; //$NON-NLS-1$
 			char currChar;
 			char indentChar;
-			String indentPath = ""; //$NON-NLS-1$
+			String indentPath = TextUtility.EMPTY_STRING; //$NON-NLS-1$
+			char[] completionProposalAutoActivationChar = getCompletionProposalAutoActivationCharacters();
 			
-			String completionProposalAutoActivationCharacters = new String(getCompletionProposalAutoActivationCharacters());
+			String completionProposalAutoActivationCharacters = new String(completionProposalAutoActivationChar == null ? new char[] {} : completionProposalAutoActivationChar);
 			//calculate the indentation
 			IRegion lineInformation = document.getLineInformationOfOffset(currOffset);
 			int indentOffset = lineInformation.getOffset();

@@ -12,8 +12,10 @@ import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IDocument;
 
+import smalleditor.utils.TextUtility;
+
 public class CommonAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy {
-	private String indent = ""; //$NON-NLS-1$
+	private String indent = TextUtility.EMPTY_STRING; //$NON-NLS-1$
 
 	public CommonAutoIndentStrategy(String indent) {
 		super();

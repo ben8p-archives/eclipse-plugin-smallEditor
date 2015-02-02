@@ -12,6 +12,8 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.SingleLineRule;
 
+import smalleditor.utils.TextUtility;
+
 /**
  * This rule is a special case of SingleLineRule. It matches an exact sequence,
  * much like a single-word word-rule
@@ -26,7 +28,7 @@ public class SingleTagRule extends SingleLineRule {
 	 * @param token
 	 */
 	public SingleTagRule(String startSequence, IToken token) {
-		super(startSequence, "", token); //$NON-NLS-1$
+		super(startSequence, TextUtility.EMPTY_STRING, token); //$NON-NLS-1$
 	}
 
 	/*

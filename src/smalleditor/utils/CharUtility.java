@@ -11,12 +11,12 @@ package smalleditor.utils;
  */
 public final class CharUtility {
 	public static final char[] javascriptBrackets = {'(', ')', '[', ']', '{', '}', '\'', '\'', '"', '"'};
-	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
+//	public static final char[] javascriptContentAssistTriggers = {'(', '[', '{', '.'};
 	public static final char[] jsonBrackets = {'[', ']', '{', '}'};
-	public static final char[] jsonContentAssistTriggers = {':'};
+//	public static final char[] jsonContentAssistTriggers = {':'};
 	public static final char[] cssBrackets = {'{', '}'};
-	public static final char[] cssContentAssistTriggers = {':'};
-	public static final char[] htmlContentAssistTriggers = {'<'};
+//	public static final char[] cssContentAssistTriggers = {':'};
+//	public static final char[] htmlContentAssistTriggers = {'<'};
 	
 	public static final char[] hexaDecimal = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','A','B','C','D','E','F'};
 

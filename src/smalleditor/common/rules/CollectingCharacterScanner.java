@@ -8,6 +8,8 @@ package smalleditor.common.rules;
 
 import org.eclipse.jface.text.rules.ICharacterScanner;
 
+import smalleditor.utils.TextUtility;
+
 
 /**
  * @author Max Stepanov
@@ -22,7 +24,7 @@ public class CollectingCharacterScanner implements ICharacterScanner {
 	 * 
 	 */
 	public CollectingCharacterScanner(ICharacterScanner baseCharacterScanner) {
-		this(baseCharacterScanner, ""); //$NON-NLS-1$
+		this(baseCharacterScanner, TextUtility.EMPTY_STRING); //$NON-NLS-1$
 	}
 
 	/**

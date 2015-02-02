@@ -18,6 +18,7 @@ import smalleditor.linters.common.problem.IProblem;
 import smalleditor.linters.common.problem.IProblemHandler;
 import smalleditor.linters.common.problem.Problem;
 import smalleditor.linters.common.text.Text;
+import smalleditor.utils.TextUtility;
 /**
  * Lightweight Java wrapper for the Linter code analysis tool.
  * <p>
@@ -177,7 +178,7 @@ public class CommonLinter {
 			Object object = errors.get(i, errors);
 			ScriptableObject error = (ScriptableObject) object;
 			if (error != null) {
-				//String reason = getPropertyAsString(error, "reason", "");
+				//String reason = getPropertyAsString(error, "reason", TextUtility.EMPTY_STRING);
 				/*for (int j = 0; j < lengthE; j++) {
 					if (reason.matches(exclude[j])) {
 						exit = true;
@@ -194,7 +195,7 @@ public class CommonLinter {
 
 	private Problem createProblem(ScriptableObject error, Text text) {
 		
-		String reason = getPropertyAsString(error, "reason", "");
+		String reason = getPropertyAsString(error, "reason", TextUtility.EMPTY_STRING);
 		int line = getPropertyAsInt(error, "line", -1);
 		int character = getPropertyAsInt(error, "character", -1);
 		String id = getPropertyAsString(error, "id", "(error)");

@@ -9,6 +9,8 @@ package smalleditor.common.rules;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 
+import smalleditor.utils.TextUtility;
+
 
 /**
  * @author Max Stepanov
@@ -36,7 +38,7 @@ public class ExtendedToken extends Token {
 	 * @return the contents
 	 */
 	public String getContents() {
-		return contents != null ? contents : ""; //$NON-NLS-1$
+		return contents != null ? contents : TextUtility.EMPTY_STRING; //$NON-NLS-1$
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class ExtendedToken extends Token {
 		if (contents != null && contents.length() > beginIndex) {
 			return contents.substring(beginIndex);
 		}
-		return ""; //$NON-NLS-1$
+		return TextUtility.EMPTY_STRING; //$NON-NLS-1$
 	}
 
 }

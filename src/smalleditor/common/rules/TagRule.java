@@ -15,6 +15,8 @@ import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.MultiLineRule;
 import org.eclipse.jface.text.rules.Token;
 
+import smalleditor.utils.TextUtility;
+
 /**
  * 
  * @author Max Stepanov
@@ -33,7 +35,7 @@ public class TagRule extends ResumableMultiLineRule {
 	private final boolean fIgnoreCase;
 
 	public TagRule(IToken token) {
-		this("", token); //$NON-NLS-1$
+		this(TextUtility.EMPTY_STRING, token); //$NON-NLS-1$
 	}
 
 	public TagRule(String tag, IToken token) {

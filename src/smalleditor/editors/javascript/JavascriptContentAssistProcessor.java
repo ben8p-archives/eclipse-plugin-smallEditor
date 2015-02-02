@@ -1,7 +1,6 @@
 package smalleditor.editors.javascript;
 
 import smalleditor.editors.common.ACommonContentAssistProcessor;
-import smalleditor.utils.CharUtility;
 
 public class JavascriptContentAssistProcessor extends ACommonContentAssistProcessor {
 	public JavascriptContentAssistProcessor() {
@@ -11,6 +10,6 @@ public class JavascriptContentAssistProcessor extends ACommonContentAssistProces
 	
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		return CharUtility.javascriptContentAssistTriggers;
+		return null; //CharUtility.javascriptContentAssistTriggers;
 	}
 }

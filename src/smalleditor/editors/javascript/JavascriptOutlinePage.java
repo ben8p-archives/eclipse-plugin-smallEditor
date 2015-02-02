@@ -57,7 +57,7 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 					functionSignature.indexOf("("),
 					functionSignature.indexOf(")") + 1);
 	
-			if(functionName.equals("")) {
+			if(functionName.equals(TextUtility.EMPTY_STRING)) {
 				int line = document.getLineOfOffset(offset);
 				int lineOffset = document.getLineOffset(line);
 				String lineStr = document.get(lineOffset, offset - lineOffset);
@@ -66,7 +66,7 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 				Boolean pickupNext = false;
 				while(--cursor >= 0) {
 	//				System.out.println(lineElements[cursor]);
-					if(!lineElements[cursor].trim().equals("")) {
+					if(!lineElements[cursor].trim().equals(TextUtility.EMPTY_STRING)) {
 						
 						if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
 							pickupNext = true;
@@ -75,7 +75,7 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 						if(pickupNext) {
 							functionName = lineElements[cursor];
 							if(!functionName.matches("\\w+")) {
-								functionName = "";
+								functionName = TextUtility.EMPTY_STRING;
 							}
 							break;
 						}
@@ -150,9 +150,9 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 		}
 
 		funcName = funcName.trim().substring(FUNCTION.length()).trim();
-		funcName = TextUtility.replace(funcName.trim(), LINE_SEPARATOR, "");
+		funcName = TextUtility.replace(funcName.trim(), LINE_SEPARATOR, TextUtility.EMPTY_STRING);
 
-		StringBuffer strBuf = new StringBuffer("");
+		StringBuffer strBuf = new StringBuffer(TextUtility.EMPTY_STRING);
 		int len = funcName.length();
 		boolean wasSpace = false;
 		for (int i = 0; i < len; i++) {

@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.Color;
 
 import smalleditor.editors.common.CommonNonRuleBasedDamagerRepairer;
 import smalleditor.preferences.ColorManager;
+import smalleditor.utils.TextUtility;
 
 /**
  * 
@@ -28,7 +29,7 @@ public class CssColorDamagerRepairer extends CommonNonRuleBasedDamagerRepairer {
 	public void createPresentation(TextPresentation presentation,
 			ITypedRegion region) {
 		if(region.getLength() < 7) { return; }
-		String hexa = ""; //$NON-NLS-1$
+		String hexa = TextUtility.EMPTY_STRING; //$NON-NLS-1$
 		try {
 			hexa = fDocument.get(region.getOffset(), region.getLength());
 		} catch (BadLocationException e) {
