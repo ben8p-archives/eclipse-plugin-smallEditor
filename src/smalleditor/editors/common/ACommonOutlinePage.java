@@ -354,7 +354,9 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 	 * Forces the outlinePage to update its contents.
 	 * 
 	 */
-	public void update(List<DocumentNode> nodes) {
+	public void update(IDocument document, List<DocumentNode> nodes) {
+		this.document = document;
+//		System.out.println(document.get());
 		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(nodes);
 		update(currentNodes);
 	}
@@ -406,6 +408,7 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 															// offset + length);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
+//			System.out.println(document.get());
 			expression = TextUtility.EMPTY_STRING; //$NON-NLS-1$
 		}
 		return expression;

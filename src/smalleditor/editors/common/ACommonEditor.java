@@ -156,9 +156,9 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 //		
 //		
 //	}
-	public void updateOutline(List<DocumentNode> nodes) {
+	public void updateOutline(IDocument document, List<DocumentNode> nodes) {
 		if(outlinePage != null) {
-			outlinePage.update(nodes);
+			outlinePage.update(document, nodes);
 		}
 	}
 	

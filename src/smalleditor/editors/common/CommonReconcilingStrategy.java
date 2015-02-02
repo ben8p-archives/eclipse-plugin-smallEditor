@@ -73,12 +73,12 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		
 		WorkbenchJob workbenchJob = new WorkbenchJob(Messages.getString("Outline.Refresh")) { //$NON-NLS-1$
 			public IStatus runInUIThread(IProgressMonitor monitor) {
-		
+//				System.out.println(document.get());
 				List<DocumentNode> nodes = getDocumentTokenBuilder().buildNodes(document);
 				
-				updateFoldingStructure(nodes);
-				updateTaskAnnotation(nodes);
-				updateOutline(nodes);
+				updateFoldingStructure(document, nodes);
+				updateTaskAnnotation(document, nodes);
+				updateOutline(document, nodes);
 				return Status.OK_STATUS;
 			}
 	
@@ -87,21 +87,21 @@ public class CommonReconcilingStrategy implements IReconcilingStrategy,
 		workbenchJob.schedule();
 	}
 
-	private void updateTaskAnnotation(List<DocumentNode> nodes) {
+	private void updateTaskAnnotation(IDocument document, List<DocumentNode> nodes) {
 		List<Position> positions = new CommonTaskPositionsBuilder(nodes).buildTaskPositions();
 
 		this.editor.updateTask(positions);
 	}
 	
-	private void updateFoldingStructure(List<DocumentNode> nodes) {
+	private void updateFoldingStructure(IDocument document, List<DocumentNode> nodes) {
 		List<NodePosition> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
 
 		this.editor.updateFoldingStructure(fPositions);
 	}
-	private void updateOutline(List<DocumentNode> nodes) {
+	private void updateOutline(IDocument document, List<DocumentNode> nodes) {
 //		List<Position> fPositions = new CommonFoldingPositionsBuilder(nodes).buildFoldingPositions();
 //
-		this.editor.updateOutline(nodes);
+		this.editor.updateOutline(document, nodes);
 	}
 	
 
