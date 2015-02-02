@@ -374,7 +374,7 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 		};
 		
 		markOccurenceWorkbenchJob.setPriority(WorkbenchJob.DECORATE);
-		markOccurenceWorkbenchJob.schedule(200);
+		markOccurenceWorkbenchJob.schedule(300);
 
 		
 	}
