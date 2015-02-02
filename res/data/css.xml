@@ -1,53 +1,250 @@
 <root>
 	<!-- //see http://cssvalues.com/ -->
-	<element append-value="true" name="all">
-		<value>initial</value>
-		<value>unset</value>
+	<element append-value="false" name="">
+		<value>align-content</value>
+		<value>align-items</value>
+		<value>align-self</value>
+		<value>animation-delay</value>
+		<value>animation-direction</value>
+		<value>animation-duration</value>
+		<value>animation-fill-mode</value>
+		<value>animation-iteration-count</value>
+		<value>animation-name</value>
+		<value>animation-play-state</value>
+		<value>animation-timing-function</value>
+		<value>animation</value>
+		<value>backface-visibility</value>
+		<value>background-attachment</value>
+		<value>background-clip</value>
+		<value>background-color</value>
+		<value>background-image</value>
+		<value>background-origin</value>
+		<value>background-position</value>
+		<value>background-repeat</value>
+		<value>background-size</value>
+		<value>background</value>
+		<value>border-bottom-color</value>
+		<value>border-bottom-left-radius</value>
+		<value>border-bottom-right-radius</value>
+		<value>border-bottom-style</value>
+		<value>border-bottom-width</value>
+		<value>border-bottom</value>
+		<value>border-collapse</value>
+		<value>border-color</value>
+		<value>border-image-outset</value>
+		<value>border-image-repeat</value>
+		<value>border-image-slice</value>
+		<value>border-image-source</value>
+		<value>border-image-width</value>
+		<value>border-image</value>
+		<value>border-left-color</value>
+		<value>border-left-style</value>
+		<value>border-left-width</value>
+		<value>border-left</value>
+		<value>border-radius</value>
+		<value>border-right-color</value>
+		<value>border-right-style</value>
+		<value>border-right-width</value>
+		<value>border-right</value>
+		<value>border-spacing</value>
+		<value>border-style</value>
+		<value>border-top-color</value>
+		<value>border-top-left-radius</value>
+		<value>border-top-right-radius</value>
+		<value>border-top-style</value>
+		<value>border-top-width</value>
+		<value>border-top</value>
+		<value>border-width</value>
+		<value>border</value>
+		<value>bottom</value>
+		<value>box-decoration-break</value>
+		<value>box-shadow</value>
+		<value>box-sizing</value>
+		<value>break-after</value>
+		<value>break-before</value>
+		<value>break-inside</value>
+		<value>caption-side</value>
+		<value>clear-after</value>
+		<value>clear</value>
+		<value>clip</value>
+		<value>color</value>
+		<value>column-count</value>
+		<value>column-fill</value>
+		<value>column-gap</value>
+		<value>column-rule-color</value>
+		<value>column-rule-style</value>
+		<value>column-rule-width</value>
+		<value>column-rule</value>
+		<value>column-span</value>
+		<value>column-width</value>
+		<value>columns</value>
+		<value>content</value>
+		<value>counter-increment</value>
+		<value>counter-reset</value>
+		<value>cursor</value>
+		<value>direction</value>
+		<value>display</value>
+		<value>empty-cells</value>
+		<value>flex-basis</value>
+		<value>flex-direction</value>
+		<value>flex-flow</value>
+		<value>flex-grow</value>
+		<value>flex-shrink</value>
+		<value>flex-wrap</value>
+		<value>flex</value>
+		<value>float</value>
+		<value>font-family</value>
+		<value>font-kerning</value>
+		<value>font-size-adjust</value>
+		<value>font-size</value>
+		<value>font-stretch</value>
+		<value>font-style</value>
+		<value>font-synthesis</value>
+		<value>font-variant-caps</value>
+		<value>font-variant</value>
+		<value>font-weight</value>
+		<value>font</value>
+		<value>hanging-punctuation</value>
+		<value>height</value>
+		<value>hyphens</value>
+		<value>icon</value>
+		<value>image-orientation</value>
+		<value>image-resolution</value>
 		<value>inherit</value>
+		<value>initial</value>
+		<value>justify-content</value>
+		<value>left</value>
+		<value>letter-spacing</value>
+		<value>line-break</value>
+		<value>line-height</value>
+		<value>list-style-image</value>
+		<value>list-style-position</value>
+		<value>list-style-type</value>
+		<value>list-style</value>
+		<value>margin-bottom</value>
+		<value>margin-left</value>
+		<value>margin-right</value>
+		<value>margin-top</value>
+		<value>margin</value>
+		<value>max-height</value>
+		<value>max-width</value>
+		<value>min-height</value>
+		<value>min-width</value>
+		<value>object-fit</value>
+		<value>object-position</value>
+		<value>opacity</value>
+		<value>order</value>
+		<value>orphans</value>
+		<value>outline-color</value>
+		<value>outline-offset</value>
+		<value>outline-style</value>
+		<value>outline-width</value>
+		<value>outline</value>
+		<value>overflow-wrap</value>
+		<value>overflow-x</value>
+		<value>overflow-y</value>
+		<value>overflow</value>
+		<value>padding-bottom</value>
+		<value>padding-left</value>
+		<value>padding-right</value>
+		<value>padding-top</value>
+		<value>padding</value>
+		<value>page-break-after</value>
+		<value>page-break-before</value>
+		<value>page-break-inside</value>
+		<value>perspective-origin</value>
+		<value>perspective</value>
+		<value>pointer-events</value>
+		<value>position</value>
+		<value>quotes</value>
+		<value>resize</value>
+		<value>right</value>
+		<value>tab-size</value>
+		<value>table-layout</value>
+		<value>text-align-last</value>
+		<value>text-align</value>
+		<value>text-combine-horizontal</value>
+		<value>text-decoration-color</value>
+		<value>text-decoration-line</value>
+		<value>text-decoration-skip</value>
+		<value>text-decoration-style</value>
+		<value>text-decoration</value>
+		<value>text-emphasis-color</value>
+		<value>text-emphasis-position</value>
+		<value>text-emphasis-style</value>
+		<value>text-emphasis</value>
+		<value>text-indent</value>
+		<value>text-justify</value>
+		<value>text-orientation</value>
+		<value>text-overflow</value>
+		<value>text-shadow</value>
+		<value>text-transform</value>
+		<value>text-underline-position</value>
+		<value>top</value>
+		<value>transform-origin</value>
+		<value>transform-style</value>
+		<value>transform</value>
+		<value>transition-duration</value>
+		<value>transition-property</value>
+		<value>transition-timing-function</value>
+		<value>transition</value>
+		<value>unicode-bidi</value>
+		<value>unset</value>
+		<value>vertical-align</value>
+		<value>visibility</value>
+		<value>white-space</value>
+		<value>widows</value>
+		<value>width</value>
+		<value>word-break</value>
+		<value>word-spacing</value>
+		<value>word-wrap</value>
+		<value>writing-mode</value>
+		<value>z-index</value>
+
 	</element>
-	<element append-value="true" name="animation ">
+	<element append-value="false" name="animation">
 		<value>[animation-name] [animation-duration] [animation-timing-function] [animation-delay] [animation-iteration-count] [animation-direction] [animation-fill-mode] [animation-play-state]</value>
 	</element>
-	<element append-value="true" name="animation-delay">
+	<element append-value="false" name="animation-delay">
 		<value>0s</value>
 		<value>[time]</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="direction ">
+	<element append-value="false" name="direction">
 		<value>ltr</value>
 		<value>rtl</value>
 	</element>
-	<element append-value="true" name="animation-direction">
+	<element append-value="false" name="animation-direction">
 		<value>normal</value>
 		<value>reverse</value>
 		<value>alternate-reverse</value>
 		<value>alternate</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="animation-duration">
+	<element append-value="false" name="animation-duration">
 		<value>0s</value>
 		<value>[time]</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="animation-fill-mode">
+	<element append-value="false" name="animation-fill-mode">
 		<value>none</value>
 		<value>forwards</value>
 		<value>both</value>
 		<value>backwards</value>
 	</element>
-	<element append-value="true" name="animation-iteration-count">
+	<element append-value="false" name="animation-iteration-count">
 		<value>1</value>
 		<value>infinite</value>
 		<value>[number]</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="animation-name">
+	<element append-value="false" name="animation-name">
 		<value>none</value>
 		<value>[ custom identifier ]</value>
 		<value>@keyframes</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="animation-timing-function">
+	<element append-value="false" name="animation-timing-function">
 		<value>ease</value>
 		<value>steps([integer], start)</value>
 		<value>steps([integer], end)</value>
@@ -60,21 +257,21 @@
 		<value>cubic-bezier([number], [number], [number], [number])</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="animation-play-state">
+	<element append-value="false" name="animation-play-state">
 		<value>running</value>
 		<value>paused</value>
 		<value>@keyframes</value>
 	</element>
-	<element append-value="true" name="visibility">
+	<element append-value="false" name="visibility">
 		<value>visible</value>
 		<value>hidden</value>
 		<value>collapse</value>
 	</element>
-	<element append-value="true" name="backface-visibility">
+	<element append-value="false" name="backface-visibility">
 		<value>visible</value>
 		<value>hidden</value>
 	</element>
-	<element append-value="true" name="background ">
+	<element append-value="false" name="background">
 		<value>[background-color] [background-image] [background-repeat] [background-attachment] [background-position] / [ background-size] [background-origin] [background-clip]</value>
 		<value>background-size</value>
 		<value>background-position</value>
@@ -84,32 +281,32 @@
 		<value>background-origin</value>
 		<value>background-clip</value>
 	</element>
-	<element append-value="true" name="background-attachment">
+	<element append-value="false" name="background-attachment">
 		<value>scroll</value>
 		<value>local</value>
 		<value>fixed</value>
 		<value>background-attachment</value>
 	</element>
-	<element append-value="true" name="color ">
+	<element append-value="false" name="color">
 		<value>[ initial value depends on the user agent ]</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="background-color ">
+	<element append-value="false" name="background-color">
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="clip">
+	<element append-value="false" name="clip">
 		<value>auto</value>
 		<value>rect([length], [length], [length], [length])</value>
 		<value>inset([length], [length], [length], [length])</value>
 	</element>
-	<element append-value="true" name="background-clip">
+	<element append-value="false" name="background-clip">
 		<value>border-box</value>
 		<value>padding-box</value>
 		<value>content-box</value>
 		<value>background-clip</value>
 	</element>
-	<element append-value="true" name="background-image">
+	<element append-value="false" name="background-image">
 		<value>none</value>
 		<value>url("path/file.png")</value>
 		<value>[repeating-gradient]</value>
@@ -117,13 +314,13 @@
 		<value>[linear-gradient]</value>
 		<value>[image-function]</value>
 	</element>
-	<element append-value="true" name="background-origin">
+	<element append-value="false" name="background-origin">
 		<value>padding-box</value>
 		<value>content-box</value>
 		<value>border-box</value>
 		<value>background-attachment</value>
 	</element>
-	<element append-value="true" name="position ">
+	<element append-value="false" name="position">
 		<value>static</value>
 		<value>sticky</value>
 		<value>relative</value>
@@ -132,7 +329,7 @@
 		<value>center</value>
 		<value>absolute</value>
 	</element>
-	<element append-value="true" name="background-position">
+	<element append-value="false" name="background-position">
 		<value>0% 0%</value>
 		<value>right bottom</value>
 		<value>left top</value>
@@ -140,7 +337,7 @@
 		<value>[percentage] [length]</value>
 		<value>background-position</value>
 	</element>
-	<element append-value="true" name="background-repeat">
+	<element append-value="false" name="background-repeat">
 		<value>repeat</value>
 		<value>space</value>
 		<value>round</value>
@@ -150,7 +347,7 @@
 		<value>no-repeat</value>
 		<value>background-repeat</value>
 	</element>
-	<element append-value="true" name="background-size">
+	<element append-value="false" name="background-size">
 		<value>auto</value>
 		<value>cover</value>
 		<value>contain</value>
@@ -161,134 +358,134 @@
 		<value>[length] [percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border ">
+	<element append-value="false" name="border">
 		<value>[border-width] [border-style] [border-color]</value>
 		<value>border-image</value>
 	</element>
-	<element append-value="true" name="border-collapse">
+	<element append-value="false" name="border-collapse">
 		<value>separate</value>
 		<value>collapse</value>
 	</element>
-	<element append-value="true" name="border-color">
+	<element append-value="false" name="border-color">
 		<value>[currentColor]</value>
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="top ">
+	<element append-value="false" name="top">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-top ">
+	<element append-value="false" name="border-top">
 		<value>[border-width] [border-style] [border-color]</value>
 	</element>
-	<element append-value="true" name="border-top-color">
+	<element append-value="false" name="border-top-color">
 		<value>[currentColor]</value>
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="right ">
+	<element append-value="false" name="right">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-right ">
+	<element append-value="false" name="border-right">
 		<value>[border-width] [border-style] [border-color]</value>
 	</element>
-	<element append-value="true" name="border-right-color">
+	<element append-value="false" name="border-right-color">
 		<value>[currentColor]</value>
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="bottom ">
+	<element append-value="false" name="bottom">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-bottom ">
+	<element append-value="false" name="border-bottom">
 		<value>[border-width] [border-style] [border-color]</value>
 	</element>
-	<element append-value="true" name="border-bottom-color">
+	<element append-value="false" name="border-bottom-color">
 		<value>[currentColor]</value>
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="left ">
+	<element append-value="false" name="left">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-left ">
+	<element append-value="false" name="border-left">
 		<value>[border-width] [border-style] [border-color]</value>
 	</element>
-	<element append-value="true" name="border-left-color ">
+	<element append-value="false" name="border-left-color">
 		<value>[currentColor]</value>
 		<value>transparent</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="border-radius">
+	<element append-value="false" name="border-radius">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length] [length] [length] [length]</value>
 		<value>[length] / [percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-top-left-radius">
+	<element append-value="false" name="border-top-left-radius">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-top-right-radius">
+	<element append-value="false" name="border-top-right-radius">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-bottom-left-radius">
+	<element append-value="false" name="border-bottom-left-radius">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-bottom-right-radius">
+	<element append-value="false" name="border-bottom-right-radius">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-image ">
+	<element append-value="false" name="border-image">
 		<value>[border-image-source] [border-image-slice] / [border-image-width] [border-image-width] / [border-image-outset] [border-image-repeat]</value>
 	</element>
-	<element append-value="true" name="border-image-source ">
+	<element append-value="false" name="border-image-source">
 		<value>none</value>
 		<value>url("path/file.png")</value>
 	</element>
-	<element append-value="true" name="border-image-slice">
+	<element append-value="false" name="border-image-slice">
 		<value>100%</value>
 		<value>[ Up to four space-separated [number] or [percentage] values; the optional 'fill' keyword can be included after the other values are declared ]</value>
 	</element>
-	<element append-value="true" name="width ">
+	<element append-value="false" name="width">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-image-width">
+	<element append-value="false" name="border-image-width">
 		<value>1</value>
 		<value>[ Up to four space-separated [length], [percentage], or [number] values for top, right, bottom, and left; one or more values can be 'auto' ]</value>
 	</element>
-	<element append-value="true" name="border-image-outset">
+	<element append-value="false" name="border-image-outset">
 		<value>0</value>
 		<value>[ Up to four space-separated [length] or [number] values defining outsets for top, right, bottom, and left sides ]</value>
 	</element>
-	<element append-value="true" name="border-image-repeat">
+	<element append-value="false" name="border-image-repeat">
 		<value>stretch</value>
 		<value>space</value>
 		<value>round</value>
 		<value>repeat</value>
 	</element>
-	<element append-value="true" name="border-spacing">
+	<element append-value="false" name="border-spacing">
 		<value>0</value>
 		<value>[length] [length]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-style">
+	<element append-value="false" name="border-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -300,7 +497,7 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="border-top-style">
+	<element append-value="false" name="border-top-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -312,7 +509,7 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="border-right-style">
+	<element append-value="false" name="border-right-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -324,7 +521,7 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="border-bottom-style">
+	<element append-value="false" name="border-bottom-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -336,7 +533,7 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="border-left-style">
+	<element append-value="false" name="border-left-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -348,51 +545,51 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="border-width">
+	<element append-value="false" name="border-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-top-width">
+	<element append-value="false" name="border-top-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-right-width">
+	<element append-value="false" name="border-right-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-bottom-width">
+	<element append-value="false" name="border-bottom-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="border-left-width">
+	<element append-value="false" name="border-left-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="box-decoration-break">
+	<element append-value="false" name="box-decoration-break">
 		<value>slice</value>
 		<value>clone</value>
 	</element>
-	<element append-value="true" name="box-shadow">
+	<element append-value="false" name="box-shadow">
 		<value>none</value>
 		<value>[length] [length] [length] [length] [color] inset</value>
 	</element>
-	<element append-value="true" name="box-sizing">
+	<element append-value="false" name="box-sizing">
 		<value>content-box</value>
 		<value>padding-box</value>
 		<value>border-box</value>
 		<value>padding-box</value>
 	</element>
-	<element append-value="true" name="break-before">
+	<element append-value="false" name="break-before">
 		<value>auto</value>
 		<value>right</value>
 		<value>page</value>
@@ -403,7 +600,7 @@
 		<value>avoid</value>
 		<value>always</value>
 	</element>
-	<element append-value="true" name="break-after">
+	<element append-value="false" name="break-after">
 		<value>auto</value>
 		<value>right</value>
 		<value>page</value>
@@ -414,23 +611,23 @@
 		<value>avoid</value>
 		<value>always</value>
 	</element>
-	<element append-value="true" name="break-inside">
+	<element append-value="false" name="break-inside">
 		<value>auto</value>
 		<value>avoid-page</value>
 		<value>avoid-column</value>
 		<value>avoid</value>
 	</element>
-	<element append-value="true" name="caption-side">
+	<element append-value="false" name="caption-side">
 		<value>top</value>
 		<value>bottom</value>
 	</element>
-	<element append-value="true" name="clear ">
+	<element append-value="false" name="clear">
 		<value>none</value>
 		<value>right</value>
 		<value>left</value>
 		<value>both</value>
 	</element>
-	<element append-value="true" name="clear-after">
+	<element append-value="false" name="clear-after">
 		<value>none</value>
 		<value>top</value>
 		<value>start</value>
@@ -443,34 +640,34 @@
 		<value>bottom</value>
 		<value>both</value>
 	</element>
-	<element append-value="true" name="column-fill">
+	<element append-value="false" name="column-fill">
 		<value>balance</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="column-span">
+	<element append-value="false" name="column-span">
 		<value>none</value>
 		<value>all</value>
 	</element>
-	<element append-value="true" name="column-width">
+	<element append-value="false" name="column-width">
 		<value>auto</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="column-count">
+	<element append-value="false" name="column-count">
 		<value>auto</value>
 		<value>[integer]</value>
 	</element>
-	<element append-value="true" name="column-gap">
+	<element append-value="false" name="column-gap">
 		<value>normal</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="column-rule ">
+	<element append-value="false" name="column-rule">
 		<value>[column-rule-width] [column-rule-style] [column-rule-color]</value>
 	</element>
-	<element append-value="true" name="column-rule-color">
+	<element append-value="false" name="column-rule-color">
 		<value>[ Initial value depends on the user agent ]</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="column-rule-style">
+	<element append-value="false" name="column-rule-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -482,16 +679,16 @@
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="column-rule-width">
+	<element append-value="false" name="column-rule-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="columns">
+	<element append-value="false" name="columns">
 		<value>[column-width] [column-count]</value>
 	</element>
-	<element append-value="true" name="content">
+	<element append-value="false" name="content">
 		<value>normal</value>
 		<value>open-quote</value>
 		<value>none</value>
@@ -506,15 +703,15 @@
 		<value>:before</value>
 		<value>:after</value>
 	</element>
-	<element append-value="true" name="counter-increment">
+	<element append-value="false" name="counter-increment">
 		<value>none</value>
 		<value>[identifier] [integer]</value>
 	</element>
-	<element append-value="true" name="counter-reset">
+	<element append-value="false" name="counter-reset">
 		<value>none</value>
 		<value>[identifier] [integer]</value>
 	</element>
-	<element append-value="true" name="cursor">
+	<element append-value="false" name="cursor">
 		<value>auto</value>
 		<value>zoom-out</value>
 		<value>zoom-in</value>
@@ -551,7 +748,7 @@
 		<value>all-scroll</value>
 		<value>alias</value>
 	</element>
-	<element append-value="true" name="display">
+	<element append-value="false" name="display">
 		<value>inline</value>
 		<value>table-row-group</value>
 		<value>table-row</value>
@@ -574,60 +771,60 @@
 		<value>compact</value>
 		<value>block</value>
 	</element>
-	<element append-value="true" name="empty-cells">
+	<element append-value="false" name="empty-cells">
 		<value>show</value>
 		<value>hide</value>
 	</element>
-	<element append-value="true" name="float">
+	<element append-value="false" name="float">
 		<value>none</value>
 		<value>right</value>
 		<value>left</value>
 	</element>
-	<element append-value="true" name="flex ">
+	<element append-value="false" name="flex">
 		<value>[flex-grow] [flex-shrink] [flex-basis]</value>
 		<value>none</value>
 	</element>
-	<element append-value="true" name="flex-direction">
+	<element append-value="false" name="flex-direction">
 		<value>row</value>
 		<value>row-reverse</value>
 		<value>column-reverse</value>
 		<value>column</value>
 	</element>
-	<element append-value="true" name="flex-wrap">
+	<element append-value="false" name="flex-wrap">
 		<value>nowrap</value>
 		<value>wrap-reverse</value>
 		<value>wrap</value>
 	</element>
-	<element append-value="true" name="flex-flow">
+	<element append-value="false" name="flex-flow">
 		<value>[flex-direction] [flex-wrap]</value>
 	</element>
-	<element append-value="true" name="flex-grow">
+	<element append-value="false" name="flex-grow">
 		<value>0</value>
 		<value>[number]</value>
 	</element>
-	<element append-value="true" name="flex-shrink">
+	<element append-value="false" name="flex-shrink">
 		<value>1</value>
 		<value>[number]</value>
 	</element>
-	<element append-value="true" name="flex-basis">
+	<element append-value="false" name="flex-basis">
 		<value>auto</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="justify-content">
+	<element append-value="false" name="justify-content">
 		<value>flex-start</value>
 		<value>space-between</value>
 		<value>space-around</value>
 		<value>flex-end</value>
 		<value>center</value>
 	</element>
-	<element append-value="true" name="align-items">
+	<element append-value="false" name="align-items">
 		<value>stretch</value>
 		<value>flex-start</value>
 		<value>flex-end</value>
 		<value>center</value>
 		<value>baseline</value>
 	</element>
-	<element append-value="true" name="align-self">
+	<element append-value="false" name="align-self">
 		<value>auto</value>
 		<value>stretch</value>
 		<value>flex-start</value>
@@ -635,7 +832,7 @@
 		<value>center</value>
 		<value>baseline</value>
 	</element>
-	<element append-value="true" name="align-content">
+	<element append-value="false" name="align-content">
 		<value>stretch</value>
 		<value>space-between</value>
 		<value>space-around</value>
@@ -643,18 +840,18 @@
 		<value>flex-end</value>
 		<value>center</value>
 	</element>
-	<element append-value="true" name="order">
+	<element append-value="false" name="order">
 		<value>0</value>
 		<value>[integer]</value>
 	</element>
-	<element append-value="true" name="font ">
+	<element append-value="false" name="font">
 		<value>[font-style] [font-variant] [font-weight] [font-stretch] [font-size] / [line-height] [font-family]</value>
 	</element>
-	<element append-value="true" name="font-family">
+	<element append-value="false" name="font-family">
 		<value>[ Initial value depends on the user agent ]</value>
 		<value>[family-name]</value>
 	</element>
-	<element append-value="true" name="font-size">
+	<element append-value="false" name="font-size">
 		<value>medium</value>
 		<value>xx-small</value>
 		<value>xx-large</value>
@@ -667,7 +864,7 @@
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="font-stretch">
+	<element append-value="false" name="font-stretch">
 		<value>normal</value>
 		<value>ultra-expanded</value>
 		<value>ultra-condensed</value>
@@ -678,22 +875,22 @@
 		<value>expanded</value>
 		<value>condensed</value>
 	</element>
-	<element append-value="true" name="font-size-adjust">
+	<element append-value="false" name="font-size-adjust">
 		<value>none</value>
 		<value>[number]</value>
 	</element>
-	<element append-value="true" name="font-synthesis">
+	<element append-value="false" name="font-synthesis">
 		<value>weight style</value>
 		<value>weight</value>
 		<value>style</value>
 		<value>none</value>
 	</element>
-	<element append-value="true" name="font-kerning">
+	<element append-value="false" name="font-kerning">
 		<value>auto</value>
 		<value>normal</value>
 		<value>none</value>
 	</element>
-	<element append-value="true" name="font-variant ">
+	<element append-value="false" name="font-variant">
 		<value>normal</value>
 		<value>unicase</value>
 		<value>titling-caps</value>
@@ -702,7 +899,7 @@
 		<value>all-small-caps</value>
 		<value>all-petite-caps</value>
 	</element>
-	<element append-value="true" name="font-variant-caps">
+	<element append-value="false" name="font-variant-caps">
 		<value>normal</value>
 		<value>unicase</value>
 		<value>titling-caps</value>
@@ -711,12 +908,12 @@
 		<value>all-small-caps</value>
 		<value>all-petite-caps</value>
 	</element>
-	<element append-value="true" name="font-style">
+	<element append-value="false" name="font-style">
 		<value>normal</value>
 		<value>oblique</value>
 		<value>italic</value>
 	</element>
-	<element append-value="true" name="font-weight">
+	<element append-value="false" name="font-weight">
 		<value>normal</value>
 		<value>lighter</value>
 		<value>bolder</value>
@@ -731,7 +928,7 @@
 		<value>200</value>
 		<value>100</value>
 	</element>
-	<element append-value="true" name="hanging-punctuation">
+	<element append-value="false" name="hanging-punctuation">
 		<value>none</value>
 		<value>last force-end</value>
 		<value>last allow-end</value>
@@ -742,57 +939,57 @@
 		<value>first</value>
 		<value>allow-end</value>
 	</element>
-	<element append-value="true" name="height ">
+	<element append-value="false" name="height">
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="hyphens">
+	<element append-value="false" name="hyphens">
 		<value>manual</value>
 		<value>none</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="icon">
+	<element append-value="false" name="icon">
 		<value>auto</value>
 		<value>[ One or more comma separated [url] values ]</value>
 	</element>
-	<element append-value="true" name="image-resolution">
+	<element append-value="false" name="image-resolution">
 		<value>1dppx</value>
 		<value>from-image</value>
 	</element>
-	<element append-value="true" name="image-orientation">
+	<element append-value="false" name="image-orientation">
 		<value>0deg</value>
 		<value>[angle]</value>
 	</element>
-	<element append-value="true" name="letter-spacing">
+	<element append-value="false" name="letter-spacing">
 		<value>normal</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="line-break">
+	<element append-value="false" name="line-break">
 		<value>auto</value>
 		<value>strict</value>
 		<value>normal</value>
 		<value>loose</value>
 	</element>
-	<element append-value="true" name="line-height">
+	<element append-value="false" name="line-height">
 		<value>normal</value>
 		<value>none</value>
 		<value>[percentage]</value>
 		<value>[number]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="list-style ">
+	<element append-value="false" name="list-style">
 		<value>[list-style-type] [list-style-position] [list-style-image]</value>
 	</element>
-	<element append-value="true" name="list-style-image">
+	<element append-value="false" name="list-style-image">
 		<value>none</value>
 		<value>[url]</value>
 	</element>
-	<element append-value="true" name="list-style-position">
+	<element append-value="false" name="list-style-position">
 		<value>outside</value>
 		<value>inside</value>
 	</element>
-	<element append-value="true" name="list-style-type">
+	<element append-value="false" name="list-style-type">
 		<value>disc</value>
 		<value>upper-roman</value>
 		<value>upper-latin</value>
@@ -809,90 +1006,90 @@
 		<value>circle</value>
 		<value>armenian</value>
 	</element>
-	<element append-value="true" name="margin ">
+	<element append-value="false" name="margin">
 		<value>[margin-top] [margin-right] [margin-bottom] [margin-left]</value>
 	</element>
-	<element append-value="true" name="margin-left">
+	<element append-value="false" name="margin-left">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="margin-right">
+	<element append-value="false" name="margin-right">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="margin-top">
+	<element append-value="false" name="margin-top">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="margin-bottom">
+	<element append-value="false" name="margin-bottom">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="max-height">
+	<element append-value="false" name="max-height">
 		<value>none</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="max-width">
+	<element append-value="false" name="max-width">
 		<value>none</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="min-height">
+	<element append-value="false" name="min-height">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="min-width">
+	<element append-value="false" name="min-width">
 		<value>0</value>
 		<value>auto</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="object-fit">
+	<element append-value="false" name="object-fit">
 		<value>fill</value>
 		<value>scale-down</value>
 		<value>none</value>
 		<value>cover</value>
 		<value>contain</value>
 	</element>
-	<element append-value="true" name="object-position">
+	<element append-value="false" name="object-position">
 		<value>50% 50%</value>
 		<value>right bottom</value>
 		<value>left top</value>
 		<value>center center</value>
 		<value>[percentage] [length]</value>
 	</element>
-	<element append-value="true" name="opacity">
+	<element append-value="false" name="opacity">
 		<value>1</value>
 		<value>[number]</value>
 	</element>
-	<element append-value="true" name="orphans">
+	<element append-value="false" name="orphans">
 		<value>2</value>
 		<value>[integer]</value>
 	</element>
-	<element append-value="true" name="outline ">
+	<element append-value="false" name="outline">
 		<value>[outline-color] [outline-style] [outline-width]</value>
 	</element>
-	<element append-value="true" name="outline-color">
+	<element append-value="false" name="outline-color">
 		<value>invert</value>
 		<value>[color]</value>
 		<value>invert</value>
 	</element>
-	<element append-value="true" name="outline-offset">
+	<element append-value="false" name="outline-offset">
 		<value>0</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="outline-style">
+	<element append-value="false" name="outline-style">
 		<value>none</value>
 		<value>solid</value>
 		<value>ridge</value>
@@ -904,81 +1101,81 @@
 		<value>dashed</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="outline-width">
+	<element append-value="false" name="outline-width">
 		<value>medium</value>
 		<value>thin</value>
 		<value>thick</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="overflow ">
+	<element append-value="false" name="overflow">
 		<value>visible</value>
 		<value>scroll</value>
 		<value>hidden</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="overflow-x">
+	<element append-value="false" name="overflow-x">
 		<value>visible</value>
 		<value>scroll</value>
 		<value>hidden</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="overflow-y">
+	<element append-value="false" name="overflow-y">
 		<value>visible</value>
 		<value>scroll</value>
 		<value>hidden</value>
 		<value>auto</value>
 	</element>
-	<element append-value="true" name="overflow-wrap">
+	<element append-value="false" name="overflow-wrap">
 		<value>normal</value>
 		<value>break-word</value>
 		<value>word-wrap</value>
 	</element>
-	<element append-value="true" name="padding ">
+	<element append-value="false" name="padding">
 		<value>[padding-top] [padding-right] [padding-bottom] [padding-left]</value>
 	</element>
-	<element append-value="true" name="padding-top">
+	<element append-value="false" name="padding-top">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="padding-bottom">
+	<element append-value="false" name="padding-bottom">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="padding-left">
+	<element append-value="false" name="padding-left">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="padding-right">
+	<element append-value="false" name="padding-right">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="page-break-after">
+	<element append-value="false" name="page-break-after">
 		<value>auto</value>
 		<value>right</value>
 		<value>left</value>
 		<value>avoid</value>
 		<value>always</value>
 	</element>
-	<element append-value="true" name="page-break-before">
+	<element append-value="false" name="page-break-before">
 		<value>auto</value>
 		<value>right</value>
 		<value>left</value>
 		<value>avoid</value>
 		<value>always</value>
 	</element>
-	<element append-value="true" name="page-break-inside">
+	<element append-value="false" name="page-break-inside">
 		<value>auto</value>
 		<value>avoid</value>
 	</element>
-	<element append-value="true" name="perspective ">
+	<element append-value="false" name="perspective">
 		<value>none</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="perspective-origin ">
+	<element append-value="false" name="perspective-origin">
 		<value>50% 50%</value>
 		<value>top</value>
 		<value>right</value>
@@ -988,33 +1185,33 @@
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="pointer-events">
+	<element append-value="false" name="pointer-events">
 		<value>auto</value>
 		<value>none</value>
 	</element>
-	<element append-value="true" name="quotes">
+	<element append-value="false" name="quotes">
 		<value>[ Initial value depends on the user agent ]</value>
 		<value>none</value>
 		<value>[string] [string]</value>
 		<value>:before</value>
 		<value>:after</value>
 	</element>
-	<element append-value="true" name="resize">
+	<element append-value="false" name="resize">
 		<value>none</value>
 		<value>vertical</value>
 		<value>horizontal</value>
 		<value>both</value>
 	</element>
-	<element append-value="true" name="tab-size">
+	<element append-value="false" name="tab-size">
 		<value>8</value>
 		<value>[length]</value>
 		<value>[integer]</value>
 	</element>
-	<element append-value="true" name="table-layout">
+	<element append-value="false" name="table-layout">
 		<value>auto</value>
 		<value>fixed</value>
 	</element>
-	<element append-value="true" name="text-align ">
+	<element append-value="false" name="text-align">
 		<value>[ Initial value depends on the writing direction (ltr or rtl) ]</value>
 		<value>start end</value>
 		<value>start</value>
@@ -1026,7 +1223,7 @@
 		<value>center</value>
 		<value>[string]</value>
 	</element>
-	<element append-value="true" name="text-align-last">
+	<element append-value="false" name="text-align-last">
 		<value>auto</value>
 		<value>start</value>
 		<value>right</value>
@@ -1035,21 +1232,21 @@
 		<value>end</value>
 		<value>center</value>
 	</element>
-	<element append-value="true" name="text-decoration ">
+	<element append-value="false" name="text-decoration">
 		<value>[text-decoration-line] [text-decoration-style] [text-decoration-color]</value>
 	</element>
-	<element append-value="true" name="text-decoration-color">
+	<element append-value="false" name="text-decoration-color">
 		<value>[currentColor]</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="text-decoration-line">
+	<element append-value="false" name="text-decoration-line">
 		<value>none</value>
 		<value>underline</value>
 		<value>overline</value>
 		<value>line-through</value>
 		<value>blink</value>
 	</element>
-	<element append-value="true" name="text-decoration-skip">
+	<element append-value="false" name="text-decoration-skip">
 		<value>none</value>
 		<value>spaces</value>
 		<value>objects</value>
@@ -1058,7 +1255,7 @@
 		<value>box-decoration</value>
 		<value>box-decoration</value>
 	</element>
-	<element append-value="true" name="text-underline-position">
+	<element append-value="false" name="text-underline-position">
 		<value>auto</value>
 		<value>under right</value>
 		<value>under left</value>
@@ -1066,18 +1263,18 @@
 		<value>right</value>
 		<value>left</value>
 	</element>
-	<element append-value="true" name="text-decoration-style">
+	<element append-value="false" name="text-decoration-style">
 		<value>solid</value>
 		<value>wavy</value>
 		<value>double</value>
 		<value>dotted</value>
 		<value>dashed</value>
 	</element>
-	<element append-value="true" name="text-emphasis ">
+	<element append-value="false" name="text-emphasis">
 		<value>[text-emphasis-style] [text-emphasis-color]</value>
 		<value>text-emphasis-position</value>
 	</element>
-	<element append-value="true" name="text-emphasis-style">
+	<element append-value="false" name="text-emphasis-style">
 		<value>none</value>
 		<value>triangle</value>
 		<value>sesame</value>
@@ -1088,17 +1285,17 @@
 		<value>circle</value>
 		<value>[string]</value>
 	</element>
-	<element append-value="true" name="text-emphasis-color">
+	<element append-value="false" name="text-emphasis-color">
 		<value>[currentColor]</value>
 		<value>[color]</value>
 	</element>
-	<element append-value="true" name="text-emphasis-position">
+	<element append-value="false" name="text-emphasis-position">
 		<value>over right</value>
 		<value>over left</value>
 		<value>below right</value>
 		<value>below left</value>
 	</element>
-	<element append-value="true" name="text-indent">
+	<element append-value="false" name="text-indent">
 		<value>0</value>
 		<value>[percentage]</value>
 		<value>[length] hanging each-line</value>
@@ -1106,13 +1303,13 @@
 		<value>[length] each-line</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="text-justify">
+	<element append-value="false" name="text-justify">
 		<value>auto</value>
 		<value>none</value>
 		<value>inter-word</value>
 		<value>distribute</value>
 	</element>
-	<element append-value="true" name="text-orientation">
+	<element append-value="false" name="text-orientation">
 		<value>mixed</value>
 		<value>use-glyph-orientation</value>
 		<value>upright</value>
@@ -1120,17 +1317,17 @@
 		<value>sideways-left</value>
 		<value>sideways</value>
 	</element>
-	<element append-value="true" name="text-combine-horizontal">
+	<element append-value="false" name="text-combine-horizontal">
 		<value>none</value>
 		<value>digits [integer]</value>
 		<value>all</value>
 	</element>
-	<element append-value="true" name="text-overflow">
+	<element append-value="false" name="text-overflow">
 		<value>clip</value>
 		<value>ellipsis</value>
 		<value>[string]</value>
 	</element>
-	<element append-value="true" name="transform">
+	<element append-value="false" name="transform">
 		<value>none</value>
 		<value>translateZ([length])</value>
 		<value>translateY([translation-value])</value>
@@ -1153,7 +1350,7 @@
 		<value>matrix3d([16 comma-separated [number] values])</value>
 		<value>matrix([[number], [number], [number], [number], [number], [number]])</value>
 	</element>
-	<element append-value="true" name="transform-origin">
+	<element append-value="false" name="transform-origin">
 		<value>50% 50%</value>
 		<value>top</value>
 		<value>right</value>
@@ -1163,11 +1360,11 @@
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="transform-style">
+	<element append-value="false" name="transform-style">
 		<value>flat</value>
 		<value>preserve-3d</value>
 	</element>
-	<element append-value="true" name="text-transform">
+	<element append-value="false" name="text-transform">
 		<value>none</value>
 		<value>uppercase</value>
 		<value>lowercase</value>
@@ -1175,19 +1372,19 @@
 		<value>capitalize</value>
 		<value>full-width</value>
 	</element>
-	<element append-value="true" name="text-shadow">
+	<element append-value="false" name="text-shadow">
 		<value>none</value>
 		<value>[length] [length] [length] [color]</value>
 	</element>
-	<element append-value="true" name="transition ">
+	<element append-value="false" name="transition">
 		<value>[transition-property] [transition-duration] [transition-timing-function] [transition-delay]</value>
 	</element>
-	<element append-value="true" name="transition-property">
+	<element append-value="false" name="transition-property">
 		<value>all</value>
 		<value>none</value>
 		<value>[ A comma-separated list of property names ]</value>
 	</element>
-	<element append-value="true" name="transition-timing-function">
+	<element append-value="false" name="transition-timing-function">
 		<value>ease</value>
 		<value>steps([integer], start)</value>
 		<value>steps([integer], end)</value>
@@ -1200,16 +1397,16 @@
 		<value>ease-in</value>
 		<value>cubic-bezier([number], [number], [number], [number])</value>
 	</element>
-	<element append-value="true" name="transition-duration">
+	<element append-value="false" name="transition-duration">
 		<value>0s</value>
 		<value>[time]</value>
 	</element>
-	<element append-value="true" name="unicode-bidi">
+	<element append-value="false" name="unicode-bidi">
 		<value>normal</value>
 		<value>embed</value>
 		<value>bidi-override</value>
 	</element>
-	<element append-value="true" name="vertical-align">
+	<element append-value="false" name="vertical-align">
 		<value>baseline</value>
 		<value>top</value>
 		<value>text-top</value>
@@ -1221,7 +1418,7 @@
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="white-space">
+	<element append-value="false" name="white-space">
 		<value>normal</value>
 		<value>pre-wrap</value>
 		<value>pre-line</value>
@@ -1230,31 +1427,31 @@
 		<value>pre-wrap</value>
 		<value>pre-line</value>
 	</element>
-	<element append-value="true" name="widows">
+	<element append-value="false" name="widows">
 		<value>2</value>
 		<value>[integer]</value>
 	</element>
-	<element append-value="true" name="word-break">
+	<element append-value="false" name="word-break">
 		<value>normal</value>
 		<value>keep-all</value>
 		<value>break-all</value>
 	</element>
-	<element append-value="true" name="word-spacing">
+	<element append-value="false" name="word-spacing">
 		<value>normal</value>
 		<value>[percentage]</value>
 		<value>[length]</value>
 	</element>
-	<element append-value="true" name="word-wrap">
+	<element append-value="false" name="word-wrap">
 		<value>normal</value>
 		<value>break-word</value>
 		<value>overflow-wrap</value>
 	</element>
-	<element append-value="true" name="writing-mode">
+	<element append-value="false" name="writing-mode">
 		<value>horizontal-tb</value>
 		<value>vertical-rl</value>
 		<value>vertical-lr</value>
 	</element>
-	<element append-value="true" name="z-index">
+	<element append-value="false" name="z-index">
 		<value>auto</value>
 		<value>[integer]</value>
 	</element>

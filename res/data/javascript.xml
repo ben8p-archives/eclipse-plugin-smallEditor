@@ -1,12 +1,206 @@
 <root>
-	<element append-value="false" name="lang.">
+	<element append-value="false" name="">
+		<value>abstract</value>
+		<value>alert</value>
+		<value>all</value>
+		<value>anchor</value>
+		<value>anchors</value>
+		<value>area</value>
+		<value>arguments</value>
+		<value>Array</value>
+		<value>assign</value>
+		<value>blur</value>
+		<value>boolean</value>
+		<value>break</value>
+		<value>button</value>
+		<value>byte</value>
+		<value>case</value>
+		<value>catch</value>
+		<value>char</value>
+		<value>checkbox</value>
+		<value>class</value>
+		<value>clearInterval</value>
+		<value>clearTimeout</value>
+		<value>clientInformation</value>
+		<value>close</value>
+		<value>closed</value>
+		<value>confirm</value>
+		<value>const</value>
+		<value>constructor</value>
+		<value>continue</value>
+		<value>crypto</value>
+		<value>Date</value>
+		<value>debugger</value>
+		<value>decodeURI</value>
+		<value>decodeURIComponent</value>
+		<value>default</value>
+		<value>defaultStatus</value>
+		<value>delete</value>
+		<value>do</value>
+		<value>document</value>
+		<value>double</value>
+		<value>element</value>
+		<value>elements</value>
+		<value>else</value>
+		<value>embed</value>
+		<value>embeds</value>
+		<value>encodeURI</value>
+		<value>encodeURIComponent</value>
+		<value>enum</value>
+		<value>escape</value>
+		<value>eval</value>
+		<value>eval</value>
+		<value>event</value>
+		<value>export</value>
+		<value>extends</value>
+		<value>false</value>
+		<value>fileUpload</value>
+		<value>final</value>
+		<value>finally</value>
+		<value>float</value>
+		<value>focus</value>
+		<value>for</value>
+		<value>form</value>
+		<value>forms</value>
+		<value>frame</value>
+		<value>frameRate</value>
+		<value>frames</value>
+		<value>function</value>
+		<value>function</value>
+		<value>goto</value>
+		<value>hasOwnProperty</value>
+		<value>hidden</value>
+		<value>history</value>
+		<value>if</value>
+		<value>image</value>
+		<value>images</value>
+		<value>implements</value>
+		<value>import</value>
+		<value>in</value>
+		<value>Infinity</value>
+		<value>innerHeight</value>
+		<value>innerWidth</value>
+		<value>instanceof</value>
+		<value>int</value>
+		<value>interface</value>
+		<value>isFinite</value>
+		<value>isNaN</value>
+		<value>isPrototypeOf</value>
+		<value>layer</value>
+		<value>layers</value>
+		<value>length</value>
+		<value>let</value>
+		<value>link</value>
+		<value>location</value>
+		<value>long</value>
+		<value>Math</value>
+		<value>mimeTypes</value>
+		<value>name</value>
+		<value>NaN</value>
+		<value>native</value>
+		<value>navigate</value>
+		<value>navigator</value>
+		<value>new</value>
+		<value>null</value>
+		<value>Number</value>
+		<value>Object</value>
+		<value>offscreenBuffering</value>
+		<value>onblur</value>
+		<value>onclick</value>
+		<value>onerror</value>
+		<value>onfocus</value>
+		<value>onkeydown</value>
+		<value>onkeypress</value>
+		<value>onkeyup</value>
+		<value>onload</value>
+		<value>onmousedown</value>
+		<value>onmouseover</value>
+		<value>onmouseup</value>
+		<value>onsubmit</value>
+		<value>open</value>
+		<value>opener</value>
+		<value>option</value>
+		<value>outerHeight</value>
+		<value>outerWidth</value>
+		<value>package</value>
+		<value>packages</value>
+		<value>pageXOffset</value>
+		<value>pageYOffset</value>
+		<value>parent</value>
+		<value>parseFloat</value>
+		<value>parseInt</value>
+		<value>password</value>
+		<value>pkcs11</value>
+		<value>plugin</value>
+		<value>private</value>
+		<value>prompt</value>
+		<value>propertyIsEnum</value>
+		<value>protected</value>
+		<value>prototype</value>
+		<value>public</value>
+		<value>radio</value>
+		<value>reset</value>
+		<value>return</value>
+		<value>screenX</value>
+		<value>screenY</value>
+		<value>scroll</value>
+		<value>secure</value>
+		<value>select</value>
+		<value>self</value>
+		<value>setInterval</value>
+		<value>setTimeout</value>
+		<value>short</value>
+		<value>static</value>
+		<value>status</value>
+		<value>String</value>
+		<value>submit</value>
+		<value>super</value>
+		<value>switch</value>
+		<value>synchronized</value>
+		<value>taint</value>
+		<value>text</value>
+		<value>textarea</value>
+		<value>this</value>
+		<value>throw</value>
+		<value>throws</value>
+		<value>top</value>
+		<value>toString</value>
+		<value>transient</value>
+		<value>true</value>
+		<value>try</value>
+		<value>typeof</value>
+		<value>undefined</value>
+		<value>unescape</value>
+		<value>untaint</value>
+		<value>valueOf</value>
+		<value>var</value>
+		<value>void</value>
+		<value>volatile</value>
+		<value>while</value>
+		<value>window</value>
+		<value>with</value>
+		<value>yield</value>
+	</element>
+	<element append-value="false" name="lang">
 		<value>lang.hitch(this, function() {})</value>
 		<value>lang.hitch(this, 'method')</value>
+	</element>
+	<element append-value="false" name="this">
+		<value>this.inherited(arguments);</value>
 	</element>
 	<element append-value="false" name="summary">
 		<value>// summary:\n//\t\t...\n// tags:\n//\t\tpublic</value>
 	</element>
-	<element append-value="false" name="this.">
-		<value>this.inherited(arguments);</value>
+	<element append-value="false" name="constructor">
+		<value>constructor: function() {\n\t\n},</value>
+	</element>
+	<element append-value="false" name="postCreate">
+		<value>postCreate: function() {\n\tthis.inherited(arguments);\n},</value>
+	</element>
+	<element append-value="false" name="startup">
+		<value>startup: function() {\n\tif(this._started) { return; }\n\tthis.inherited(arguments);\n},</value>
+	</element>
+	<element append-value="false" name="destroy">
+		<value>destroy: function() {\n\tif(this._destroyed) { return; }\n\tthis.inherited(arguments);\n},</value>
 	</element>
 </root>

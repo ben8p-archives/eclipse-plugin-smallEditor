@@ -1,5 +1,5 @@
 <root>
-	<element append-value="true" name="all">
+	<element append-value="false" name="">
 		<value>[]</value>
 		<value>{}</value>
 		<value>""</value>
