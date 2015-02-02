@@ -48,6 +48,7 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 	public final static String JS_MULTILINE_COMMENT = PREFIX + "multiline_comment";
 	public final static String JS_COMMENT = PREFIX + "comment";
 	public final static String JS_KEYWORD = PREFIX + "keyword";
+	public final static String JS_OPM = PREFIX + "opm"; //opm = object, properties, method
 	public final static String JS_STRING = PREFIX + "string";
 
 	public final static String CONTENT_TYPE = IConstants.CONTENT_TYPE_JS;
@@ -56,7 +57,7 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 	private CommonScanner scanner;
 
 	public static final String[] CONTENT_TYPES = new String[] { 
-		IDocument.DEFAULT_CONTENT_TYPE, JS_DEFAULT, JS_MULTILINE_COMMENT, JS_COMMENT, JS_KEYWORD, JS_STRING};
+		IDocument.DEFAULT_CONTENT_TYPE, JS_DEFAULT, JS_MULTILINE_COMMENT, JS_COMMENT, JS_KEYWORD, JS_OPM, JS_STRING};
 
 	private static final String[][] TOP_CONTENT_TYPES = new String[][] { { CONTENT_TYPE } };
 	/**
@@ -121,13 +122,35 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 		"synchronized",
 		"transient",
 		"volatile"
+	};
 	
+	private static String[] kwOPMTokens = {
+		"Array",
+		"Date",
+		"Function",
+		"eval",
+		"hasOwnProperty",
+		"Infinity",
+		"isFinite",
+		"isNaN",
+		"isPrototypeOf",
+		"length",
+		"Math",
+		"NaN",
+		"name",
+		"Number",
+		"Object",
+		"prototype",
+		"String",
+		"this",
+		"toString",
+		"valueOf"
 	};
 
 	/**
 	 * Array of constant token strings.
 	 */
-	private static String[] constantTokens = { "this", "false", "null", "true", "undefined"};
+	private static String[] constantTokens = { "false", "null", "true", "undefined"};
 	
 	private IPredicateRule[] partitioningRules = null;
 
@@ -155,12 +178,14 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 		rules.add(new SingleLineRule("\"", "\"", getToken(JS_STRING), '\\'));
 		rules.add(new SingleLineRule("/", "/", getToken(JS_STRING), '\\'));
 		rules.add(new SingleLineRule("'", "'", getToken(JS_STRING), '\\'));
-		
+			
 		CommonPredicateWordRule keywordRule = new CommonPredicateWordRule(
 				new CommonWordDetector(), getToken(JS_DEFAULT), keywordTokens, getToken(JS_KEYWORD));
 		
 		keywordRule.addWords(constantTokens, getToken(JS_KEYWORD));
+		keywordRule.addWords(kwOPMTokens, getToken(JS_OPM));
 		rules.add(keywordRule);
+		
 		
 		partitioningRules = new IPredicateRule[rules.size()];
 		rules.toArray(partitioningRules);
@@ -269,6 +294,14 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 						null, SWT.BOLD));
 		reconciler.setDamager(keywordRepairer, JS_KEYWORD);
 		reconciler.setRepairer(keywordRepairer, JS_KEYWORD);
+		
+		CommonNonRuleBasedDamagerRepairer opmRepairer = new CommonNonRuleBasedDamagerRepairer(
+				new TextAttribute(
+						colorManager
+								.getColorFromPreferencesKey(IPreferenceNames.P_KEYWORD_COLOR)));
+		reconciler.setDamager(opmRepairer, JS_OPM);
+		reconciler.setRepairer(opmRepairer, JS_OPM);
+		
 	}
 
 	public IContentAssistProcessor getContentAssistProcessor(
