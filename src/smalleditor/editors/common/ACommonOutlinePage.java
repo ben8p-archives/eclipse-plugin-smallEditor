@@ -61,6 +61,8 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 	
 	private IPreferenceStore fPref = null;
 	
+	private Boolean doForceSyntacticElementsUpdate = false;
+	
 	private static final String INITIAL_FILTER_TEXT = smalleditor.nls.Messages.getString("Outline.InitialFilterText");
 	
 	private ModifyListener fSearchModifyListener = new ModifyListener() {
@@ -213,14 +215,14 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		}
 	}
 	
-	private void registerActions(IActionBars actionBars) {
+	protected void registerActions(IActionBars actionBars) {
 		IToolBarManager toolBarManager = actionBars.getToolBarManager();
 		if (toolBarManager != null) {
 			toolBarManager.add(new SortingAction());
 		}
 	}
 	
-	private IPreferenceStore getPreferenceStore() {
+	protected IPreferenceStore getPreferenceStore() {
 		if(fPref == null) {
 			fPref = Activator.getDefault().getPreferenceStore();
 		}
@@ -291,9 +293,25 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		List<DocumentNode> nodes = scanner.buildNodes(document);
 		return getContentOutline(nodes);
 	}
-	protected List getSyntacticElements(List<DocumentNode> nodes) {
-		
+	private IAdaptable getContentOutline(Boolean force) {
+		doForceSyntacticElementsUpdate = force;
+		IAdaptable content = getContentOutline();
+		doForceSyntacticElementsUpdate = false;
+		return content;
+	}
+	
+	protected Boolean forceSyntacticElementsUpdate(List<DocumentNode> nodes) {
+		if(doForceSyntacticElementsUpdate == true) {
+			return true;
+		}
 		if(previousNodes != null && previousNodes == nodes) {
+			return false;
+		}
+		return true;
+	}
+	
+	protected List getSyntacticElements(List<DocumentNode> nodes) {
+		if(forceSyntacticElementsUpdate(nodes) == false) {
 			return elementList;
 		}
 		previousNodes = nodes;
@@ -340,6 +358,12 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(nodes);
 		update(currentNodes);
 	}
+	
+	public void update(Boolean force) {
+		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(force);
+		update(currentNodes);
+	}
+	
 	public void update() {
 		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline();
 		update(currentNodes);

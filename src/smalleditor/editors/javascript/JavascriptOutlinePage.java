@@ -8,25 +8,66 @@
  */
 package smalleditor.editors.javascript;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.ui.IActionBars;
 
+import smalleditor.Activator;
 import smalleditor.common.tokenizer.DocumentNode;
 import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.DocumentTokenBuilder;
 import smalleditor.common.tokenizer.DocumentType;
-import smalleditor.editors.common.CommonOutlineFunctionElement;
 import smalleditor.editors.common.ACommonOutlinePage;
+import smalleditor.editors.common.CommonOutlineFunctionElement;
+import smalleditor.nls.Messages;
+import smalleditor.preferences.IPreferenceNames;
 import smalleditor.utils.CharUtility;
 import smalleditor.utils.TextUtility;
 
 public class JavascriptOutlinePage extends ACommonOutlinePage {
 	public static final String FUNCTION = "function";
 	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
-	//protected HashMap functions = new HashMap();
+	private Boolean bIsAnonymousEnabled = null;
+	
+	private class AnonymousAction extends Action {
+		private static final String ICON_PATH = "res/icons/anonymous_js.gif"; //$NON-NLS-1$
+
+		public AnonymousAction() {
+			setText(Messages.getString("Outline.Anonymous"));
+			setToolTipText(Messages.getString("Outline.AnonymousInfo"));
+			setDescription(Messages.getString("Outline.AnonymousInfo"));
+			
+			ImageDescriptor sortImage = ImageDescriptor.createFromURL(
+					FileLocator.find(Activator.getDefault().getBundle(),
+					new Path(ICON_PATH),null));
+			
+			setImageDescriptor(sortImage);
+
+			setChecked(isAnonymousEnabled());
+		}
+
+		public void run() {
+			getPreferenceStore().setValue(IPreferenceNames.P_SHOW_ANONYMOUS_JS_OUTLINE,
+					isChecked());
+		}
+	}
 	
 	public JavascriptOutlinePage(IDocument document) {
 		super(document);
+	}
+	
+	private boolean isAnonymousEnabled() {
+		if(bIsAnonymousEnabled == null) {
+			bIsAnonymousEnabled = getPreferenceStore().getBoolean(
+					IPreferenceNames.P_SHOW_ANONYMOUS_JS_OUTLINE);
+		}
+		return bIsAnonymousEnabled;
 	}
 
 	@Override
@@ -89,7 +130,9 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 			//if (!functions.containsKey(functionName)) {
 			CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
 	
-			
+			if(aFunction.getLabel(aFunction).startsWith(CommonOutlineFunctionElement.ANONYMOUS) && isAnonymousEnabled() == false) {
+				aFunction = null;
+			}
 			//functions.put(functionName, aFunction);
 	
 			//detectFunctionContext(aFunction);
@@ -104,41 +147,27 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 		//return null;
 		
 	}
+	@Override
+	protected void registerActions(IActionBars actionBars) {
+		super.registerActions(actionBars);
+		IToolBarManager toolBarManager = actionBars.getToolBarManager();
+		if (toolBarManager != null) {
+			toolBarManager.add(new AnonymousAction());
+		}
+	}
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		String property = event.getProperty();
 
-//	private void parseFunctionContext(CommonOutlineFunctionElement aFunction) {
-//		IToken token;
-//
-//		token = nextNonWhitespaceToken();
-//		while (!token.isEOF()) {
-//			int offset = scanner.getTokenOffset();
-//			int length = scanner.getTokenLength();
-//			String expression = getExpression(offset, length);
-//
-//			if (expression.equals("}")) {
-//				return;
-//			} else if (expression.equals("{")) {
-//				parseFunctionContext(aFunction);
-//			}
-//
-//			token = nextNonWhitespaceToken();
-//		}
-//	}
-//	
-//	private void detectFunctionContext(CommonOutlineFunctionElement aFunction) {
-//		IToken token = nextNonWhitespaceToken();
-//		while (!token.isEOF()) {
-//			int offset = scanner.getTokenOffset();
-//			int length = scanner.getTokenLength();
-//			String expression = getExpression(offset, length);
-//
-//			if (expression.equals("{")) {
-//				parseFunctionContext(aFunction);
-//				return;
-//			}
-//
-//			token = nextNonWhitespaceToken();
-//		}
-//	}
+		if (property
+				.equals(IPreferenceNames.P_SHOW_ANONYMOUS_JS_OUTLINE)) {
+			bIsAnonymousEnabled = Boolean.parseBoolean(TextUtility.getStringValue(event
+					.getNewValue()));
+			update(true);
+		} else {
+			super.propertyChange(event);
+		}
+	}
 	
 	/**
 	 * Method getNaked.
