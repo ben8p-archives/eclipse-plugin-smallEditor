@@ -1,5 +1,6 @@
 package smalleditor.editors.common;
 
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
@@ -23,5 +24,23 @@ class CommonOutlineNameSorter extends ViewerSorter {
 	 */
 	public int category(Object element) {
 		return ((ACommonOutlineElement) element).category();
+	}
+	
+	public int compare(Viewer viewer, Object e1, Object e2) {
+		if(e1 instanceof CommonOutlineFunctionElement && e2 instanceof CommonOutlineFunctionElement) {
+			CommonOutlineFunctionElement element1 = (CommonOutlineFunctionElement) e1;
+			CommonOutlineFunctionElement element2 = (CommonOutlineFunctionElement) e2;
+			if (element1.getLabel(element1).startsWith(
+					CommonOutlineFunctionElement.ANONYMOUS) && !element2.getLabel(element1).startsWith(
+							CommonOutlineFunctionElement.ANONYMOUS)) {
+				return 1;
+			}
+			if (!element1.getLabel(element1).startsWith(
+					CommonOutlineFunctionElement.ANONYMOUS) && element2.getLabel(element1).startsWith(
+							CommonOutlineFunctionElement.ANONYMOUS)) {
+				return -1;
+			}
+		}
+		return super.compare(viewer, e1, e2);
 	}
 }
