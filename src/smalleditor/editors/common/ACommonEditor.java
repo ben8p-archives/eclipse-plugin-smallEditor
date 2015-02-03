@@ -291,6 +291,7 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 	
 	private void markOccurrences() {
 		final IDocument document = getDocument();
+		if(!(getEditorInput() instanceof FileEditorInput)) { return; }
 		final IFile file = ((FileEditorInput) this.getEditorInput()).getFile();
 		ISelection selection = getSelectionProvider().getSelection();
 		
