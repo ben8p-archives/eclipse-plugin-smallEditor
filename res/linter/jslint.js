@@ -2357,8 +2357,8 @@ klass:              do {
                 spaces();
             }
             if (!option.bitwise && this.bitwise) {
-     //      this.warn('unexpected_a');
-                this.stop('unexpected_a');
+                this.warn('unexpected_a');
+                //this.stop('unexpected_a');
             }
             if (typeof f === 'function') {
                 return f(left, this);
