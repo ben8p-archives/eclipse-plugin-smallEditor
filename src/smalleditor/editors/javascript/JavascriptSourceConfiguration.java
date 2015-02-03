@@ -137,7 +137,7 @@ public class JavascriptSourceConfiguration extends ACommonSourceConfiguration {
 		"length",
 		"Math",
 		"NaN",
-		"name",
+		//"name",
 		"Number",
 		"Object",
 		"prototype",
