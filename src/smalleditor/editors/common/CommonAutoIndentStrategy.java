@@ -28,7 +28,7 @@ public class CommonAutoIndentStrategy extends DefaultIndentLineAutoEditStrategy 
 	}
 	
 	private void surround(IDocument d, DocumentCommand c) {
-		if(c.length == 0 || c.length > 1) {
+		if(c.length != 1 || c.text.length() != 1) {
 			return;
 		}
 		try {
