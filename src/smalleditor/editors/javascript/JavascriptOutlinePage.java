@@ -95,8 +95,8 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 			int braceOffset = functionSignature.indexOf("(");
 			String functionName = functionSignature.substring(0, braceOffset).trim();
 			String arguments = functionSignature.substring(
-					functionSignature.indexOf("("),
-					functionSignature.indexOf(")") + 1);
+					Math.max(0, functionSignature.indexOf("(")),
+					Math.max(functionSignature.length() - 1, functionSignature.indexOf(")") + 1));
 	
 			if(functionName.equals(TextUtility.EMPTY_STRING)) {
 				int line = document.getLineOfOffset(offset);

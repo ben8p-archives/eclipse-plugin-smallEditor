@@ -376,6 +376,10 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 			getControl().setRedraw(false);
 		}
 		TreeViewer viewer = getTreeViewer();
+		if(viewer == null) {
+			System.err.println("getTreeViewer is null ??");
+			return;
+		}
 
 		Object[] expanded = viewer.getExpandedElements();
 		
