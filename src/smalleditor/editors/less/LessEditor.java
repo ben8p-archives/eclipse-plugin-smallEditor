@@ -9,7 +9,8 @@ import smalleditor.editors.css.CssEditor;
 
 public class LessEditor extends CssEditor {
 	protected LessSourceViewerConfiguration configuration;
-
+	private LessOutlinePage outlinePage = null;
+	
 	public LessEditor() {
 		super();
 		// create the document provider
@@ -28,8 +29,10 @@ public class LessEditor extends CssEditor {
 	
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
-		LessOutlinePage javascriptContentOutlinePage = new LessOutlinePage(document);
-		return javascriptContentOutlinePage;
+		if(outlinePage == null) {
+			outlinePage = new LessOutlinePage(document);
+		}
+		return outlinePage;
 	}
 	
 

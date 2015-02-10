@@ -9,6 +9,7 @@ import smalleditor.editors.common.ACommonOutlinePage;
 
 public class JavascriptEditor extends ACommonEditor {
 	protected JavascriptSourceViewerConfiguration configuration;
+	private JavascriptOutlinePage outlinePage = null;
 
 	public JavascriptEditor() {
 		super();
@@ -28,8 +29,10 @@ public class JavascriptEditor extends ACommonEditor {
 	
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
-		JavascriptOutlinePage javascriptContentOutlinePage = new JavascriptOutlinePage(document);
-		return javascriptContentOutlinePage;
+		if(outlinePage == null) {
+			outlinePage = new JavascriptOutlinePage(document);
+		}
+		return outlinePage;
 	}
 	
 

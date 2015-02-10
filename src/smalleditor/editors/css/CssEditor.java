@@ -9,7 +9,8 @@ import smalleditor.editors.common.ACommonOutlinePage;
 
 public class CssEditor extends ACommonEditor {
 	protected CssSourceViewerConfiguration configuration;
-
+	private CssOutlinePage outlinePage = null;
+	
 	public CssEditor() {
 		super();
 		// create the document provider
@@ -28,8 +29,10 @@ public class CssEditor extends ACommonEditor {
 	
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
-		CssOutlinePage cssContentOutlinePage = new CssOutlinePage(document);
-		return cssContentOutlinePage;
+		if(outlinePage == null) {
+			outlinePage = new CssOutlinePage(document);
+		}
+		return outlinePage;
 	}
 	
 

@@ -9,7 +9,7 @@ import smalleditor.editors.common.ACommonOutlinePage;
 
 public class JsonEditor extends ACommonEditor {
 	protected JsonSourceViewerConfiguration configuration;
-	
+	private JsonOutlinePage outlinePage = null;
 
 	public JsonEditor() {
 		super();
@@ -28,8 +28,10 @@ public class JsonEditor extends ACommonEditor {
 	};
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
-		JsonOutlinePage jsonContentOutlinePage = new JsonOutlinePage(document);
-		return jsonContentOutlinePage;
+		if(outlinePage == null) {
+			outlinePage = new JsonOutlinePage(document);
+		}
+		return outlinePage;
 	}
 
 }
