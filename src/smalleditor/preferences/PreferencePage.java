@@ -79,8 +79,14 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 				new String[][] {
 						{ Messages.getString("Preferences.StartFoldedNone"), P_FOLDING_STATUS_NONE },
 						{ Messages.getString("Preferences.StartFoldedAll"), P_FOLDING_STATUS_ALL },
-						{ Messages.getString("Preferences.StartFoldedFunction"),
-							P_FOLDING_STATUS_FUNCTION} }, group));
+						{ Messages.getString("Preferences.StartFoldedFunction"), P_FOLDING_STATUS_FUNCTION },
+						{ Messages.getString("Preferences.StartFoldedLevel1"), P_FOLDING_STATUS_LEVEL1 },
+						{ Messages.getString("Preferences.StartFoldedLevel2"), P_FOLDING_STATUS_LEVEL2 },
+						{ Messages.getString("Preferences.StartFoldedLevel3"), P_FOLDING_STATUS_LEVEL3 },
+						{ Messages.getString("Preferences.StartFoldedLevel4"), P_FOLDING_STATUS_LEVEL4 },
+						{ Messages.getString("Preferences.StartFoldedLevel5"), P_FOLDING_STATUS_LEVEL5 },
+						{ Messages.getString("Preferences.StartFoldedLevel6"), P_FOLDING_STATUS_LEVEL6 },
+					}, group));
 
 		group = createGroup(appearanceComposite, Messages.getString("Preferences.Misc"));
 		addField(new BooleanFieldEditor(P_MARK_OCCURENCES, Messages.getString("Preferences.MarkOccurences"), group));

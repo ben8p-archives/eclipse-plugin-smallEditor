@@ -28,7 +28,8 @@ public class CommonFoldingPositionsBuilder {
 		List<NodePosition> positions = new LinkedList<NodePosition>();
 		List<NodePosition> positionsStack = new LinkedList<NodePosition>();
 		List<NodePosition> linesStack = new LinkedList<NodePosition>();
-		
+		int level = 0;
+		NodePosition adjustablePosition = null;
 		if (nodes != null) {
 			for (DocumentNode node : nodes) {
 				if (isNodeType(node, DocumentNodeType.OpenArray, DocumentNodeType.OpenObject, DocumentNodeType.OpenFunction)) {
@@ -36,17 +37,21 @@ public class CommonFoldingPositionsBuilder {
 					positionsStack.add(0, position);
 					linesStack.add(0, new NodePosition(node.getLine()));
 					position.setType(node.getType());
-					continue;
-				}
-				
-				if (isNodeType(node, DocumentNodeType.CloseArray, DocumentNodeType.CloseObject) && positionsStack.size() > 0) {
+					adjustablePosition = null;
+					level++;
+				} else if (isNodeType(node, DocumentNodeType.CloseArray, DocumentNodeType.CloseObject) && positionsStack.size() > 0) {
 					NodePosition position = positionsStack.remove(0);
 					NodePosition line = linesStack.remove(0);
 					if(line.getOffset() != node.getLine()) {
 						position.setLength(getEnd(node) - position.getOffset());
+						position.setLevel(level);
 						positions.add(position);
+						adjustablePosition = position;
 					}
-					continue;
+					level--;
+				} else if (isNodeType(node, DocumentNodeType.NewLine) && adjustablePosition != null) {
+					adjustablePosition.setLength(getEnd(node) - adjustablePosition.getOffset());
+					adjustablePosition = null;
 				}
 			}
 		}

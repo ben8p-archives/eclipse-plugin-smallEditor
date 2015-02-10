@@ -81,6 +81,15 @@ public final class TextUtility {
 		return text == null || text.trim().length() == 0;
 	}
 
+	public static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+
 	public static char[][] removeDuplicates(char[][] arrays) {
 		List<char[]> list = new ArrayList<char[]>();
 		Set<String> strings = new HashSet<String>();

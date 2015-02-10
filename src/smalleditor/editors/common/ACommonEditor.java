@@ -49,6 +49,7 @@ import smalleditor.common.tokenizer.DocumentNodeType;
 import smalleditor.common.tokenizer.NodePosition;
 import smalleditor.editors.common.actions.FoldingActionsGroup;
 import smalleditor.preferences.IPreferenceNames;
+import smalleditor.utils.TextUtility;
 import smalleditor.nls.Messages;
 
 public abstract class ACommonEditor extends TextEditor implements ISelectionChangedListener {
@@ -217,6 +218,8 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 			} else if (initialFoldingDone == false
 					&& startFolded == IPreferenceNames.P_FOLDING_STATUS_FUNCTION
 					&& position.getType() == DocumentNodeType.OpenFunction) {
+				annotation.markCollapsed();
+			} else if (initialFoldingDone == false && TextUtility.isNumeric(startFolded) == true && position.getLevel() == Integer.parseInt(startFolded)) {
 				annotation.markCollapsed();
 			} else if (annotationCollapsedState != null
 					&& annotationCollapsedState.length > i

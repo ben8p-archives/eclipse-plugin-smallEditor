@@ -15,6 +15,12 @@ public interface IPreferenceNames {
 	String P_FOLDING_STATUS_NONE = "NONE";
 	String P_FOLDING_STATUS_ALL = "ALL";
 	String P_FOLDING_STATUS_FUNCTION = "FUNCTION";
+	String P_FOLDING_STATUS_LEVEL1 = "1";
+	String P_FOLDING_STATUS_LEVEL2 = "2";
+	String P_FOLDING_STATUS_LEVEL3 = "3";
+	String P_FOLDING_STATUS_LEVEL4 = "4";
+	String P_FOLDING_STATUS_LEVEL5 = "5";
+	String P_FOLDING_STATUS_LEVEL6 = "6";
 	String P_SORT_OUTLINE = "outlineSort";
 	String P_SHOW_ANONYMOUS_JS_OUTLINE = "outlineShowAnonymousJs";
 }
