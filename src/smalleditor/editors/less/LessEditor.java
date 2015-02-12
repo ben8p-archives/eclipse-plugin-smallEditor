@@ -30,7 +30,8 @@ public class LessEditor extends CssEditor {
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		if(outlinePage == null) {
-			outlinePage = new LessOutlinePage(document);
+			outlinePage = new LessOutlinePage();
+			outlinePage.setDocument(document);
 		}
 		return outlinePage;
 	}

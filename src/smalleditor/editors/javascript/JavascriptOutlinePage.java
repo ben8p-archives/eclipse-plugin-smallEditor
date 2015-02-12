@@ -13,27 +13,23 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.text.BadLocationException;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IActionBars;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentNode;
-import smalleditor.common.tokenizer.DocumentNodeType;
-import smalleditor.common.tokenizer.DocumentTokenBuilder;
-import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.ACommonOutlinePage;
-import smalleditor.editors.common.CommonOutlineFunctionElement;
+import smalleditor.editors.common.outline.CommonOutlineElementList;
+import smalleditor.editors.common.parsing.AOutlineBuilder;
+import smalleditor.editors.javascript.parsing.JavascriptOutlineBuilder;
 import smalleditor.nls.Messages;
 import smalleditor.preferences.IPreferenceNames;
-import smalleditor.utils.CharUtility;
 import smalleditor.utils.TextUtility;
 
 public class JavascriptOutlinePage extends ACommonOutlinePage {
 	public static final String FUNCTION = "function";
 	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	private Boolean bIsAnonymousEnabled = null;
+	private AOutlineBuilder outlineBuilder = new JavascriptOutlineBuilder();
 	
 	private class AnonymousAction extends Action {
 		private static final String ICON_PATH = "res/icons/anonymous_js.gif"; //$NON-NLS-1$
@@ -58,9 +54,6 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 		}
 	}
 	
-	public JavascriptOutlinePage(IDocument document) {
-		super(document);
-	}
 	
 	private boolean isAnonymousEnabled() {
 		if(bIsAnonymousEnabled == null) {
@@ -70,83 +63,77 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 		return bIsAnonymousEnabled;
 	}
 
-	@Override
-	protected DocumentTokenBuilder getScanner() {
-		JavascriptDocumentTokenBuilder scanner = (JavascriptDocumentTokenBuilder) JavascriptDocumentTokenBuilder.getDefault(DocumentType.JS);
-		return scanner;
-	}
-
-	@Override
-	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
-		try {
-			if (node.getType() == DocumentNodeType.Function) {
-				return addFunction(expression, offset, length);
-			}
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}		
-		return null;
-	}
-	
-	private Object addFunction(String expression, int offset, int length) throws BadLocationException {
-		String functionSignature;
-		try {
-			functionSignature = getNaked(expression);
-			int braceOffset = functionSignature.indexOf("(");
-			String functionName = functionSignature.substring(0, braceOffset).trim();
-			String arguments = functionSignature.substring(
-					Math.max(0, functionSignature.indexOf("(")),
-					Math.max(functionSignature.length() - 1, functionSignature.indexOf(")") + 1));
-	
-			if(functionName.equals(TextUtility.EMPTY_STRING)) {
-				int line = document.getLineOfOffset(offset);
-				int lineOffset = document.getLineOffset(line);
-				String lineStr = document.get(lineOffset, offset - lineOffset);
-				String[] lineElements = lineStr.replaceAll("(\\w+)", " $1 ").replaceAll("\\s+", " ").split(" ");
-				int cursor = lineElements.length;
-				Boolean pickupNext = false;
-				while(--cursor >= 0) {
-	//				System.out.println(lineElements[cursor]);
-					if(!lineElements[cursor].trim().equals(TextUtility.EMPTY_STRING)) {
-						
-						if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
-							pickupNext = true;
-							continue;
-						}
-						if(pickupNext) {
-							functionName = lineElements[cursor];
-							if(!functionName.matches("\\w+")) {
-								functionName = TextUtility.EMPTY_STRING;
-							}
-							break;
-						}
-					}
-				}
-				
-				
-	//			System.out.println(functionName);
-			}
-			
-			//if (!functions.containsKey(functionName)) {
-			CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
-	
-			if(aFunction.getLabel(aFunction).startsWith(CommonOutlineFunctionElement.ANONYMOUS) && isAnonymousEnabled() == false) {
-				aFunction = null;
-			}
-			//functions.put(functionName, aFunction);
-	
-			//detectFunctionContext(aFunction);
-			
-			return aFunction;
-		}
-		catch (StringIndexOutOfBoundsException e) {
-			e.printStackTrace();
-			return null;
-		}
-		//}
-		//return null;
-		
-	}
+//	@Override
+//	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
+//		try {
+//			if (node.getType() == DocumentNodeType.Function) {
+//				return addFunction(expression, offset, length);
+//			}
+//		} catch (BadLocationException e) {
+//			e.printStackTrace();
+//		}		
+//		return null;
+//	}
+//	
+//	private Object addFunction(String expression, int offset, int length) throws BadLocationException {
+//		String functionSignature;
+//		try {
+//			functionSignature = getNaked(expression);
+//			int braceOffset = functionSignature.indexOf("(");
+//			String functionName = functionSignature.substring(0, braceOffset).trim();
+//			String arguments = functionSignature.substring(
+//					Math.max(0, functionSignature.indexOf("(")),
+//					Math.max(functionSignature.length() - 1, functionSignature.indexOf(")") + 1));
+//	
+//			if(functionName.equals(TextUtility.EMPTY_STRING)) {
+//				int line = document.getLineOfOffset(offset);
+//				int lineOffset = document.getLineOffset(line);
+//				String lineStr = document.get(lineOffset, offset - lineOffset);
+//				String[] lineElements = lineStr.replaceAll("(\\w+)", " $1 ").replaceAll("\\s+", " ").split(" ");
+//				int cursor = lineElements.length;
+//				Boolean pickupNext = false;
+//				while(--cursor >= 0) {
+//	//				System.out.println(lineElements[cursor]);
+//					if(!lineElements[cursor].trim().equals(TextUtility.EMPTY_STRING)) {
+//						
+//						if(lineElements[cursor].equals(Character.toString(CharUtility.colon)) || lineElements[cursor].equals(Character.toString(CharUtility.equal))) {
+//							pickupNext = true;
+//							continue;
+//						}
+//						if(pickupNext) {
+//							functionName = lineElements[cursor];
+//							if(!functionName.matches("\\w+")) {
+//								functionName = TextUtility.EMPTY_STRING;
+//							}
+//							break;
+//						}
+//					}
+//				}
+//				
+//				
+//	//			System.out.println(functionName);
+//			}
+//			
+//			//if (!functions.containsKey(functionName)) {
+//			CommonOutlineFunctionElement aFunction = new CommonOutlineFunctionElement(functionName, arguments, offset, length);
+//	
+//			if(aFunction.getLabel(aFunction).startsWith(CommonOutlineFunctionElement.ANONYMOUS) && isAnonymousEnabled() == false) {
+//				aFunction = null;
+//			}
+//			//functions.put(functionName, aFunction);
+//	
+//			//detectFunctionContext(aFunction);
+//			
+//			return aFunction;
+//		}
+//		catch (StringIndexOutOfBoundsException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//		//}
+//		//return null;
+//		
+//	}
 	@Override
 	protected void registerActions(IActionBars actionBars) {
 		super.registerActions(actionBars);
@@ -163,41 +150,47 @@ public class JavascriptOutlinePage extends ACommonOutlinePage {
 				.equals(IPreferenceNames.P_SHOW_ANONYMOUS_JS_OUTLINE)) {
 			bIsAnonymousEnabled = Boolean.parseBoolean(TextUtility.getStringValue(event
 					.getNewValue()));
-			update(true);
+			update();
 		} else {
 			super.propertyChange(event);
 		}
 	}
-	
-	/**
-	 * Method getNaked.
-	 * @param funcName
-	 */
-	private String getNaked(String funcName) throws StringIndexOutOfBoundsException {
-		if (funcName == null) {
-			return null;
-		}
 
-		funcName = funcName.trim().substring(FUNCTION.length()).trim();
-		funcName = TextUtility.replace(funcName.trim(), LINE_SEPARATOR, TextUtility.EMPTY_STRING);
-
-		StringBuffer strBuf = new StringBuffer(TextUtility.EMPTY_STRING);
-		int len = funcName.length();
-		boolean wasSpace = false;
-		for (int i = 0; i < len; i++) {
-			char ch = funcName.charAt(i);
-			if (ch == ' ') {
-				wasSpace = true;
-			} else // not space
-			{
-				if (wasSpace) {
-					strBuf.append(' ');
-				}
-				strBuf.append(ch);
-				wasSpace = false;
-			}
-		}
-		return strBuf.toString();
+	@Override
+	protected CommonOutlineElementList getNodes() {
+		return outlineBuilder.buildOutline(getDocument());
 	}
+
+	
+//	/**
+//	 * Method getNaked.
+//	 * @param funcName
+//	 */
+//	private String getNaked(String funcName) throws StringIndexOutOfBoundsException {
+//		if (funcName == null) {
+//			return null;
+//		}
+//
+//		funcName = funcName.trim().substring(FUNCTION.length()).trim();
+//		funcName = TextUtility.replace(funcName.trim(), LINE_SEPARATOR, TextUtility.EMPTY_STRING);
+//
+//		StringBuffer strBuf = new StringBuffer(TextUtility.EMPTY_STRING);
+//		int len = funcName.length();
+//		boolean wasSpace = false;
+//		for (int i = 0; i < len; i++) {
+//			char ch = funcName.charAt(i);
+//			if (ch == ' ') {
+//				wasSpace = true;
+//			} else // not space
+//			{
+//				if (wasSpace) {
+//					strBuf.append(' ');
+//				}
+//				strBuf.append(ch);
+//				wasSpace = false;
+//			}
+//		}
+//		return strBuf.toString();
+//	}
 	
 }

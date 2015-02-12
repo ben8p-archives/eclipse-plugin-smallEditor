@@ -8,15 +8,8 @@
  */
 package smalleditor.editors.less;
 
-import org.eclipse.jface.text.IDocument;
-
 import smalleditor.editors.css.CssOutlinePage;
 
 public class LessOutlinePage extends CssOutlinePage {
-
-	public LessOutlinePage(IDocument document) {
-		super(document);
-	}
-
 	
 }

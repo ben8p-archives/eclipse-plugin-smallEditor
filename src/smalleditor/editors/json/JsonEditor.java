@@ -29,7 +29,8 @@ public class JsonEditor extends ACommonEditor {
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		if(outlinePage == null) {
-			outlinePage = new JsonOutlinePage(document);
+			outlinePage = new JsonOutlinePage();
+			outlinePage.setDocument(document);
 		}
 		return outlinePage;
 	}

@@ -8,8 +8,8 @@
  */
 package smalleditor.editors.json;
 
-import smalleditor.common.tokenizer.DocumentNodeType;
-import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.tokenizer.DocumentNodeType;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
 public class JsonDocumentTokenBuilder extends DocumentTokenBuilder {
 

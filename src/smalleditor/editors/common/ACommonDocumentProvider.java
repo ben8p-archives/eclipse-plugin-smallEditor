@@ -4,7 +4,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.rules.FastPartitioner;
-import org.eclipse.jface.text.rules.RuleBasedPartitionScanner;
+import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.editors.text.TextFileDocumentProvider;
 
@@ -18,7 +18,7 @@ public abstract class ACommonDocumentProvider extends TextFileDocumentProvider {
 		//Array of constant token types that will be color hilighted.
 		return sourceConfiguration.getContentTypes();
 	}
-	protected RuleBasedPartitionScanner getPartitionScanner() {
+	protected IPartitionTokenScanner getPartitionScanner() {
 		return null;
 	}
 

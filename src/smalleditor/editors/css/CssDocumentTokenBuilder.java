@@ -1,7 +1,7 @@
 package smalleditor.editors.css;
 
-import smalleditor.common.tokenizer.DocumentNodeType;
-import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.tokenizer.DocumentNodeType;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
 public class CssDocumentTokenBuilder extends DocumentTokenBuilder {
 	@SuppressWarnings("nls")

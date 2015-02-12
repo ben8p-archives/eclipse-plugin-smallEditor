@@ -44,13 +44,13 @@ import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentNode;
-import smalleditor.common.tokenizer.DocumentNodeType;
-import smalleditor.common.tokenizer.NodePosition;
 import smalleditor.editors.common.actions.FoldingActionsGroup;
-import smalleditor.preferences.IPreferenceNames;
-import smalleditor.utils.TextUtility;
+import smalleditor.editors.common.outline.ACommonOutlineElement;
 import smalleditor.nls.Messages;
+import smalleditor.preferences.IPreferenceNames;
+import smalleditor.tokenizer.DocumentNodeType;
+import smalleditor.tokenizer.NodePosition;
+import smalleditor.utils.TextUtility;
 
 public abstract class ACommonEditor extends TextEditor implements ISelectionChangedListener {
 	protected ProjectionSupport projectionSupport;
@@ -157,9 +157,10 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 //		
 //		
 //	}
-	public void updateOutline(IDocument document, List<DocumentNode> nodes) {
+	public void updateOutline() {
 		if(outlinePage != null) {
-			outlinePage.update(document, nodes);
+			outlinePage.setDocument(getDocument());
+			outlinePage.update();
 		}
 	}
 	
@@ -209,7 +210,14 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 			NodePosition position = fPositions.get(i);
 			newAnnotations.put(annotation, position);
 			annotations[i] = annotation;
-			
+//			if(position.getType() == DocumentNodeType.OpenFunction) {
+//				System.out.println("function");
+//			}
+//			try {
+//				System.out.println("level: " + position.getLevel() + " string: " + getDocument().get(position.offset, 1));
+//			} catch (BadLocationException e) {
+//				e.printStackTrace();
+//			}
 			String startFolded = getPreferenceStore().getString(
 					IPreferenceNames.P_INITIAL_FOLDING);
 			if (initialFoldingDone == false
@@ -242,7 +250,7 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 		}
 	}
 
-	public void updateTask(List<Position> positions) {
+	public void updateTask(List<NodePosition> positions) {
 		IDocument document = getDocument();
 		if(!(getEditorInput() instanceof FileEditorInput)) { return; }
 		IFile file = ((FileEditorInput) this.getEditorInput()).getFile();

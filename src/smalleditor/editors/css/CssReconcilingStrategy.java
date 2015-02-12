@@ -9,14 +9,16 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.ACommonEditor;
-import smalleditor.editors.common.CommonReconcilingStrategy;
+import smalleditor.editors.common.ACommonReconcilingStrategy;
+import smalleditor.editors.common.parsing.AFoldingPositionsBuilder;
+import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
 import smalleditor.linters.css.CssLinterBuilder;
 import smalleditor.nls.Messages;
 import smalleditor.preferences.IPreferenceNames;
+import smalleditor.tokenizer.DocumentType;
 
-public class CssReconcilingStrategy extends CommonReconcilingStrategy {
+public class CssReconcilingStrategy extends ACommonReconcilingStrategy {
 	protected CssLinterBuilder linterBuilder;
 	
 	public CssReconcilingStrategy(ACommonEditor editor) {
@@ -68,6 +70,16 @@ public class CssReconcilingStrategy extends CommonReconcilingStrategy {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
+		return null;
+	}
+
+	@Override
+	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
+		return null;
 	}
 
 }

@@ -30,7 +30,8 @@ public class JavascriptEditor extends ACommonEditor {
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		if(outlinePage == null) {
-			outlinePage = new JavascriptOutlinePage(document);
+			outlinePage = new JavascriptOutlinePage();
+			outlinePage.setDocument(document);
 		}
 		return outlinePage;
 	}

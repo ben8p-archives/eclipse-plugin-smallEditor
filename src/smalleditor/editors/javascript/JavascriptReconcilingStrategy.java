@@ -9,13 +9,17 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.ACommonEditor;
-import smalleditor.editors.common.CommonReconcilingStrategy;
+import smalleditor.editors.common.ACommonReconcilingStrategy;
+import smalleditor.editors.common.parsing.AFoldingPositionsBuilder;
+import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
+import smalleditor.editors.javascript.parsing.JavascriptFoldingPositionsBuilder;
+import smalleditor.editors.javascript.parsing.JavascriptTaskPositionsBuilder;
 import smalleditor.linters.javascript.JavascriptLinterBuilder;
 import smalleditor.preferences.IPreferenceNames;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
-public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
+public class JavascriptReconcilingStrategy extends ACommonReconcilingStrategy {
 	protected JavascriptLinterBuilder linterBuilder;
 
 	public JavascriptReconcilingStrategy(ACommonEditor editor) {
@@ -26,13 +30,15 @@ public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 			e.printStackTrace();
 		}
 	}
-	
 	@Override
-	protected JavascriptDocumentTokenBuilder getDocumentTokenBuilder() {
-		return (JavascriptDocumentTokenBuilder) JavascriptDocumentTokenBuilder.getDefault(DocumentType.JS);
+	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
+		return new JavascriptFoldingPositionsBuilder(this.document);
 	}
-
-	
+	@Override
+	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
+		return new JavascriptTaskPositionsBuilder(this.document);
+	}
+	@Override
 	protected void processReconcile() {
 		super.processReconcile();
 		
@@ -69,5 +75,10 @@ public class JavascriptReconcilingStrategy extends CommonReconcilingStrategy {
 			e.printStackTrace();
 		}
 	}
+	@Override
+	protected DocumentTokenBuilder getDocumentTokenBuilder() {
+		return null;
+	}
+
 
 }

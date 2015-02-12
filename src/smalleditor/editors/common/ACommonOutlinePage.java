@@ -1,11 +1,6 @@
 package smalleditor.editors.common;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -16,7 +11,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -39,19 +33,14 @@ import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentNode;
-import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.editors.common.outline.ACommonOutlineElement;
+import smalleditor.editors.common.outline.CommonOutlineElementList;
+import smalleditor.editors.common.outline.CommonOutlineNameSorter;
 import smalleditor.nls.Messages;
 import smalleditor.preferences.IPreferenceNames;
 import smalleditor.utils.TextUtility;
 
 public abstract class ACommonOutlinePage extends ContentOutlinePage implements IPropertyChangeListener {
-	protected IDocument document;
-	protected DocumentTokenBuilder scanner = null;
-	
-	private List<DocumentNode> previousNodes = null;
-	private List elementList = null;
-	
 	private Composite fMainControl;
 	private Text fSearchBox;
 	private TreeViewer fTreeViewer;
@@ -60,8 +49,6 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 	private WorkbenchJob fFilterRefreshJob;
 	
 	private IPreferenceStore fPref = null;
-	
-	private Boolean doForceSyntacticElementsUpdate = false;
 	
 	private static final String INITIAL_FILTER_TEXT = smalleditor.nls.Messages.getString("Outline.InitialFilterText");
 	
@@ -104,11 +91,7 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		}
 	}
 	
-	public ACommonOutlinePage(IDocument document) {
-		super();
-		this.document = document;
-		this.scanner = getScanner();
-	}
+	
 
 	/**
 	 * Creates the control and registers the popup menu for this outlinePage
@@ -172,7 +155,7 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		actionBars.updateActionBars();
 		
 		getPreferenceStore().addPropertyChangeListener(this);
-		
+
 		update();
 		
 		fFilterRefreshJob = new WorkbenchJob(
@@ -256,7 +239,15 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 
 	@Override
 	public TreeViewer getTreeViewer() {
+		if(fTreeViewer == null) {
+			System.err.println("getTreeViewer is null ??");
+		}
 		return fTreeViewer;
+	}
+	public void setRedraw(Boolean state) {
+		if(getControl() != null) {
+			getControl().setRedraw(state);
+		}
 	}
 	
 	@Override
@@ -271,152 +262,51 @@ public abstract class ACommonOutlinePage extends ContentOutlinePage implements I
 		getControl().setFocus();
 	}
 	
-	/**
-	 * Gets the content outline for a given input element. Returns the outline
-	 * or null if the outline could not be generated.
-	 * 
-	 * @param input
-	 * 
-	 * @return
-	 */
-	private IAdaptable getContentOutline(List<DocumentNode> nodes) {
-		if(scanner == null) {
-			return null;
-		}
-		
-		return new CommonOutlineElementList(getSyntacticElements(nodes));
-	}
-	private IAdaptable getContentOutline() {
-		if(scanner == null) {
-			return null;
-		}
-		List<DocumentNode> nodes = scanner.buildNodes(document);
-		return getContentOutline(nodes);
-	}
-	private IAdaptable getContentOutline(Boolean force) {
-		doForceSyntacticElementsUpdate = force;
-		IAdaptable content = getContentOutline();
-		doForceSyntacticElementsUpdate = false;
-		return content;
-	}
 	
-	protected Boolean forceSyntacticElementsUpdate(List<DocumentNode> nodes) {
-		if(doForceSyntacticElementsUpdate == true) {
-			return true;
-		}
-		if(previousNodes != null && previousNodes == nodes) {
-			return false;
-		}
-		return true;
-	}
 	
-	protected List getSyntacticElements(List<DocumentNode> nodes) {
-		if(forceSyntacticElementsUpdate(nodes) == false) {
-			return elementList;
-		}
-		previousNodes = nodes;
-		
-		elementList = new LinkedList();
-		
-		DocumentNode previousItem = null;
-		
-		Iterator it = nodes.iterator();
-		while (it.hasNext()) {
-			DocumentNode item = (DocumentNode) it.next();
-			
-			int offset = item.getStart();
-			int length = item.getLength();
-			String expression = getExpression(offset, length);
-			
-			Object object = processToken(item, previousItem, expression, offset, length);
-			if(object != null) {
-				elementList.add(object);
-			}
-			
-			//System.out.println(item);
-			previousItem = item;
-		}
-		
-
-		return elementList;
-	}
-
-
-	protected Object processToken(DocumentNode node, DocumentNode previousNode, String expression, int offset, int length) {
-		return null;
-	}
 	
-	protected DocumentTokenBuilder getScanner() {
-		return null;
-	}
 	
-	/**
-	 * Forces the outlinePage to update its contents.
-	 * 
-	 */
-	public void update(IDocument document, List<DocumentNode> nodes) {
+	
+	
+	
+	private IDocument document = null;
+	public void setDocument(IDocument document) {
 		this.document = document;
-//		System.out.println(document.get());
-		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(nodes);
-		update(currentNodes);
 	}
-	
-	public void update(Boolean force) {
-		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline(force);
-		update(currentNodes);
+	public IDocument getDocument() {
+		return document;
 	}
+	protected abstract CommonOutlineElementList getNodes();
 	
 	public void update() {
-		CommonOutlineElementList currentNodes = (CommonOutlineElementList) getContentOutline();
-		update(currentNodes);
-	}
-	
-	public void update(CommonOutlineElementList currentNodes) {
-		if(getControl() != null) {
-			getControl().setRedraw(false);
-		}
+		setRedraw(false);
 		TreeViewer viewer = getTreeViewer();
 		if(viewer == null) {
-			System.err.println("getTreeViewer is null ??");
 			return;
 		}
 
 		Object[] expanded = viewer.getExpandedElements();
 		
-		viewer.setInput(currentNodes);
-
-		// How about just expanding the root if it's alone?
-		if (currentNodes.size() == 1) {
-			viewer.expandAll();
-		}
-
-		// Attempt to determine which nodes are already expanded bearing in mind
-		// that the object is not the same.
-		for (int i = 0; i < expanded.length; i++) {
-			ACommonOutlineElement newExpandedNode = currentNodes
-					.findEquivilent((ACommonOutlineElement) expanded[i]);
-			if (newExpandedNode != null) {
-				viewer.setExpandedState(newExpandedNode, true);
+		CommonOutlineElementList currentNodes = getNodes();
+		if(currentNodes != null) {
+			viewer.setInput(currentNodes);
+	
+			// How about just expanding the root if it's alone?
+			if (currentNodes.size() == 1) {
+				viewer.expandAll();
+			}
+	
+			// Attempt to determine which nodes are already expanded bearing in mind
+			// that the object is not the same.
+			for (int i = 0; i < expanded.length; i++) {
+				ACommonOutlineElement newExpandedNode = currentNodes
+						.findEquivilent((ACommonOutlineElement) expanded[i]);
+				if (newExpandedNode != null) {
+					viewer.setExpandedState(newExpandedNode, true);
+				}
 			}
 		}
-
-		if(getControl() != null) {
-			getControl().setRedraw(true);
-		}
+		setRedraw(true);
 	}
 
-	protected String getExpression(int offset, int length) {
-		String expression;
-		try {
-			expression = document.get(offset, length);// sourceBuffer.substring(offset,
-															// offset + length);
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-//			System.out.println(document.get());
-			expression = TextUtility.EMPTY_STRING; //$NON-NLS-1$
-		}
-		return expression;
-	}
-	
-	
 }

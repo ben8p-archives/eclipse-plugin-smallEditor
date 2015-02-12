@@ -31,9 +31,7 @@ public abstract class ACommonSourceViewerConfiguration extends SourceViewerConfi
 		this.editor = editor;
 	}
 	
-	protected IReconcilingStrategy getReconcilingStrategy(ACommonEditor editor) {
-		return new CommonReconcilingStrategy(this.editor);
-	}
+	protected abstract IReconcilingStrategy getReconcilingStrategy(ACommonEditor editor);
 	
 	@Override
 	public IAutoEditStrategy[] getAutoEditStrategies(

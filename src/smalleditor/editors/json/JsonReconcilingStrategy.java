@@ -9,14 +9,16 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.WorkbenchJob;
 
 import smalleditor.Activator;
-import smalleditor.common.tokenizer.DocumentType;
 import smalleditor.editors.common.ACommonEditor;
-import smalleditor.editors.common.CommonReconcilingStrategy;
+import smalleditor.editors.common.ACommonReconcilingStrategy;
+import smalleditor.editors.common.parsing.AFoldingPositionsBuilder;
+import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
 import smalleditor.linters.common.CommonLinterBuilder;
 import smalleditor.linters.json.JsonLinterBuilder;
 import smalleditor.preferences.IPreferenceNames;
+import smalleditor.tokenizer.DocumentType;
 
-public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
+public class JsonReconcilingStrategy extends ACommonReconcilingStrategy {
 	protected CommonLinterBuilder linterBuilder;
 	
 	@Override
@@ -52,11 +54,6 @@ public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
 		workbenchJob.setPriority(WorkbenchJob.DECORATE);
 		workbenchJob.schedule();
 		
-//		Display.getDefault().asyncExec(new Runnable() {
-//			public void run() {
-//				lintContent();
-//			}
-//		});
 	}
 
 	private void lintContent() {
@@ -70,5 +67,15 @@ public class JsonReconcilingStrategy extends CommonReconcilingStrategy {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
+		return null;
+	}
+
+	@Override
+	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
+		return null;
 	}
 }

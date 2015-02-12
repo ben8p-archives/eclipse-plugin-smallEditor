@@ -30,7 +30,8 @@ public class CssEditor extends ACommonEditor {
 	
 	protected ACommonOutlinePage getOutlinePage(IDocument document) {
 		if(outlinePage == null) {
-			outlinePage = new CssOutlinePage(document);
+			outlinePage = new CssOutlinePage();
+			outlinePage.setDocument(document);
 		}
 		return outlinePage;
 	}

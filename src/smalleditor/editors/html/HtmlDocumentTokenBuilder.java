@@ -8,8 +8,8 @@
  */
 package smalleditor.editors.html;
 
-import smalleditor.common.tokenizer.DocumentNodeType;
-import smalleditor.common.tokenizer.DocumentTokenBuilder;
+import smalleditor.tokenizer.DocumentNodeType;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
 public class HtmlDocumentTokenBuilder extends DocumentTokenBuilder {
 

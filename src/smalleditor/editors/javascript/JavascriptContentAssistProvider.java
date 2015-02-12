@@ -1,7 +1,7 @@
 package smalleditor.editors.javascript;
 
 import smalleditor.editors.common.ACommonContentAssistProvider;
-import smalleditor.util.xml.ResourceReader;
+import smalleditor.xml.ResourceReader;
 
 public class JavascriptContentAssistProvider extends ACommonContentAssistProvider{
 
