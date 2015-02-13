@@ -26,7 +26,6 @@ import org.eclipse.jface.text.source.DefaultCharacterPairMatcher;
 import org.eclipse.jface.text.source.ICharacterPairMatcher;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
-import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -44,6 +43,7 @@ import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import smalleditor.Activator;
+import smalleditor.common.HashedProjectionAnnotation;
 import smalleditor.editors.common.actions.FoldingActionsGroup;
 import smalleditor.editors.common.outline.ACommonOutlineElement;
 import smalleditor.nls.Messages;
@@ -60,8 +60,8 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 	private FoldingActionsGroup foldingActionsGroup;
 	private Boolean initialFoldingDone = false;
 
-	private ProjectionAnnotation[] oldAnnotations;
-	private boolean[] annotationCollapsedState;
+	private HashMap<Integer, HashedProjectionAnnotation> oldMappedAnnotations = null;
+	private HashedProjectionAnnotation[] oldAnnotations = null;
 	protected boolean updatingContentDependentActions = false;
 	
 	private WorkbenchJob markOccurenceWorkbenchJob = null;
@@ -196,22 +196,32 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 
 	public void updateFoldingStructure(List<NodePosition> fPositions) {
 		if(annotationModel == null) { return; }
-		ProjectionAnnotation[] annotations = new ProjectionAnnotation[fPositions
-				.size()];
+		HashedProjectionAnnotation[] annotations = new HashedProjectionAnnotation[fPositions.size()];
+		HashMap<Integer, HashedProjectionAnnotation> mappedAnnotations = new HashMap<Integer, HashedProjectionAnnotation>();
 
 		// this will hold the new annotations along
 		// with their corresponding positions
-		HashMap<ProjectionAnnotation, Position> newAnnotations = new HashMap<ProjectionAnnotation, Position>();
+		HashMap<HashedProjectionAnnotation, Position> newAnnotations = new HashMap<HashedProjectionAnnotation, Position>();
 		
-		storeOutlineState();
+		
+		String startFolded = getPreferenceStore().getString(
+				IPreferenceNames.P_INITIAL_FOLDING);
+		
+//		if(oldAnnotations != null) {
+//			for(int i = 0; i < oldAnnotations.length ; i++) {
+//				System.out.println(oldAnnotations[i].isCollapsed() + " -- " + oldAnnotations[i].getText());
+//			}
+//		}
 		
 		for (int i = 0; i < fPositions.size(); i++) {
-			ProjectionAnnotation annotation = new ProjectionAnnotation();
 			NodePosition position = fPositions.get(i);
+			HashedProjectionAnnotation annotation = new HashedProjectionAnnotation();
+			
+			annotation.setHashCode(position.getHashCode());
+			
 			newAnnotations.put(annotation, position);
 			annotations[i] = annotation;
-			String startFolded = getPreferenceStore().getString(
-					IPreferenceNames.P_INITIAL_FOLDING);
+			mappedAnnotations.put(position.getHashCode(), annotation);
 			
 //			if(position.getType() == DocumentNodeType.OpenFunction) {
 //				System.out.println("function");
@@ -222,19 +232,23 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-			if (initialFoldingDone == false
-					&& startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_ALL)) {
-				annotation.markCollapsed();
-			} else if (initialFoldingDone == false
-					&& startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_FUNCTION)
-					&& position.getType() == DocumentNodeType.OpenFunction) {
-				annotation.markCollapsed();
-			} else if (initialFoldingDone == false && TextUtility.isNumeric(startFolded) == true && position.getLevel() == Integer.parseInt(startFolded)) {
-				annotation.markCollapsed();
-			} else if (annotationCollapsedState != null
-					&& annotationCollapsedState.length > i
-					&& annotationCollapsedState[i]) {
-				annotation.markCollapsed();
+			if (initialFoldingDone == false) {
+				if(startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_ALL)) {
+					annotation.markCollapsed();
+				} else if (startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_FUNCTION)
+						&& position.getType() == DocumentNodeType.OpenFunction) {
+					annotation.markCollapsed();
+				} else if (TextUtility.isNumeric(startFolded) == true && position.getLevel() == Integer.parseInt(startFolded)) {
+					annotation.markCollapsed();
+				}
+			} else {
+				HashedProjectionAnnotation oldAnnotation = getMatchingAnnotation(position.getHashCode());
+//				if (oldAnnotation != null) {
+//					System.out.println(oldAnnotation.isCollapsed() + " -- " + oldAnnotation.getText());
+//				}
+				if (oldAnnotation != null && oldAnnotation.isCollapsed()) {
+					annotation.markCollapsed();
+				}
 			}
 		}
 
@@ -242,15 +256,14 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 		annotationModel.modifyAnnotations(oldAnnotations, newAnnotations, null);
 
 		oldAnnotations = annotations;
+		oldMappedAnnotations = mappedAnnotations;
 	}
-	private void storeOutlineState() {
-		if (oldAnnotations != null) {
-			annotationCollapsedState = new boolean[oldAnnotations.length];
-			for (int i = 0; i < oldAnnotations.length; i++) {
-				annotationCollapsedState[i] = oldAnnotations[i].isCollapsed();
-			}
-		}
+	
+	private HashedProjectionAnnotation getMatchingAnnotation(int hasCode) {
+		if(oldMappedAnnotations == null) { return null; }
+		return oldMappedAnnotations.get(hasCode);
 	}
+
 
 	public void updateTask(List<NodePosition> positions) {
 		IDocument document = getDocument();

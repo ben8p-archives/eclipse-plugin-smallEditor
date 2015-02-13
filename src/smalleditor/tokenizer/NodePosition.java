@@ -4,8 +4,9 @@ import org.eclipse.jface.text.Position;
 
 
 public class NodePosition extends Position {
-	private DocumentNodeType type;
-	private int level;
+	private DocumentNodeType type = null;
+	private int level = 0;
+	private int hash = 0;
 	public NodePosition(int position) {
 		super(position);
 	}
@@ -20,5 +21,11 @@ public class NodePosition extends Position {
 	}
 	public int getLevel() {
 		return level;
+	}
+	public void setHashCode(int value) {
+		this.hash = value;
+	}
+	public int getHashCode() {
+		return hash;
 	}
 }

@@ -45,6 +45,8 @@ public class FoldingPositionsNodeBuilder {
 					if(line.getOffset() != node.getLine()) {
 						position.setLength(getEnd(node) - position.getOffset());
 						position.setLevel(level);
+//						String hash = String.valueOf(level) + String.valueOf(level) + String.valueOf(position.getLength());
+//						position.setHashCode(hash.hashCode());
 						positions.add(position);
 						adjustablePosition = position;
 					}

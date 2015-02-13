@@ -73,8 +73,10 @@ public abstract class AFoldingPositionsBuilder {
 						//go until we reach a line delimiter
 						end = Math.max(end, source.indexOf("\n", end) + 1);
 					}
-
 					position.setLength(end - position.getOffset());
+					position.setHashCode(
+						source.substring(position.getOffset(), position.getOffset() + position.getLength()).hashCode()
+					);
 					position.setLevel(level);
 					positions.add(position);
 				}
