@@ -8,6 +8,7 @@
  * Please see the license.html included with this distribution for details.
  * Any modifications to this file must keep this entire header intact.
  */
+
 package smalleditor.editors.javascript.parsing;
 
 import java.io.Reader;
@@ -15,7 +16,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.internal.utils.StringPool;
+import smalleditor.parsing.StringPool;
 
 
 import beaver.Scanner;
@@ -28,6 +29,7 @@ import beaver.Symbol;
  * on 5/22/14 2:54 PM from the specification file
  * <tt>/Users/cwilliams/repos/studio3/plugins/com.aptana.js.core/parsing/JS.flex</tt>
  */
+@SuppressWarnings("all")
 public class JavascriptFlexScanner extends Scanner {
 
   /** This character denotes the end of file */

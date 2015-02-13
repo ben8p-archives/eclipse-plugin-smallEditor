@@ -73,7 +73,7 @@ public abstract class ACommonReconcilingStrategy implements IReconcilingStrategy
 			return;
 		}
 		
-		WorkbenchJob workbenchJob = new WorkbenchJob(Messages.getString("Outline.Refresh")) { //$NON-NLS-1$
+		WorkbenchJob workbenchJob = new WorkbenchJob(Messages.getString("View.Refresh")) { //$NON-NLS-1$
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 //				System.out.println(document.get());
 				DocumentTokenBuilder builder = getDocumentTokenBuilder();

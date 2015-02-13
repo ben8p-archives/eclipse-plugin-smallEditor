@@ -15,6 +15,8 @@ public abstract class AFoldingPositionsBuilder {
 
 	private Scanner scanner = null;
 	private IDocument document;
+	private Boolean foldOnOneLine = false;
+	
 
 	public AFoldingPositionsBuilder(IDocument document) {
 		setDocument(document);
@@ -23,11 +25,16 @@ public abstract class AFoldingPositionsBuilder {
 	protected abstract Symbol getNextToken();
 	protected abstract Boolean isOpenToken(Symbol token);
 	protected abstract Boolean isCloseToken(Symbol token);
-	protected abstract void setSource();
+	protected abstract String setSource();
 	protected abstract DocumentNodeType getNodeType(Symbol token);
 	protected abstract boolean isTokenType(Symbol token, Object ... types);
 	
-	
+	protected void setFoldOnOneLine(Boolean foldOnOneLine) {
+		this.foldOnOneLine = foldOnOneLine;
+	}
+	protected Boolean getFoldOnOneLine() {
+		return foldOnOneLine;
+	}
 	protected void setDocument(IDocument document) {
 		this.document = document;
 	}
@@ -42,7 +49,7 @@ public abstract class AFoldingPositionsBuilder {
 	}
 
 	public List<NodePosition> buildPositions() {
-		setSource();
+		String source = setSource();
 		
 		List<NodePosition> positions = new LinkedList<NodePosition>();
 		LinkedList<NodePosition> positionsStack = new LinkedList<NodePosition>();
@@ -61,7 +68,13 @@ public abstract class AFoldingPositionsBuilder {
 				NodePosition position = positionsStack.remove(0);
 				NodePosition line = linesStack.remove(0);
 				if(line.getOffset() != getLine(token)) {
-					position.setLength(getEnd(token) - position.getOffset());
+					int end = getEnd(token);
+					if(getFoldOnOneLine()) {
+						//go until we reach a line delimiter
+						end = Math.max(end, source.indexOf("\n", end) + 1);
+					}
+
+					position.setLength(end - position.getOffset());
 					position.setLevel(level);
 					positions.add(position);
 				}

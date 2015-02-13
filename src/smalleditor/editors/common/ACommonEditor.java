@@ -210,21 +210,23 @@ public abstract class ACommonEditor extends TextEditor implements ISelectionChan
 			NodePosition position = fPositions.get(i);
 			newAnnotations.put(annotation, position);
 			annotations[i] = annotation;
+			String startFolded = getPreferenceStore().getString(
+					IPreferenceNames.P_INITIAL_FOLDING);
+			
 //			if(position.getType() == DocumentNodeType.OpenFunction) {
 //				System.out.println("function");
 //			}
+//			System.out.println(startFolded + "  --  " + IPreferenceNames.P_FOLDING_STATUS_FUNCTION);
 //			try {
-//				System.out.println("level: " + position.getLevel() + " string: " + getDocument().get(position.offset, 1));
-//			} catch (BadLocationException e) {
+//				System.out.println("initial function fold:" + (startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_FUNCTION)) + " level: " + position.getLevel() + " string: " + getDocument().get(position.offset, 1));
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
-			String startFolded = getPreferenceStore().getString(
-					IPreferenceNames.P_INITIAL_FOLDING);
 			if (initialFoldingDone == false
-					&& startFolded == IPreferenceNames.P_FOLDING_STATUS_ALL) {
+					&& startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_ALL)) {
 				annotation.markCollapsed();
 			} else if (initialFoldingDone == false
-					&& startFolded == IPreferenceNames.P_FOLDING_STATUS_FUNCTION
+					&& startFolded.equals(IPreferenceNames.P_FOLDING_STATUS_FUNCTION)
 					&& position.getType() == DocumentNodeType.OpenFunction) {
 				annotation.markCollapsed();
 			} else if (initialFoldingDone == false && TextUtility.isNumeric(startFolded) == true && position.getLevel() == Integer.parseInt(startFolded)) {

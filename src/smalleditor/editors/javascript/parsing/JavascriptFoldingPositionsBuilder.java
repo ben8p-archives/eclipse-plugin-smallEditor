@@ -13,13 +13,16 @@ public class JavascriptFoldingPositionsBuilder extends AFoldingPositionsBuilder 
 	private DocumentNodeType lastAdded = null;
 	public JavascriptFoldingPositionsBuilder(IDocument document) {
 		super(document);
+		setFoldOnOneLine(true);
 		setScanner(new JavascriptFlexScanner());
 	}
 	
 	@Override
-	protected void setSource() {
+	protected String setSource() {
 		lastAdded = null;
-		((JavascriptFlexScanner) getScanner()).setSource(getDocument().get());
+		String source = getDocument().get();
+		((JavascriptFlexScanner) getScanner()).setSource(source);
+		return source;
 	}
 	@Override
 	protected Boolean isOpenToken(Symbol token) {
