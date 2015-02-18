@@ -37,6 +37,7 @@ public final class CharUtility {
 	public static final char hash = '#';
 	public static final char lowerThan = '<';
 	public static final char greaterThan = '>';
+	public static final char ampersand = '&';
 //	public static final char n = 'n';
 //	public static final char u = 'u';
 //	public static final char l = 'l';

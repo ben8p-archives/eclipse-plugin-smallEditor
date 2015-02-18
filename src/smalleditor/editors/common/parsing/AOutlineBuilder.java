@@ -7,7 +7,6 @@ import org.eclipse.jface.text.IDocument;
 
 import smalleditor.editors.common.outline.ACommonOutlineElement;
 import smalleditor.editors.common.outline.CommonOutlineElementList;
-import smalleditor.editors.common.outline.CommonOutlineFunctionElement;
 import beaver.Scanner;
 import beaver.Symbol;
 
@@ -26,7 +25,7 @@ public abstract class AOutlineBuilder {
 	protected abstract Boolean isOutlinableToken(Symbol token);
 	protected abstract void setSource();
 	protected abstract boolean isTokenType(Symbol token, Object ... types);
-	protected abstract CommonOutlineFunctionElement processToken(Symbol token);
+	protected abstract ACommonOutlineElement processToken(Symbol token);
 	
 	protected void setDocument(IDocument document) {
 		this.document = document;
@@ -47,7 +46,6 @@ public abstract class AOutlineBuilder {
 	public CommonOutlineElementList buildOutline() {
 		setSource();
 		LinkedList elementList = new LinkedList();
-		
 		Symbol token = null;
 		while((token = getNextToken()) != null) {
 //			System.out.println(token);
@@ -73,5 +71,8 @@ public abstract class AOutlineBuilder {
 	}
 	protected int getStart(Symbol token) {
 		return token.getStart();
+	}
+	protected int getEnd(Symbol token) {
+		return token.getEnd();
 	}
 }

@@ -13,18 +13,28 @@ import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.ACommonReconcilingStrategy;
 import smalleditor.editors.common.parsing.AFoldingPositionsBuilder;
 import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
+import smalleditor.editors.json.parsing.JsonFoldingPositionsBuilder;
 import smalleditor.linters.common.CommonLinterBuilder;
 import smalleditor.linters.json.JsonLinterBuilder;
 import smalleditor.preferences.IPreferenceNames;
-import smalleditor.tokenizer.DocumentType;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
 public class JsonReconcilingStrategy extends ACommonReconcilingStrategy {
 	protected CommonLinterBuilder linterBuilder;
 	
 	@Override
-	protected JsonDocumentTokenBuilder getDocumentTokenBuilder() {
-		return (JsonDocumentTokenBuilder) JsonDocumentTokenBuilder.getDefault(DocumentType.JSON);
+	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
+		return new JsonFoldingPositionsBuilder(this.document);
 	}
+	@Override
+	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
+		return null;
+	}
+	@Override
+	protected DocumentTokenBuilder getDocumentTokenBuilder() {
+		return null;
+	}
+	
 	
 	public JsonReconcilingStrategy(ACommonEditor editor) {
 		super(editor);
@@ -69,13 +79,4 @@ public class JsonReconcilingStrategy extends ACommonReconcilingStrategy {
 		}
 	}
 
-	@Override
-	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
-		return null;
-	}
-
-	@Override
-	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
-		return null;
-	}
 }

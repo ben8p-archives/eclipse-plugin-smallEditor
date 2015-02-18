@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jface.text.IDocument;
 
 import smalleditor.tokenizer.NodePosition;
+import smalleditor.utils.IConstants;
 import beaver.Scanner;
 import beaver.Symbol;
 
@@ -48,7 +49,12 @@ public abstract class ATaskPositionsBuilder {
 		return positions;
 	}
 	
-	protected abstract Boolean isTask(Symbol token);
+	protected Boolean isTask(Symbol token) {
+		String value = (String) token.value;
+		value = value.toLowerCase();
+		return (value.contains(IConstants.TODO_IDENTIFIER) || value.contains(IConstants.FIXME_IDENTIFIER));
+	}
+	
 	protected abstract void setSource();
 	protected abstract Symbol getNextToken();
 	

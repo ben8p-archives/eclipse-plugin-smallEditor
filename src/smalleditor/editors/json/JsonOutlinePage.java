@@ -10,13 +10,15 @@ package smalleditor.editors.json;
 
 import smalleditor.editors.common.ACommonOutlinePage;
 import smalleditor.editors.common.outline.CommonOutlineElementList;
-import smalleditor.editors.common.parsing.AOutlineNodeBuilder;
+import smalleditor.editors.common.parsing.AOutlineBuilder;
+import smalleditor.editors.json.parsing.JsonOutlineBuilder;
 
 public class JsonOutlinePage extends ACommonOutlinePage {
-	private AOutlineNodeBuilder outlineNodeBuilder = new JsonOutlineNodeBuilder();
+	private AOutlineBuilder outlineBuilder = new JsonOutlineBuilder();
 	
+	@Override
 	protected CommonOutlineElementList getNodes() {
-		return outlineNodeBuilder.buildOutline(getDocument());
+		return outlineBuilder.buildOutline(getDocument());
 	}
 
 

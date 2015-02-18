@@ -16,4 +16,7 @@ public interface IConstants {
 	public final String CONTENT_TYPE_JSON = "smallEditor.contentype.json";
 	public final String TYPE_PROBLEM = "smallEditor.lintermarkerproblem";
 	public final String BUNDLE_NAME = "smalleditor.nls.messages";
+	
+	public final String TODO_IDENTIFIER = "todo";
+	public final String FIXME_IDENTIFIER = "fixme";
 }

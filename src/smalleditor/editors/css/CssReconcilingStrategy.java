@@ -13,10 +13,12 @@ import smalleditor.editors.common.ACommonEditor;
 import smalleditor.editors.common.ACommonReconcilingStrategy;
 import smalleditor.editors.common.parsing.AFoldingPositionsBuilder;
 import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
+import smalleditor.editors.css.parsing.CssFoldingPositionsBuilder;
+import smalleditor.editors.css.parsing.CssTaskPositionsBuilder;
 import smalleditor.linters.css.CssLinterBuilder;
 import smalleditor.nls.Messages;
 import smalleditor.preferences.IPreferenceNames;
-import smalleditor.tokenizer.DocumentType;
+import smalleditor.tokenizer.DocumentTokenBuilder;
 
 public class CssReconcilingStrategy extends ACommonReconcilingStrategy {
 	protected CssLinterBuilder linterBuilder;
@@ -31,10 +33,19 @@ public class CssReconcilingStrategy extends ACommonReconcilingStrategy {
 	}
 
 	@Override
-	protected CssDocumentTokenBuilder getDocumentTokenBuilder() {
-		return (CssDocumentTokenBuilder) CssDocumentTokenBuilder.getDefault(DocumentType.CSS);
+	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
+		return new CssFoldingPositionsBuilder(this.document);
+	}
+	@Override
+	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
+		return new CssTaskPositionsBuilder(this.document);
+	}
+	@Override
+	protected DocumentTokenBuilder getDocumentTokenBuilder() {
+		return null;
 	}
 	
+	@Override
 	protected void processReconcile() {
 		super.processReconcile();
 		
@@ -70,16 +81,6 @@ public class CssReconcilingStrategy extends ACommonReconcilingStrategy {
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	protected AFoldingPositionsBuilder getFoldingPositionsBuilder() {
-		return null;
-	}
-
-	@Override
-	protected ATaskPositionsBuilder getTaskPositionsBuilder() {
-		return null;
 	}
 
 }

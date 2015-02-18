@@ -2,13 +2,15 @@ package smalleditor.editors.css;
 
 import smalleditor.editors.common.ACommonOutlinePage;
 import smalleditor.editors.common.outline.CommonOutlineElementList;
-import smalleditor.editors.common.parsing.AOutlineNodeBuilder;
+import smalleditor.editors.common.parsing.AOutlineBuilder;
+import smalleditor.editors.css.parsing.CssOutlineBuilder;
 
 public class CssOutlinePage extends ACommonOutlinePage {
-	private AOutlineNodeBuilder outlineNodeBuilder = new CssOutlineNodeBuilder();
+	private AOutlineBuilder outlineBuilder = new CssOutlineBuilder();
 	
+	@Override
 	protected CommonOutlineElementList getNodes() {
-		return outlineNodeBuilder.buildOutline(getDocument());
+		return outlineBuilder.buildOutline(getDocument());
 	}
 
 }

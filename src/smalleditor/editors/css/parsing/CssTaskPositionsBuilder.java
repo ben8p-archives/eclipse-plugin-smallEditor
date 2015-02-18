@@ -1,7 +1,6 @@
-package smalleditor.editors.javascript.parsing;
+package smalleditor.editors.css.parsing;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,38 +10,31 @@ import smalleditor.editors.common.parsing.ATaskPositionsBuilder;
 import beaver.Scanner.Exception;
 import beaver.Symbol;
 
-public class JavascriptTaskPositionsBuilder extends ATaskPositionsBuilder {
+public class CssTaskPositionsBuilder extends ATaskPositionsBuilder {
 	private Iterator<Symbol> iterator = null;
-	public JavascriptTaskPositionsBuilder(IDocument document) {
+	public CssTaskPositionsBuilder(IDocument document) {
 		super(document);
-		setScanner(new JavascriptFlexScanner());
+		setScanner(new CssFlexScanner());
 	}
 	
 	@Override
 	protected void setSource() {
-		JavascriptFlexScanner scanner = (JavascriptFlexScanner) getScanner();
+		CssFlexScanner scanner = (CssFlexScanner) getScanner();
 		scanner.setSource(getDocument().get());
 		
 		//parse all token to fill the array of comments;
 		try {
-			while(scanner.nextToken().getId() != JavascriptTokenType.EOF.getIndex()) {}
+			while(scanner.nextToken().getId() != CssTokenType.EOF.getIndex()) {}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		List<Symbol> multiLine = scanner.getMultiLineComments();
-		List<Symbol> singleLine = scanner.getSingleLineComments();
-		
-		List<Symbol> comments = new ArrayList<Symbol>();
-		comments.addAll(singleLine);
-		comments.addAll(multiLine);
+		List<Symbol> comments = scanner.getComments();
 		
 		iterator = comments.iterator();
 	}
-
 
 	@Override
 	protected Symbol getNextToken() {

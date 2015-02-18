@@ -57,7 +57,7 @@ public abstract class AFoldingPositionsBuilder {
 		Symbol token = null;
 		int level = 0;
 		while((token = getNextToken()) != null) {
-//			System.out.println(token);
+			//System.out.println((String)token.value + "  " + token.getStart() + "  " + token.getEnd());
 			if (isOpenToken(token)) {
 				NodePosition position = new NodePosition(getStart(token));
 				positionsStack.add(0, position);

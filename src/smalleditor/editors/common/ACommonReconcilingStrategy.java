@@ -86,11 +86,13 @@ public abstract class ACommonReconcilingStrategy implements IReconcilingStrategy
 				} else {
 					//using a beaver parser for complex language
 					ATaskPositionsBuilder taskBuilder = getTaskPositionsBuilder();
-					editor.updateTask(taskBuilder.buildPositions());
-					
+					if(taskBuilder != null) {
+						editor.updateTask(taskBuilder.buildPositions());
+					}
 					AFoldingPositionsBuilder foldingBuilder = getFoldingPositionsBuilder();
-					editor.updateFoldingStructure(foldingBuilder.buildPositions());
-					
+					if(foldingBuilder != null) {
+						editor.updateFoldingStructure(foldingBuilder.buildPositions());
+					}
 				}
 				editor.updateOutline();
 				

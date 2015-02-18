@@ -7,9 +7,7 @@ import java.util.List;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 
-import smalleditor.editors.css.CssDocumentTokenBuilder;
 import smalleditor.editors.html.HtmlDocumentTokenBuilder;
-import smalleditor.editors.json.JsonDocumentTokenBuilder;
 
 public class DocumentTokenBuilder {
 	private List<DocumentNode> nodes;
@@ -19,24 +17,9 @@ public class DocumentTokenBuilder {
 	private DocumentTokenizer tokenizer;
 	private String previousDocumentContent = null;
 	
-	private static DocumentTokenBuilder instanceLess = null;
-	private static DocumentTokenBuilder instanceCss = null;
-	private static DocumentTokenBuilder instanceJson = null;
 	private static DocumentTokenBuilder instanceHtml = null;
 	
 	public static DocumentTokenBuilder getDefault(DocumentType type) {
-		if(type == DocumentType.CSS) {
-			instanceCss = instanceCss == null ? new CssDocumentTokenBuilder() : instanceCss;
-			return instanceCss;
-		}
-		if(type == DocumentType.LESS) {
-			instanceLess = instanceLess == null ? new CssDocumentTokenBuilder() : instanceLess;
-			return instanceLess;
-		}
-		if(type == DocumentType.JSON) {
-			instanceJson = instanceJson == null ? new JsonDocumentTokenBuilder() : instanceJson;
-			return instanceJson;
-		}
 		if(type == DocumentType.HTML) {
 			instanceHtml = instanceHtml == null ? new HtmlDocumentTokenBuilder() : instanceHtml;
 			return instanceHtml;

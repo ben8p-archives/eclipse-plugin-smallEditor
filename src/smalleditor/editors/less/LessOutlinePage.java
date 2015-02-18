@@ -8,8 +8,16 @@
  */
 package smalleditor.editors.less;
 
+import smalleditor.editors.common.outline.CommonOutlineElementList;
+import smalleditor.editors.common.parsing.AOutlineBuilder;
 import smalleditor.editors.css.CssOutlinePage;
+import smalleditor.editors.less.parsing.LessOutlineBuilder;
 
 public class LessOutlinePage extends CssOutlinePage {
+	private AOutlineBuilder outlineBuilder = new LessOutlineBuilder();
 	
+	@Override
+	protected CommonOutlineElementList getNodes() {
+		return outlineBuilder.buildOutline(getDocument());
+	}
 }

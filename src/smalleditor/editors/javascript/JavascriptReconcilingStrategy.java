@@ -39,6 +39,11 @@ public class JavascriptReconcilingStrategy extends ACommonReconcilingStrategy {
 		return new JavascriptTaskPositionsBuilder(this.document);
 	}
 	@Override
+	protected DocumentTokenBuilder getDocumentTokenBuilder() {
+		return null;
+	}
+	
+	@Override
 	protected void processReconcile() {
 		super.processReconcile();
 		
@@ -75,10 +80,5 @@ public class JavascriptReconcilingStrategy extends ACommonReconcilingStrategy {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	protected DocumentTokenBuilder getDocumentTokenBuilder() {
-		return null;
-	}
-
 
 }

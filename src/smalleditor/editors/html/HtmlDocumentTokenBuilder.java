@@ -10,13 +10,14 @@ package smalleditor.editors.html;
 
 import smalleditor.tokenizer.DocumentNodeType;
 import smalleditor.tokenizer.DocumentTokenBuilder;
+import smalleditor.utils.IConstants;
 
 public class HtmlDocumentTokenBuilder extends DocumentTokenBuilder {
 
 	public HtmlDocumentTokenBuilder() {
 		super();
 		this.setElements(
-			new String[] {"\n", "todo", "fixme", "<!--", "-->"},
+			new String[] {"\n", IConstants.TODO_IDENTIFIER, IConstants.FIXME_IDENTIFIER, "<!--", "-->"},
 			new DocumentNodeType[] {DocumentNodeType.NewLine, DocumentNodeType.Todo, DocumentNodeType.Fixme, DocumentNodeType.OpenMultilineComment, DocumentNodeType.CloseMultilineComment}
 		);
 	}
