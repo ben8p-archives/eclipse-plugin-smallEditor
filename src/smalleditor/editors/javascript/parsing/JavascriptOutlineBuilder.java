@@ -81,7 +81,7 @@ public class JavascriptOutlineBuilder extends AOutlineBuilder {
 		
 	}
 	private boolean isAnonymousEnabled() {
-		return getPreferenceStore().getBoolean(
+		return !getPreferenceStore().getBoolean(
 					IPreferenceNames.P_SHOW_ANONYMOUS_JS_OUTLINE);
 		
 	}
