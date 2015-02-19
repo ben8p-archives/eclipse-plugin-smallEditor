@@ -15,6 +15,8 @@ public class JsonOutlineBuilder extends AOutlineBuilder {
 	private HashMap<Integer, CommonOutlineBaseElement> tree = null;
 	private String currentString = null;
 	private CommonOutlineBaseElement lastCreatedElement = null;
+	private Symbol previousToken = null;
+	private Symbol currentToken = null;
 	
 	public JsonOutlineBuilder(IDocument document) {
 		super(document);
@@ -27,40 +29,47 @@ public class JsonOutlineBuilder extends AOutlineBuilder {
 	@Override
 	protected CommonOutlineBaseElement processToken(Symbol token) {
 		String tokenValue = (String) token.value;
-		CommonOutlineBaseElement parentElement = null;
+		CommonOutlineBaseElement parentElement = tree.get(deep);
 		CommonOutlineBaseElement object = null;
 		if(isTokenType(token, JsonTokenType.STRING)) {
-			Symbol nextToken = getNextToken();
-			if(nextToken != null && isTokenType(nextToken, JsonTokenType.COLON)) {
-				currentString = tokenValue;
-			} else {
-				currentString = null;
-			}
-		} else if(deep == 0 && isTokenType(token, JsonTokenType.LCURLY, JsonTokenType.LBRACKET)) {
+			//wait the next token, if it is a colon we validate this string
 			currentString = tokenValue;
+			return null;
+//			Symbol nextToken = getNextToken();
+//			if(nextToken != null && isTokenType(nextToken, JsonTokenType.COLON)) {
+//				currentString = tokenValue;
+//			} else {
+//				currentString = null;
+//			}
+		} else if(isTokenType(token, JsonTokenType.LCURLY, JsonTokenType.LBRACKET) && (deep == 0 || (parentElement != null && isTokenType(parentElement.getToken(), JsonTokenType.LBRACKET)))) {
+			currentString = tokenValue;
+		}
+		
+		if(currentString != null) {
+			object = new CommonOutlineBaseElement(currentString, getStart(token), 1);
+			object.setToken(token);
+			lastCreatedElement = object;
+			currentString = null;
+			parentElement = tree.get(deep);
 		}
 		if(isTokenType(token, JsonTokenType.LCURLY, JsonTokenType.LBRACKET)) {
 			deep++;
 			if(lastCreatedElement != null) {
 				//new object, therefore the last element is a parent
 				tree.put(deep, lastCreatedElement);
+				lastCreatedElement.setToken(token);
 			}
 		}
-		if(currentString != null) {
-			object = new CommonOutlineBaseElement(currentString, getStart(token), 1);
-			lastCreatedElement = object;
-			currentString = null;
-			parentElement = tree.get(deep);
-			if(parentElement == null) {
-				//no parents, so I am the parent
-				tree.put(deep, object);
-			} else {
-				//ok let's be a child of
-				parentElement.addChildElement(object);
-				object.setParent(parentElement);
-				return null;
-			}
+		if(object != null && parentElement == null) {
+			//no parents, so I am the parent
+			tree.put(deep, object);
+		} else if(object != null) {
+			//ok let's be a child of
+			parentElement.addChildElement(object);
+			object.setParent(parentElement);
+			return null;
 		}
+		
 		if(isTokenType(token, JsonTokenType.RCURLY, JsonTokenType.RBRACKET)) {
 			tree.remove(deep);
 			deep--;
@@ -81,6 +90,9 @@ public class JsonOutlineBuilder extends AOutlineBuilder {
 	}
 	@Override
 	protected Boolean isOutlinableToken(Symbol token) {
+		if(previousToken != null && isTokenType(previousToken, JsonTokenType.STRING) && !isTokenType(token, JsonTokenType.COLON)) {
+			currentString = null;
+		}
 		return isTokenType(token, JsonTokenType.COLON, JsonTokenType.LBRACKET, JsonTokenType.RBRACKET, JsonTokenType.LCURLY, JsonTokenType.RCURLY, JsonTokenType.STRING);
 	}
 	@Override
@@ -94,8 +106,14 @@ public class JsonOutlineBuilder extends AOutlineBuilder {
 			e.printStackTrace();
 		}
 		if(token == null || token.getId() == JsonTokenType.EOF.getIndex()) {
-			return null;
+			token = null;
 		}
+		
+		if(currentToken != null) {
+			previousToken = currentToken;
+		}
+		currentToken = token;
+		
 		return token;
 	}
 	@Override

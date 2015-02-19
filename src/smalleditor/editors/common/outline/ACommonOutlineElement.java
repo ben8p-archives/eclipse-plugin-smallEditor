@@ -1,24 +1,23 @@
 package smalleditor.editors.common.outline;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
+import beaver.Symbol;
 
-/**
- * DOCUMENT ME!
- * 
- * @author Addi
- */
+
 public abstract class ACommonOutlineElement implements IWorkbenchAdapter,
 		IAdaptable, ICommonOutlineElementCategories {
 	protected String name;
 	protected int offset;
 	protected int numberOfLines;
 	protected int length;
+	
+	private Symbol token;
 
 	protected ACommonOutlineElement parent;
 	protected List children;
@@ -42,7 +41,12 @@ public abstract class ACommonOutlineElement implements IWorkbenchAdapter,
 		this.children = new LinkedList();
 		this.childrenByName = new HashMap();
 	}
-
+	public void setToken(Symbol token) {
+		this.token = token;
+	}
+	public Symbol getToken() {
+		return token;
+	}
 	/**
 	 * Method declared on IAdaptable
 	 * 
