@@ -782,7 +782,7 @@ public class CssFlexScanner extends Scanner {
    *
    * @param   errorCode  the code of the errormessage to display
    */
-  private void zzScanError(int errorCode) {
+  private void zzScanError(int errorCode) throws Scanner.Exception {
     String message;
     try {
       message = ZZ_ERROR_MSG[errorCode];
@@ -791,7 +791,7 @@ public class CssFlexScanner extends Scanner {
       message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
     }
 
-    throw new Error(message);
+    throw new Scanner.Exception(message);
   } 
 
 
@@ -803,7 +803,7 @@ public class CssFlexScanner extends Scanner {
    * @param number  the number of characters to be read again.
    *                This number must not be greater than yylength()!
    */
-  public void yypushback(int number)  {
+  public void yypushback(int number) throws Scanner.Exception  {
     if ( number > yylength() )
       zzScanError(ZZ_PUSHBACK_2BIG);
 

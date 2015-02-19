@@ -288,7 +288,7 @@ public class JsonFlexScanner extends Scanner {
 		return new Symbol(id, yychar, yychar + yylength() - 1, value);
 	}
 
-	public Symbol nextToken() throws java.io.IOException, Scanner.Exception
+	public Symbol nextToken() throws Error, java.io.IOException, Scanner.Exception
 	{
 		try
 		{
@@ -521,7 +521,7 @@ public class JsonFlexScanner extends Scanner {
    *
    * @param   errorCode  the code of the errormessage to display
    */
-  private void zzScanError(int errorCode) {
+  private void zzScanError(int errorCode) throws Scanner.Exception {
     String message;
     try {
       message = ZZ_ERROR_MSG[errorCode];
@@ -530,7 +530,8 @@ public class JsonFlexScanner extends Scanner {
       message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
     }
 
-    throw new Error(message);
+    throw new Scanner.Exception(message);
+    //System.err.println(message);
   } 
 
 
@@ -542,7 +543,7 @@ public class JsonFlexScanner extends Scanner {
    * @param number  the number of characters to be read again.
    *                This number must not be greater than yylength()!
    */
-  public void yypushback(int number)  {
+  public void yypushback(int number) throws Scanner.Exception  {
     if ( number > yylength() )
       zzScanError(ZZ_PUSHBACK_2BIG);
 
