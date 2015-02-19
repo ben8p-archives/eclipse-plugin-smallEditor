@@ -192,11 +192,10 @@ body {
 	width : 59%;
 }
 
-.main_right span {
+.main_right div {
 	width : 600px;
 	height : 492px;
 	display : block;
-	background : url(../images/screenshot.png) no-repeat;
 }
 
 .buttons {
@@ -314,4 +313,86 @@ body {
 
 .copy p a:hover {
 	color : #9B59B6;
+}
+/******slideshow*****/
+ul.slideshow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 600px;
+  height: 492px;
+  overflow: hidden;
+}
+ul.slideshow li {
+  position: absolute;
+  left: 50%;
+  margin-left: -247px;
+  margin-top: 3%;
+  width: 600px;
+  height: 492px;
+  overflow: hidden;
+}
+ul.slideshow li:nth-child(6) {
+  animation: xfade 24s 0s infinite;
+  -webkit-animation: xfade 24s 0s infinite;
+  -moz-animation: xfade 24s 0s infinite;
+}
+ul.slideshow li:nth-child(5) {
+  animation: xfade 24s 4s infinite;
+  -webkit-animation: xfade 24s 4s infinite;
+  -moz-animation: xfade 24s 4s infinite;
+}
+ul.slideshow li:nth-child(4) {
+  animation: xfade 24s 8s infinite;
+  -webkit-animation: xfade 24s 8s infinite;
+  -moz-animation: xfade 24s 8s infinite;
+}
+ul.slideshow li:nth-child(3) {
+  animation: xfade 24s 12s infinite;
+  -webkit-animation: xfade 24s 12s infinite;
+  -moz-animation: xfade 24s 12s infinite;
+}
+ul.slideshow li:nth-child(2) {
+  animation: xfade 24s 16s infinite;
+  -webkit-animation: xfade 24s 16s infinite;
+  -moz-animation: xfade 24s 16s infinite;
+}
+ul.slideshow li:nth-child(1) {
+  animation: xfade 24s 20s infinite;
+  -webkit-animation: xfade 24s 20s infinite;
+  -moz-animation: xfade 24s 20s infinite;
+}
+@-webkit-keyframes xfade{
+  17% {
+    opacity:1;
+  }
+  25% {
+    opacity:0;
+  }
+  92% {
+    opacity:0;
+  }
+}
+@-moz-keyframes xfade{
+  17% {
+    opacity:1;
+  }
+  25% {
+    opacity:0;
+  }
+  92% {
+    opacity:0;
+  }
+}
+@keyframes xfade{
+  17% {
+    opacity:1;
+  }
+  25% {
+    opacity:0;
+  }
+  92% {
+    opacity:0;
+  }
 }
