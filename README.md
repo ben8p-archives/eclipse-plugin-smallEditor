@@ -41,7 +41,7 @@ a set of Editors for eclipse (plugin)
 - automatic creation of TODO and FIXME tasks
 - autocomplete
 
-# based on:
+# A lot of code as been copied/refactored/inspired by:
 - https://github.com/eclipsesource/jshint-eclipse
 - http://eclipsejsonedit.sourceforge.net/
 - https://sourceforge.net/projects/jseditor/
