@@ -1048,8 +1048,11 @@ public class JavascriptFlexScanner extends Scanner {
               zzInput = zzBufferL[zzCurrentPosL++];
             }
           }
-          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];
-          if (zzNext == -1) break zzForAction;
+          int zzNext = 0;
+          if(zzCMapL.length > zzInput) {
+        	  zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];
+        	  if (zzNext == -1) break zzForAction;
+          }
           zzState = zzNext;
 
           int zzAttributes = zzAttrL[zzState];
