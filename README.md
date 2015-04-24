@@ -1,5 +1,6 @@
 # smallEditor
-a set of Editors for eclipse (plugin)
+a set of Editors for eclipse (plugin)  
+Release available here http://ben8p.github.io/smallEditor
 
 # javascript editor features:
 - syntax highlight
