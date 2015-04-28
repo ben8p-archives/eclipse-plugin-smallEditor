@@ -33,6 +33,7 @@ public class CssLinter extends CommonLinter {
 
 	
 	protected boolean checkCode(Context context, String code) {
+		code = code + "\n.z {}";
 		Boolean superReturn = super.checkCode(context, code);
 		if (superReturn) {
 			Object[] args = new Object[] { code };
