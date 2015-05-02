@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.progress.WorkbenchJob;
@@ -52,7 +53,7 @@ import smalleditor.tokenizer.DocumentNodeType;
 import smalleditor.tokenizer.NodePosition;
 import smalleditor.utils.TextUtility;
 
-public abstract class ACommonEditor extends TextEditor implements ISelectionChangedListener {
+public abstract class ACommonEditor extends TextEditor implements IEditorPart, ISelectionChangedListener {
 	protected ProjectionSupport projectionSupport;
 	protected ProjectionAnnotationModel annotationModel;
 	protected ACommonOutlinePage outlinePage;

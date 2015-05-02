@@ -82,4 +82,35 @@
 				verticalRulerPreferenceValue="true">
 		</specification>
 	</extension>
+	
+	<!--extension point="org.eclipse.ui.commands">
+		<activeKeyConfiguration value="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+	</extension -->
+
+  
+
+	<extension
+       point="org.eclipse.ui.bindings">
+       <key
+            sequence="M1+M2+/"
+            contextId="org.eclipse.ui.textEditorScope"
+            commandId="smallEditor.command.toggleBlockComment"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+      <key
+            sequence="M1+/"
+            contextId="org.eclipse.ui.textEditorScope"
+            commandId="smallEditor.command.toggleLineComment"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+ 	</extension>
+ 	<extension point="org.eclipse.ui.commands">
+         <command
+            defaultHandler="smalleditor.editors.common.actions.ToggleBlockComment"
+            name="add/remove Block Comment"
+            id="smallEditor.command.toggleBlockComment" />
+      	<command
+            defaultHandler="smalleditor.editors.common.actions.ToggleLineComment"
+            name="add/remove Line Comment"
+            id="smallEditor.command.toggleLineComment" />
+
+   </extension>
 </plugin>
