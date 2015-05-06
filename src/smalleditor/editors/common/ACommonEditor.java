@@ -105,8 +105,17 @@ public abstract class ACommonEditor extends TextEditor implements IEditorPart, I
 
 		projectionSupport = new ProjectionSupport(viewer,
 				getAnnotationAccess(), getSharedColors());
-		projectionSupport.install();
+				
+		projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
+		projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
+		projectionSupport.addSummarizableAnnotationType("org.eclipse.core.resources.problemmarker");
+		projectionSupport.addSummarizableAnnotationType("org.eclipse.core.resources.markers");
+		projectionSupport.addSummarizableAnnotationType("smallEditor.lintermarkerproblem");
+		projectionSupport.addSummarizableAnnotationType("smallEditor.lintermarker");
 
+		projectionSupport.install();
+		
+		
 		// turn projection mode on
 		viewer.doOperation(ProjectionViewer.TOGGLE);
 
