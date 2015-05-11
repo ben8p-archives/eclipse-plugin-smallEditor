@@ -18,8 +18,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.DefaultInformationControl;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlCreator;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.DefaultCharacterPairMatcher;
@@ -34,6 +37,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.part.FileEditorInput;
@@ -112,6 +116,12 @@ public abstract class ACommonEditor extends TextEditor implements IEditorPart, I
 		projectionSupport.addSummarizableAnnotationType("org.eclipse.core.resources.markers");
 		projectionSupport.addSummarizableAnnotationType("smallEditor.lintermarkerproblem");
 		projectionSupport.addSummarizableAnnotationType("smallEditor.lintermarker");
+		
+		projectionSupport.setHoverControlCreator(new IInformationControlCreator() {
+			public IInformationControl createInformationControl(Shell shell) {
+				return new DefaultInformationControl(shell, true);
+			}
+		});
 
 		projectionSupport.install();
 		

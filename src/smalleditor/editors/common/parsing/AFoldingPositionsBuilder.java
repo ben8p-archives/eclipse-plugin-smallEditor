@@ -69,10 +69,6 @@ public abstract class AFoldingPositionsBuilder {
 				NodePosition line = linesStack.remove(0);
 				if(line.getOffset() != getLine(token)) {
 					int end = getEnd(token);
-					if(getFoldOnOneLine()) {
-						//go until we reach a line delimiter
-						end = Math.max(end, source.indexOf("\n", end) + 1);
-					}
 					position.setLength(end - position.getOffset());
 					position.setHashCode(
 						source.substring(position.getOffset(), position.getOffset() + position.getLength()).hashCode()
@@ -104,6 +100,18 @@ public abstract class AFoldingPositionsBuilder {
 		if (token == null) {
 			return 0;
 		}
-		return token.getEnd();
+		int end = token.getEnd();
+		try {
+			if(getFoldOnOneLine()) {
+				int endLine = getLine(token);
+				//go until we reach a line delimiter
+	//			end = Math.max(end, source.indexOf("\n", end) + 1);
+				end = document.getLineOffset(endLine) + document.getLineLength(endLine);
+			}
+		} catch (BadLocationException e) {
+			System.err.println(token);
+			e.printStackTrace();
+		}
+		return end;
 	}
 }

@@ -30,9 +30,9 @@ public final class MarkerHandler implements IProblemHandler {
 		*/ 
 					
 		if (isValidLine(line)) {
-			int start = -1;
+			int start = code.getLineOffset(line - 1) + 1; //start at the 1st character of the line
 			if (isValidCharacter(line, character)) {
-				start = code.getLineOffset(line - 1) + character;
+				start += character - 1;
 			}
 			createMarker(line, start, message, type);
 		} else {
