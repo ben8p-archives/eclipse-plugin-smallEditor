@@ -3558,6 +3558,9 @@ klass:              do {
             old_option = option,
             old_scope = scope;
         scope = Object.create(old_scope);
+        
+        anonname = prev_token.id !== ':' && prev_token.id !== '=' ? '' : anonname;
+        
         funct = {
             closure: [],
             global: [],
