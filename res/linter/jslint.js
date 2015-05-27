@@ -47,6 +47,7 @@ var OPTIONS = {
     "dojo_define_force_absolute": true,
     "anonymousFunctions": true,
     "preventStringDuplication": false,
+    "camelcase_deviations": {"gpm_eventname": true},
     "predef": [
         "CKEDITOR","define","escape","Highcharts","Raphael","require","console",
         'clearInterval', 'clearTimeout', 'document', 'event', 'FormData',
@@ -881,6 +882,10 @@ var JSLINT = (function () {
         if (!option.quote) {
             option.quote = "single";
         }
+        
+        if (!option.camelcase_deviations) {
+            option.camelcase_deviations = {};
+        }
     }
 
 
@@ -1560,7 +1565,9 @@ klass:              do {
             master = scope[name];       // The current definition of the name
 
         if (option.camelcase && token.string.indexOf('$') === -1 && token.string.replace(/^_+/, "").indexOf("_") > -1 && !token.string.match(/^[A-Z0-9_]*$/)) {
-            token.warn('use_camel_case', token.string);
+           if(!option.camelcase_deviations[token.string]) {
+                token.warn('use_camel_case', token.string);
+           }
         }
 
 // vars are created with a deadzone, so that the expression that initializes
@@ -2791,7 +2798,9 @@ klass:              do {
                 master = scope[name],
                 writeable;
         if (option.camelcase && name.indexOf('$') === -1 && name.replace(/^_+/, "").indexOf("_") > -1 && !name.match(/^[A-Z0-9_]*$/)) {
-            token.warn('use_camel_case', name);
+           if(!option.camelcase_deviations[name]) {
+                token.warn('use_camel_case', name);
+           }
         }
         if (option.dojo && token.string === 'query' && next_token.string === '(') {
                 var line = lines[token.line - 1];
@@ -3685,7 +3694,9 @@ klass:              do {
                 name.first = expression(10);
             }
             if (option.camelcase && name.string.indexOf('$') === -1 && name.string.replace(/^_+/, "").indexOf("_") > -1 && !name.string.match(/^[A-Z0-9_]*$/)) {
-                token.warn('use_camel_case', name.string);
+                if(!option.camelcase_deviations[name.string]) {
+                     token.warn('use_camel_case', name.string);
+                }
             }
             if (option.unquote && name.quote && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name.string) && !isReserved(name.string)) {
                 token.warn('remove_quote', name.string);
